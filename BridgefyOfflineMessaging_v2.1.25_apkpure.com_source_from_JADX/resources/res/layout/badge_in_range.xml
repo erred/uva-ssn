@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
+    <TextView android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/inRangeBadge" android:background="@drawable/rounded_corners_8dp_radius" android:text="@string/in_range" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:layout_alignParentEnd="true" style="@style/chatEntryInRangeStyle"/>
+</merge>

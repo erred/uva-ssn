@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent" android:foreground="?android:attr/windowContentOverlay">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <fragment android:id="@+id/map" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@+id/infoWrapper" class="com.google.android.gms.maps.MapFragment"/>
+        <RelativeLayout android:id="@+id/infoWrapper" android:layout_width="match_parent" android:layout_height="96dp" android:layout_alignParentBottom="true">
+            <Button android:id="@+id/btnLocationSend" android:visibility="gone" android:layout_marginLeft="24dp" android:layout_marginRight="24dp" android:text="@string/location_share_button" android:layout_centerHorizontal="true" android:layout_centerVertical="true" style="@style/buttonTextStyle"/>
+            <TextView android:textAppearance="?android:attr/textAppearanceSmall" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@+id/txtLocationViewing" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/location_accuracy" android:layout_centerHorizontal="true" android:layout_centerVertical="true"/>
+            <TextView android:textAppearance="?android:attr/textAppearanceSmall" android:gravity="center" android:id="@+id/txtLocationSending" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="@string/location_accuracy" android:layout_below="@+id/btnLocationSend"/>
+            <RelativeLayout android:id="@+id/locationLoaderView" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ProgressBar android:id="@+id/locationProgressBar" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerHorizontal="true" android:layout_centerVertical="true"/>
+                <TextView android:textAppearance="?android:attr/textAppearanceSmall" android:gravity="center" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="@string/location_accuracy_acquiring" android:layout_below="@+id/locationProgressBar"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

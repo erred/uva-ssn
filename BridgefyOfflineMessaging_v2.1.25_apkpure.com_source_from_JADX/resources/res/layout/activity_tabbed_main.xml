@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:id="@+id/coordinatorLayout" android:layout_width="match_parent" android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout android:id="@+id/appBarLayout" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" app:layout_scrollFlags="5" style="@style/BridgefyActionBar">
+            <include layout="@layout/main_toolbar"/>
+        </androidx.appcompat.widget.Toolbar>
+        <com.google.android.material.tabs.TabLayout android:id="@+id/tabLayout" android:paddingLeft="-20dp" android:paddingRight="-20dp" android:layout_width="match_parent" android:layout_height="wrap_content" app:tabIndicatorColor="@color/bridgefy_primary" app:tabIndicatorHeight="2dp" app:tabTextColor="@color/bridgefy_primary"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.viewpager.widget.ViewPager android:id="@+id/viewPager" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    <RelativeLayout android:gravity="right" android:layout_gravity="top|right|center_vertical|center_horizontal|center|end" android:orientation="horizontal" android:id="@+id/tooltip_newfriend" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="48dp" android:layout_marginRight="60dp" android:elevation="30dp">
+        <TextView android:textColor="@color/white" android:background="@drawable/bubble_tootltip_up" android:paddingLeft="12dp" android:paddingTop="18dp" android:paddingRight="12dp" android:paddingBottom="14dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tooltip_new_contact"/>
+    </RelativeLayout>
+    <RelativeLayout android:gravity="right" android:layout_gravity="top|right|center_vertical|center_horizontal|center|end" android:orientation="horizontal" android:id="@+id/tooltip_sdk" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="45dp" android:layout_marginRight="20dp" android:elevation="30dp">
+        <TextView android:textColor="@color/white" android:background="@drawable/bubble_tootltip_up" android:paddingLeft="12dp" android:paddingTop="18dp" android:paddingRight="12dp" android:paddingBottom="14dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tooltip_sdk"/>
+    </RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton android:layout_gravity="bottom|right|center_vertical|center_horizontal|center|end" android:id="@+id/fabNewConversation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10dp" android:layout_marginBottom="10dp" android:src="@drawable/icn_new_message" app:rippleColor="@color/white"/>
+    <RelativeLayout android:gravity="right" android:layout_gravity="bottom|right|center_vertical|center_horizontal|center" android:orientation="horizontal" android:id="@+id/tooltip_new_conversation" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="80dp" android:layout_marginBottom="40dp" android:elevation="30dp">
+        <TextView android:textColor="@color/white" android:background="@drawable/bubble_tooltip_down" android:paddingLeft="16dp" android:paddingTop="12dp" android:paddingRight="16dp" android:paddingBottom="14dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tooltip_new_conversation"/>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ScrollView android:scrollbars="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="vertical" android:padding="@dimen/activity_margin" android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView android:textSize="16dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/sdk_description"/>
+            <Button android:textColor="@color/white" android:layout_gravity="center" android:id="@+id/btn_go_to_bridgefy" android:background="@drawable/button" android:padding="@dimen/activity_margin" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sdk_button" android:lines="5"/>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

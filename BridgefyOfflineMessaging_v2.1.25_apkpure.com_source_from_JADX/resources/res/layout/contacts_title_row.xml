@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:id="@+id/friendWrapper" android:paddingLeft="10dp" android:paddingTop="5dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <TextView android:textStyle="bold" android:textColor="@color/bridgefy_primary" android:gravity="center_vertical" android:id="@+id/txtTitleRow" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginLeft="6dp" android:text="@string/row_all_contacts" android:layout_centerVertical="true"/>
+</RelativeLayout>

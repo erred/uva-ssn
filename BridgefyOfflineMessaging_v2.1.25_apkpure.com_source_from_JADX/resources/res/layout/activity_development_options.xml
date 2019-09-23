@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:padding="@dimen/activity_margin" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <TableLayout android:id="@+id/infoTable" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </ScrollView>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Start SDK" android:layout_weight="1" android:onClick="startBridgefy"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Stop SDK" android:layout_weight="1" android:onClick="stopBridgefy"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Startup Check" android:layout_weight="1" android:onClick="runStartupIntentService"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="RM BGFY Cert" android:layout_weight="1" android:onClick="removeBridgefyCertificate"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="RM BGFY TOK" android:layout_weight="1" android:onClick="removeBridgefyToken"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="RM FB TOK" android:layout_weight="1" android:onClick="removeFirebaseToken"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:text="Upload Keys" android:layout_weight="1" android:onClick="uploadKeys"/>
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:text="Renegerate Keys" android:layout_weight="1" android:onClick="regenerateKeys"/>
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:text="Cancel Jobs" android:layout_weight="1" android:onClick="cancelJobs"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:text="Drop Analytics" android:layout_weight="1" android:onClick="dropAnalytics"/>
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:text="Seed Analytics" android:layout_weight="1" android:onClick="seedAnalytics"/>
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:text="Upload Analytics" android:layout_weight="1" android:onClick="uploadAnalytics"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Reset database" android:layout_weight="1" android:onClick="resetDatabase"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Delete messages" android:layout_weight="1" android:onClick="deleteMessages"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Verify User" android:layout_weight="1" android:onClick="verifyUser"/>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Delete friend" android:layout_weight="1" android:onClick="deleteFriend"/>
+        <EditText android:id="@+id/phoneNumberTextEdit" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="6461900623" android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

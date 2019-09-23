@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
+    <item android:icon="@drawable/ic_person_add" android:id="@+id/action_contact_add" android:title="@string/action_contact_add_menu" app:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_refresh" android:title="@string/action_refresh_list" app:showAsAction="never"/>
+    <item android:id="@+id/action_share" android:title="@string/share" app:showAsAction="never"/>
+    <item android:id="@+id/action_help" android:title="@string/action_troubleshoot" app:showAsAction="never"/>
+    <item android:id="@+id/action_settings" android:title="@string/settings" app:showAsAction="never"/>
+    <item android:id="@+id/action_about" android:title="@string/about" app:showAsAction="never"/>
+</menu>

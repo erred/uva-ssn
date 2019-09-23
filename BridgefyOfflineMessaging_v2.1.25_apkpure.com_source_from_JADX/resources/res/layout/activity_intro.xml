@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:id="@+id/introContainer" android:background="@drawable/gradient_background" android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.viewpager.widget.ViewPager android:id="@+id/pager" android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="10"/>
+    <com.viewpagerindicator.CirclePageIndicator android:id="@+id/view_pager_indicator" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+    <Button android:id="@+id/btn_get_started" android:layout_height="wrap_content" android:text="@string/get_started" style="@style/buttonStyleInverted"/>
+    <TextView android:textSize="10sp" android:textColorLink="@color/bridgefy_secondary" android:layout_gravity="center_horizontal" android:id="@+id/termsLink" android:paddingLeft="14dp" android:paddingRight="10dp" android:paddingBottom="10dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/terms"/>
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:gravity="top" android:layout_gravity="top" android:orientation="vertical" android:background="@android:color/white" android:layout_width="match_parent" android:layout_height="match_parent" android:foreground="?android:attr/windowContentOverlay">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/refresh_layout" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/peers_recycler_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@+id/emptyContactsView" android:background="@android:color/white" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="28dp">
+        <ImageView android:layout_gravity="center" android:layout_width="154dp" android:layout_height="154dp" android:layout_marginBottom="8dp" android:src="@drawable/ic_logo_gray"/>
+        <TextView android:textColor="@color/gray_light" android:gravity="center" android:id="@+id/txtInviteContent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="15dp" android:text="@string/invite_your_friends_text"/>
+        <Button android:id="@+id/btnShareBridgefy" android:layout_marginBottom="15dp" android:text="@string/spread_the_love" style="@style/button"/>
+        <Button android:id="@+id/btnAddContact" android:layout_marginBottom="15dp" android:text="@string/action_contact_add_button" style="@style/button"/>
+    </LinearLayout>
+    <RelativeLayout android:gravity="right" android:layout_gravity="top|right|center_vertical|center_horizontal|center" android:orientation="horizontal" android:id="@+id/tooltip_nearby" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="110dp" android:layout_marginRight="48dp" android:elevation="100dp">
+        <TextView android:textColor="@color/white" android:background="@drawable/bubble_tootltip_up" android:paddingLeft="12dp" android:paddingTop="16dp" android:paddingRight="12dp" android:paddingBottom="14dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tooltip_nearby"/>
+    </RelativeLayout>
+</FrameLayout>

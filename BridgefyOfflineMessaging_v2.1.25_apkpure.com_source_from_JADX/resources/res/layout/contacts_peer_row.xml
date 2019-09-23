@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:id="@+id/friendWrapper" android:layout_width="match_parent" android:layout_height="64dp">
+    <include android:id="@+id/badgeInitials" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginTop="8dp" app:layout_constraintLeft_toLeftOf="0" app:layout_constraintTop_toTopOf="0" layout="@layout/badge_initials"/>
+    <TextView android:id="@+id/contactName" android:layout_width="wrap_content" android:layout_height="44dp" android:layout_marginLeft="16dp" android:layout_marginTop="8dp" android:maxLines="1" android:transitionName="shared_user_name" app:layout_constraintLeft_toRightOf="@+id/badgeInitials" app:layout_constraintTop_toTopOf="0" style="@style/friendListStyle"/>
+    <TextView android:id="@+id/inRangeBadge" android:visibility="gone" android:layout_marginTop="21dp" android:layout_marginRight="16dp" android:text="@string/in_range" app:layout_constraintRight_toRightOf="0" app:layout_constraintTop_toTopOf="0" style="@style/chatEntryInRangeStyle"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

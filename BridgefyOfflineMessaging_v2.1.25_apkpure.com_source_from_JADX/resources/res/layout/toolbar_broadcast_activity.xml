@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:id="@+id/chat_activity_toolbar" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <TextView android:textSize="@dimen/chat_title" android:id="@+id/txtOtherUserName" android:paddingTop="5dp" android:paddingBottom="5dp" android:layout_marginRight="0dp" android:text="@string/title_activity_broadcast" android:singleLine="true" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:transitionName="shared_user_name" style="@style/chatEntryUserStyle"/>
+</RelativeLayout>

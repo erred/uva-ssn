@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:id="@+id/chatContainer" android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar android:id="@+id/about_toolbar" style="@style/BridgefyActionBarInverted"/>
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@+id/about_layout" android:background="@color/bridgefy_primary" android:layout_width="match_parent" android:layout_height="match_parent">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/bridgefy_logo" android:layout_weight="1"/>
+        <TextView android:text="@string/app_name" android:layout_weight="0" android:textAlignment="center" style="@style/centerTextStyle"/>
+        <TextView android:id="@+id/versionName" android:layout_weight="0" android:textAlignment="center" style="@style/centerTextStyle"/>
+        <TextView android:text="@string/copyright" android:layout_weight="0" android:textAlignment="center" style="@style/centerTextStyle"/>
+        <TextView android:text="@string/rights" android:layout_weight="1" android:textAlignment="center" style="@style/centerTextStyle"/>
+    </LinearLayout>
+</LinearLayout>

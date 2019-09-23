@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <PreferenceCategory android:title="@string/settings_category_messages">
+        <SwitchPreference android:title="@string/settings_messages_notifications_title" android:key="settings_notifications_enabled" android:defaultValue="true" android:switchTextOff="true"/>
+        <SwitchPreference android:title="@string/settings_read_message_title" android:key="settings_read_message" android:defaultValue="true" android:switchTextOff="true"/>
+        <RingtonePreference android:title="@string/notification_sound" android:key="notificationSound" android:ringtoneType="notification" android:showDefault="true"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_category_other">
+        <SwitchPreference android:title="@string/settings_analytics" android:key="settings_analytics" android:summary="@string/settings_analytics_summary" android:defaultValue="true" android:switchTextOff="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

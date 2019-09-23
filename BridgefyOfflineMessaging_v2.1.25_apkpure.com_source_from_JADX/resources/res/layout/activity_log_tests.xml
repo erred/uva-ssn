@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:id="@+id/container" android:padding="@dimen/activity_margin" android:layout_width="match_parent" android:layout_height="match_parent">
+    <Button android:textColor="@color/white" android:id="@+id/btnStartTests" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Iniciar pruebas" android:backgroundTint="@color/green"/>
+    <Button android:textColor="@color/white" android:id="@+id/btnFinishTests" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:text="Terminar pruebas" android:backgroundTint="@color/bridgefy_primary"/>
+    <Button android:textColor="@color/white" android:id="@+id/btnUploadTests" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:text="Upload pruebas" android:backgroundTint="@color/blue"/>
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="10">
+        <TextView android:id="@+id/logView" android:layout_width="match_parent" android:layout_height="match_parent"/>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:id="@+id/chat_activity_toolbar" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <TextView android:textSize="@dimen/chat_title" android:id="@+id/txtOtherUserName" android:paddingTop="5dp" android:paddingRight="1dp" android:paddingBottom="5dp" android:layout_marginRight="0dp" android:singleLine="true" android:layout_toLeftOf="@+id/inRangeBadge" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:transitionName="shared_user_name" style="@style/chatEntryUserStyle"/>
+    <TextView android:id="@+id/inRangeBadge" android:visibility="gone" android:layout_marginTop="8dp" android:layout_marginRight="6dp" android:text="@string/in_range" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_marginEnd="6dp" android:layout_alignParentEnd="true" style="@style/chatEntryInRangeStyle"/>
+</RelativeLayout>

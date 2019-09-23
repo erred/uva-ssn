@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:gravity="center" android:id="@+id/RelativeLayout01" android:paddingLeft="30sp" android:paddingRight="30sp" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView android:id="@+id/progressImage" android:tag="1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_action_picture"/>
+    <TextView android:gravity="bottom" android:id="@+id/tv_progressText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Please Wait..." android:layout_toRightOf="@+id/progressImage" android:layout_alignTop="@+id/progressImage" android:layout_alignBottom="@+id/progressImage"/>
+</RelativeLayout>

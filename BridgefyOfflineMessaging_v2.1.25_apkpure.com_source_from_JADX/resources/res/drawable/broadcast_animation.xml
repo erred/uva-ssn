@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:oneshot="false">
+    <item android:duration="500" android:drawable="@drawable/il_broadcastanim1"/>
+    <item android:duration="500" android:drawable="@drawable/il_broadcastanim2"/>
+    <item android:duration="500" android:drawable="@drawable/il_broadcastanim3"/>
+</animation-list>

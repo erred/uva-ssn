@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:gravity="top" android:layout_gravity="top" android:orientation="vertical" android:background="@android:color/white" android:layout_width="match_parent" android:layout_height="match_parent" android:foreground="?android:attr/windowContentOverlay">
+    <RelativeLayout android:layout_gravity="center" android:id="@+id/broadcastLoaderWrapper" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@+id/broadcastAnimationHolder" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="48dp" android:layout_centerHorizontal="true" android:layout_centerVertical="false">
+            <ImageView android:layout_gravity="center_horizontal" android:id="@+id/broadcastLoaderAnimation" android:paddingTop="2dp" android:paddingBottom="2dp" android:layout_width="126dp" android:layout_height="117dp" android:src="@drawable/il_broadcastanim0"/>
+            <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="@color/gray_light" android:gravity="center" android:layout_gravity="top|center_vertical|center_horizontal|center" android:id="@+id/broadcastLoaderTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="@string/broadcast_loader_text_error" android:layout_below="@+id/broadcastLoaderAnimation"/>
+        </LinearLayout>
+        <Button android:id="@+id/broadcastLoaderTextViewRetry" android:visibility="visible" android:layout_width="0dp" android:layout_height="0dp" android:text="@string/broadcast_loader_text_retry" android:layout_below="@+id/broadcastAnimationHolder" android:layout_centerHorizontal="true" style="@style/button"/>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

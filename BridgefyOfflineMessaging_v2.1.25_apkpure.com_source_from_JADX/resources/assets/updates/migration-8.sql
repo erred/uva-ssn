@@ -1,0 +1,1 @@
+ALTER TABLE `bgf_friend` ADD COLUMN `label` AFTER `blocked`;

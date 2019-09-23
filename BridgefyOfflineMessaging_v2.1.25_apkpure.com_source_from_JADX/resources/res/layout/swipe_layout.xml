@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_gravity="center" android:layout_width="204dp" android:layout_height="165dp">
+    <TextView android:textSize="30sp" android:textColor="@android:color/black" android:gravity="center" android:id="@+id/helloText" android:background="#ffffff" android:layout_width="match_parent" android:layout_height="match_parent" android:text=""/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <ImageView android:id="@+id/cardImage" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <View android:id="@+id/item_swipe_left_indicator" android:background="#5ff" android:layout_width="20dp" android:layout_height="20dp" android:layout_margin="10dp" android:alpha="0"/>
+    <View android:layout_gravity="right" android:id="@+id/item_swipe_right_indicator" android:background="#aff" android:layout_width="20dp" android:layout_height="20dp" android:layout_margin="10dp" android:alpha="0"/>
+</FrameLayout>

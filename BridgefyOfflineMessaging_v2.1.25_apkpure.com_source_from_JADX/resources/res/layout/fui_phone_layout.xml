@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/FirebaseUI.WrapperStyle">
+        <com.firebase.p119ui.auth.p124ui.phone.CountryListSpinner android:id="@+id/country_list" style="@style/FirebaseUI.CountrySpinner"/>
+        <EditText android:layout_gravity="end" android:id="@+id/phone_number" android:layout_toRightOf="@+id/country_list" android:layout_alignBaseline="@+id/country_list" android:imeOptions="actionDone" android:layout_toEndOf="@+id/country_list" style="@style/FirebaseUI.TextInputEditText.PhoneField"/>
+        <TextView android:textColor="@color/fui_errorColor" android:id="@+id/phone_number_error" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="" android:layout_below="@+id/phone_number" android:layout_alignLeft="@+id/phone_number" android:paddingStart="2dp" android:paddingEnd="2dp" android:layout_alignStart="@+id/phone_number"/>
+        <Button android:id="@+id/send_code" android:text="@string/fui_verify_phone_number" android:layout_below="@+id/phone_number_error" android:layout_alignParentRight="true" android:layout_alignParentEnd="true" style="@style/FirebaseUI.VerifyPhoneButton"/>
+        <TextView android:textColor="?android:attr/textColorTertiary" android:id="@+id/send_sms_tos" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/fui_field_padding_vert" android:layout_below="@+id/send_code" android:textIsSelectable="false" style="@style/FirebaseUI.Text.BodyText"/>
+    </RelativeLayout>
+</ScrollView>

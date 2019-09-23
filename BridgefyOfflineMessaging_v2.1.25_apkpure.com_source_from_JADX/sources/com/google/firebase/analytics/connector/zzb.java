@@ -10,6 +10,6 @@ final /* synthetic */ class zzb implements EventHandler {
     }
 
     public final void handle(Event event) {
-        AnalyticsConnectorImpl.zza(event);
+        // AnalyticsConnectorImpl.zza(event);
     }
 }

@@ -105,11 +105,11 @@ public class AnalyticsConnectorImpl implements AnalyticsConnector {
         return new AnalyticsConnectorHandle() {
             public void unregister() {
                 if (AnalyticsConnectorImpl.this.zzfs(str)) {
-                    AnalyticsConnectorListener zztv = ((zza) AnalyticsConnectorImpl.this.zzbsr.get(str)).zztv();
+                    // AnalyticsConnectorListener zztv = ((zza) AnalyticsConnectorImpl.this.zzbsr.get(str)).zztv();
                     if (zztv != null) {
                         zztv.onMessageTriggered(0, null);
                     }
-                    AnalyticsConnectorImpl.this.zzbsr.remove(str);
+                    // AnalyticsConnectorImpl.this.zzbsr.remove(str);
                 }
             }
 

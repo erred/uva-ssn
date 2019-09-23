@@ -36,18 +36,18 @@ public final class zzd implements Runnable {
             } else {
                 zzbd.mo13499e("Unable to revoke access!", new Object[0]);
             }
-            Logger logger = zzbd;
+            // Logger logger = zzbd;
             StringBuilder sb = new StringBuilder(26);
             sb.append("Response Code: ");
             sb.append(responseCode);
             logger.mo13497d(sb.toString(), new Object[0]);
         } catch (IOException e) {
-            Logger logger2 = zzbd;
+            // Logger logger2 = zzbd;
             String str = "IOException when revoking access: ";
             String valueOf3 = String.valueOf(e.toString());
             logger2.mo13499e(valueOf3.length() != 0 ? str.concat(valueOf3) : new String(str), new Object[0]);
         } catch (Exception e2) {
-            Logger logger3 = zzbd;
+            // Logger logger3 = zzbd;
             String str2 = "Exception when revoking access: ";
             String valueOf4 = String.valueOf(e2.toString());
             logger3.mo13499e(valueOf4.length() != 0 ? str2.concat(valueOf4) : new String(str2), new Object[0]);

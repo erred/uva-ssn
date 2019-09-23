@@ -269,7 +269,7 @@ class C1927q {
 
     /* renamed from: a */
     static String m8000a(String str) {
-        return (String) Session.m7735j().get(str);
+        return (String) Session.get_key_pairs().get(str);
     }
 
     /* renamed from: b */

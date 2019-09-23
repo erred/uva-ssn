@@ -82,7 +82,7 @@ public class BridgefyService extends BridgefyORMLiteService {
             });
             edit.putString("secretKey", bridgefyClient.getSecretKey()).apply();
             edit.apply();
-            Logger.init(BridgefyService.this.getBaseContext(), true);
+            // Logger.init(BridgefyService.this.getBaseContext(), true);
             BridgefyService.this.f9527g = new Builder().setEnergyProfile(BFEnergyProfile.HIGH_PERFORMANCE).setAntennaType(Antenna.BLUETOOTH_LE).setEngineProfile(BFEngineProfile.BFConfigProfileNoFowarding).build();
             C3608c.m10646a(true);
             if (C3608c.m10652e()) {

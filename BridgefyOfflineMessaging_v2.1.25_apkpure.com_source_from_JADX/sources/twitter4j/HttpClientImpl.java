@@ -498,7 +498,7 @@ class HttpClientImpl extends HttpClientBase implements Serializable, HttpRespons
     private void setHeaders(HttpRequest httpRequest, HttpURLConnection httpURLConnection) {
         if (logger.isDebugEnabled()) {
             logger.debug("Request: ");
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             StringBuilder sb = new StringBuilder();
             sb.append(httpRequest.getMethod().name());
             sb.append(MinimalPrettyPrinter.DEFAULT_ROOT_VALUE_SEPARATOR);
@@ -516,7 +516,7 @@ class HttpClientImpl extends HttpClientBase implements Serializable, HttpRespons
         if (httpRequest.getRequestHeaders() != null) {
             for (String str : httpRequest.getRequestHeaders().keySet()) {
                 httpURLConnection.addRequestProperty(str, (String) httpRequest.getRequestHeaders().get(str));
-                Logger logger3 = logger;
+                // Logger logger3 = logger;
                 StringBuilder sb2 = new StringBuilder();
                 sb2.append(str);
                 sb2.append(": ");
@@ -532,12 +532,12 @@ class HttpClientImpl extends HttpClientBase implements Serializable, HttpRespons
         if (isProxyConfigured()) {
             if (this.CONF.getHttpProxyUser() != null && !this.CONF.getHttpProxyUser().equals("")) {
                 if (logger.isDebugEnabled()) {
-                    Logger logger2 = logger;
+                    // Logger logger2 = logger;
                     StringBuilder sb = new StringBuilder();
                     sb.append("Proxy AuthUser: ");
                     sb.append(this.CONF.getHttpProxyUser());
                     logger2.debug(sb.toString());
-                    Logger logger3 = logger;
+                    // Logger logger3 = logger;
                     StringBuilder sb2 = new StringBuilder();
                     sb2.append("Proxy AuthPassword: ");
                     sb2.append(this.CONF.getHttpProxyPassword().replaceAll(".", "*"));
@@ -555,7 +555,7 @@ class HttpClientImpl extends HttpClientBase implements Serializable, HttpRespons
             }
             Proxy proxy = new Proxy(Type.HTTP, InetSocketAddress.createUnresolved(this.CONF.getHttpProxyHost(), this.CONF.getHttpProxyPort()));
             if (logger.isDebugEnabled()) {
-                Logger logger4 = logger;
+                // Logger logger4 = logger;
                 StringBuilder sb3 = new StringBuilder();
                 sb3.append("Opening proxied connection(");
                 sb3.append(this.CONF.getHttpProxyHost());

@@ -119,9 +119,9 @@ class C1928r {
     /* access modifiers changed from: private */
     /* renamed from: d */
     public static /* synthetic */ void m8014d(Device device) {
-        if (Bridgefy.getInstance().getBridgefyCore() != null && Bridgefy.getInstance().getBridgefyCore().mo7365d() != null) {
+        if (Bridgefy.getInstance().getBridgefyCore() != null && Bridgefy.getInstance().getBridgefyCore().get_state_listener() != null) {
             Log.i("ConnectionManager", "onDeviceLost: ondevicelost");
-            Bridgefy.getInstance().getBridgefyCore().mo7365d().onDeviceBlackListed(device);
+            Bridgefy.getInstance().getBridgefyCore().get_state_listener().onDeviceBlackListed(device);
         }
     }
 

@@ -335,7 +335,7 @@ public class PhoneNumberUtil {
         String sb2 = sb.toString();
         InputStream loadMetadata = metadataLoader2.loadMetadata(sb2);
         if (loadMetadata == null) {
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.SEVERE;
             String str3 = "missing metadata: ";
             String valueOf3 = String.valueOf(sb2);
@@ -347,7 +347,7 @@ public class PhoneNumberUtil {
         try {
             List metadataList = loadMetadataAndCloseInput(new ObjectInputStream(loadMetadata)).getMetadataList();
             if (metadataList.isEmpty()) {
-                Logger logger3 = logger;
+                // Logger logger3 = logger;
                 Level level2 = Level.SEVERE;
                 String str5 = "empty metadata: ";
                 String valueOf5 = String.valueOf(sb2);
@@ -357,7 +357,7 @@ public class PhoneNumberUtil {
                 throw new IllegalStateException(valueOf6.length() != 0 ? str6.concat(valueOf6) : new String(str6));
             }
             if (metadataList.size() > 1) {
-                Logger logger4 = logger;
+                // Logger logger4 = logger;
                 Level level3 = Level.WARNING;
                 String str7 = "invalid metadata (too many entries): ";
                 String valueOf7 = String.valueOf(sb2);
@@ -370,7 +370,7 @@ public class PhoneNumberUtil {
                 this.regionToMetadataMap.put(str2, phoneMetadata);
             }
         } catch (IOException e) {
-            Logger logger5 = logger;
+            // Logger logger5 = logger;
             Level level4 = Level.SEVERE;
             String str8 = "cannot load/parse metadata: ";
             String valueOf8 = String.valueOf(sb2);
@@ -438,7 +438,7 @@ public class PhoneNumberUtil {
         Matcher matcher2 = UNWANTED_END_CHAR_PATTERN.matcher(substring);
         if (matcher2.find()) {
             substring = substring.substring(0, matcher2.start());
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.FINER;
             String str2 = "Stripped trailing characters: ";
             String valueOf = String.valueOf(substring);
@@ -722,7 +722,7 @@ public class PhoneNumberUtil {
 
     public String formatOutOfCountryCallingNumber(PhoneNumber phoneNumber, String str) {
         if (!isValidRegionCode(str)) {
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.WARNING;
             String valueOf = String.valueOf(String.valueOf(str));
             StringBuilder sb = new StringBuilder(valueOf.length() + 79);
@@ -894,7 +894,7 @@ public class PhoneNumberUtil {
         if (str2.length() > 0) {
             sb2.insert(0, MinimalPrettyPrinter.DEFAULT_ROOT_VALUE_SEPARATOR).insert(0, countryCode).insert(0, MinimalPrettyPrinter.DEFAULT_ROOT_VALUE_SEPARATOR).insert(0, str2);
         } else {
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.WARNING;
             String valueOf2 = String.valueOf(String.valueOf(str));
             StringBuilder sb3 = new StringBuilder(valueOf2.length() + 79);
@@ -989,7 +989,7 @@ public class PhoneNumberUtil {
 
     public PhoneNumber getExampleNumberForType(String str, PhoneNumberType phoneNumberType) {
         if (!isValidRegionCode(str)) {
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.WARNING;
             String str2 = "Invalid or unknown region code provided: ";
             String valueOf = String.valueOf(str);
@@ -1024,7 +1024,7 @@ public class PhoneNumberUtil {
                 logger.log(Level.SEVERE, e.toString());
             }
         } else {
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.WARNING;
             StringBuilder sb2 = new StringBuilder(61);
             sb2.append("Invalid or unknown country calling code provided: ");
@@ -1215,7 +1215,7 @@ public class PhoneNumberUtil {
         List list = (List) this.countryCallingCodeToRegionCodeMap.get(Integer.valueOf(countryCode));
         if (list == null) {
             String nationalSignificantNumber = getNationalSignificantNumber(phoneNumber);
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.WARNING;
             String valueOf = String.valueOf(String.valueOf(nationalSignificantNumber));
             StringBuilder sb = new StringBuilder(valueOf.length() + 54);
@@ -1267,7 +1267,7 @@ public class PhoneNumberUtil {
         if (isValidRegionCode(str)) {
             return getCountryCodeForValidRegion(str);
         }
-        Logger logger2 = logger;
+        // Logger logger2 = logger;
         Level level = Level.WARNING;
         if (str == null) {
             str = "null";
@@ -1294,7 +1294,7 @@ public class PhoneNumberUtil {
     public String getNddPrefixForRegion(String str, boolean z) {
         PhoneMetadata metadataForRegion = getMetadataForRegion(str);
         if (metadataForRegion == null) {
-            Logger logger2 = logger;
+            // Logger logger2 = logger;
             Level level = Level.WARNING;
             if (str == null) {
                 str = "null";
@@ -1811,7 +1811,7 @@ public class PhoneNumberUtil {
         if (metadataForRegion != null) {
             return metadataForRegion.isMobileNumberPortableRegion();
         }
-        Logger logger2 = logger;
+        // Logger logger2 = logger;
         Level level = Level.WARNING;
         String str2 = "Invalid or unknown region code provided: ";
         String valueOf = String.valueOf(str);

@@ -42,7 +42,7 @@ public class VersionUtils {
     }
 
     private static void warning(Throwable th, String str, String str2, Object[] objArr) {
-        Logger logger2 = getLogger();
+        // Logger logger2 = getLogger();
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.append(str2);

@@ -29,7 +29,7 @@ class C1911h extends C1896ag {
     private static String f5956e = "BluetoothController";
 
     /* renamed from: k */
-    private static C1889aa f5957k;
+    private static gatt_manager f5957k;
 
     /* renamed from: c */
     private Config f5958c;
@@ -89,7 +89,7 @@ class C1911h extends C1896ag {
                     return;
             }
         } else {
-            f5957k = new C1889aa();
+            f5957k = new gatt_manager();
         }
     }
 
@@ -113,7 +113,7 @@ class C1911h extends C1896ag {
                 BluetoothLeAdvertiser bluetoothLeAdvertiser = this.f5966m.getBluetoothLeAdvertiser();
                 if (this.f5965l != null && bluetoothLeAdvertiser != null) {
                     bluetoothLeAdvertiser.stopAdvertising(this.f5965l);
-                    Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeStopAdvertising, Antenna.BLUETOOTH_LE));
+                    // Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeStopAdvertising, Antenna.BLUETOOTH_LE));
                 }
             }
         } catch (NullPointerException e) {
@@ -147,7 +147,7 @@ class C1911h extends C1896ag {
                     Log.i(f5956e, "startAdvertising: ");
                     bluetoothLeAdvertiser.startAdvertising(a, a2, this.f5965l);
                 }
-                Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeStartAdvertising, Antenna.BLUETOOTH_LE));
+                // Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeStartAdvertising, Antenna.BLUETOOTH_LE));
                 f5955a = 3;
                 return true;
             } catch (IllegalStateException unused) {
@@ -483,7 +483,7 @@ class C1911h extends C1896ag {
     }
 
     /* renamed from: c */
-    static C1889aa m7920c() {
+    static gatt_manager m7920c() {
         return f5957k;
     }
 

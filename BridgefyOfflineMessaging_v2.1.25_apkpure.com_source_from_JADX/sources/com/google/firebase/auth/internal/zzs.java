@@ -36,7 +36,7 @@ public final class zzs {
     }
 
     public final void zzeh() {
-        Logger logger = zzgg;
+        // Logger logger = zzgg;
         long j = this.zzrc - this.zzre;
         StringBuilder sb = new StringBuilder(43);
         sb.append("Scheduling refresh for ");
@@ -53,7 +53,7 @@ public final class zzs {
         long j = (i == 30 || i == 60 || i == 120 || i == 240 || i == 480) ? 2 * this.zzrd : i != 960 ? 30 : 960;
         this.zzrd = j;
         this.zzrc = DefaultClock.getInstance().currentTimeMillis() + (this.zzrd * 1000);
-        Logger logger = zzgg;
+        // Logger logger = zzgg;
         long j2 = this.zzrc;
         StringBuilder sb = new StringBuilder(43);
         sb.append("Scheduling refresh for ");

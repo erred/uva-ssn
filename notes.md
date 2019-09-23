@@ -21,8 +21,16 @@ sources                     # -
       sdk                   #
         client              # entrypoint, config, core
           registration      # certificates, registration
+          BFBle*            # typedefs
+          Bridgefy.java     # entrypoint
+          BridgefyClient.java # client data
+          Device.java       # remote devices accessible by hardware address, send
+          DeviceProfile.java # capability detection
+          Message.java      # message type, serialization
         framework           # -
-          controller        # Bluetooth
+          controller        # Bluetooth, BridgefyCore
+            BridgeCore.java #
+            C1895af.java    # current device?
           entities          # BLE routing
           exceptions        # -
           utils             # sessionid, serialization, multicast

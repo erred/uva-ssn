@@ -117,7 +117,7 @@ class C1926p extends BluetoothGattServerCallback {
             a.mo7464a().remove(0);
         }
         if (a.mo7469e().getData() != null && a.mo7469e().getData().length > 0) {
-            Bridgefy.getInstance().getBridgefyCore().mo7363c().onMessageDataProgress(a.mo7473h(), (long) (a.mo7472g() - a.mo7464a().size()), (long) a.mo7472g());
+            Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(a.mo7473h(), (long) (a.mo7472g() - a.mo7464a().size()), (long) a.mo7472g());
         }
         if (a.mo7464a().isEmpty()) {
             a.mo7471f();

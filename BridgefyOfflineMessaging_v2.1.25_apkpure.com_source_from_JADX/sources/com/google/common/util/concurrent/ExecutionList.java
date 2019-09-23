@@ -106,7 +106,7 @@ public final class ExecutionList {
         try {
             executor.execute(runnable);
         } catch (RuntimeException e) {
-            Logger logger = log;
+            // Logger logger = log;
             Level level = Level.SEVERE;
             StringBuilder sb = new StringBuilder();
             sb.append("RuntimeException while executing runnable ");

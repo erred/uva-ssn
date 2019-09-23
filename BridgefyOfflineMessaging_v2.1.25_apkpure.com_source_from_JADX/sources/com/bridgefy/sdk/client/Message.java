@@ -20,30 +20,38 @@ public class Message implements Parcelable {
     };
 
     /* renamed from: a */
+    // hashMap content
     private HashMap f5816a;
 
     /* renamed from: b */
+    // receiver ID
     private String f5817b;
 
     /* renamed from: c */
+    // sender ID
     private String f5818c;
 
     /* renamed from: d */
+    // random UUID
     private String f5819d;
 
     /* renamed from: e */
+    // Timestamp milliseconds
     private long f5820e;
 
     /* renamed from: f */
     private byte[] f5821f;
 
     /* renamed from: g */
+    // isMesh
     private boolean f5822g;
 
     /* renamed from: h */
+    // hop (current)
     private int f5823h;
 
     /* renamed from: i */
+    // hops
     private int f5824i = 0;
 
     public static class Builder {

@@ -44,7 +44,7 @@ public final class HttpResponse {
         this.statusCode = statusCode2;
         String reasonPhrase = lowLevelHttpResponse.getReasonPhrase();
         this.statusMessage = reasonPhrase;
-        Logger logger = HttpTransport.LOGGER;
+        // Logger logger = HttpTransport.LOGGER;
         if (this.loggingEnabled && logger.isLoggable(Level.CONFIG)) {
             z = true;
         }
@@ -146,7 +146,7 @@ public final class HttpResponse {
                     if (str != null && str.contains("gzip")) {
                         content2 = new GZIPInputStream(content2);
                     }
-                    Logger logger = HttpTransport.LOGGER;
+                    // Logger logger = HttpTransport.LOGGER;
                     if (this.loggingEnabled && logger.isLoggable(Level.CONFIG)) {
                         content2 = new LoggingInputStream(content2, logger, Level.CONFIG, this.contentLoggingLimit);
                     }

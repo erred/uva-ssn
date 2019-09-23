@@ -177,7 +177,7 @@ public final class ClassPath {
             if (!immutableSet.contains(canonicalFile)) {
                 File[] listFiles = file.listFiles();
                 if (listFiles == null) {
-                    Logger access$100 = ClassPath.logger;
+                    // Logger access$100 = ClassPath.logger;
                     StringBuilder sb = new StringBuilder();
                     sb.append("Cannot read directory ");
                     sb.append(file);
@@ -245,7 +245,7 @@ public final class ClassPath {
                     try {
                         builder.add((Object) getClassPathEntry(file, str));
                     } catch (URISyntaxException unused) {
-                        Logger access$100 = ClassPath.logger;
+                        // Logger access$100 = ClassPath.logger;
                         StringBuilder sb = new StringBuilder();
                         sb.append("Invalid Class-Path entry: ");
                         sb.append(str);

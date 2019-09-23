@@ -8,7 +8,7 @@ import com.bridgefy.sdk.client.Bridgefy;
 import java.util.UUID;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.w */
-class C1936w extends C1891ab {
+class C1936w extends gatt_operation {
 
     /* renamed from: a */
     private final UUID f6014a;
@@ -51,7 +51,7 @@ class C1936w extends C1891ab {
         if (this.f6017d != null) {
             this.f6017d.mo7464a().remove(this.f6016c);
             if (this.f6017d.mo7469e().getData() != null && this.f6017d.mo7469e().getData().length > 0) {
-                Bridgefy.getInstance().getBridgefyCore().mo7363c().onMessageDataProgress(this.f6017d.mo7473h(), (long) (this.f6017d.mo7472g() - this.f6017d.mo7464a().size()), (long) this.f6017d.mo7472g());
+                Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(this.f6017d.mo7473h(), (long) (this.f6017d.mo7472g() - this.f6017d.mo7464a().size()), (long) this.f6017d.mo7472g());
             }
             if (this.f6017d.mo7464a().size() == 0) {
                 this.f6017d.mo7468d().mo7474a(this.f6017d);

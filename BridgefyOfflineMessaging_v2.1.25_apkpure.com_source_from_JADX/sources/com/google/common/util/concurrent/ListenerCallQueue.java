@@ -60,7 +60,7 @@ final class ListenerCallQueue<L> implements Runnable {
             } catch (RuntimeException e) {
                 synchronized (this) {
                     this.isThreadScheduled = false;
-                    Logger logger2 = logger;
+                    // Logger logger2 = logger;
                     Level level = Level.SEVERE;
                     StringBuilder sb = new StringBuilder();
                     sb.append("Exception while running callbacks for ");

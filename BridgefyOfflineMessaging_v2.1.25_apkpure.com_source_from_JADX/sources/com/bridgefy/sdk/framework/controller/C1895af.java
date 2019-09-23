@@ -41,7 +41,7 @@ class C1895af {
     public final String f5895a = getClass().getSimpleName();
 
     /* renamed from: c */
-    private Config f5896c;
+    private Config config;
 
     /* renamed from: d */
     private C1894ae f5897d;
@@ -50,10 +50,10 @@ class C1895af {
     private C1933u f5898e;
 
     C1895af(Context context, Config config) {
-        this.f5896c = (Config) C1897ah.m7831a(config, "Missing Config.");
+        this.config = (Config) C1897ah.m7831a(config, "Missing Config.");
         this.f5897d = new C1894ae(config);
         this.f5898e = new C1933u();
-        this.f5897d.mo7436a(context);
+        this.f5897d.set_context(context);
     }
 
     /* access modifiers changed from: 0000 */
@@ -61,8 +61,8 @@ class C1895af {
     public void mo7448a(Message message, Session session) {
         message.setMesh(false);
         this.f5897d.mo7440a(message);
-        Logger.log(LogFactory.build(message, (Session) session, MessageEvent.BFMessageTypeDirectMessageReceived));
-        Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectReceived);
+        // Logger.log(LogFactory.build(message, (Session) session, MessageEvent.BFMessageTypeDirectMessageReceived));
+        // Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectReceived);
     }
 
     /* access modifiers changed from: 0000 */
@@ -105,7 +105,7 @@ class C1895af {
                 if (forwardPacket.getReceiver_type() == 0) {
                     String receiver = forwardPacket.getReceiver();
                     if (receiver == null || !receiver.trim().equalsIgnoreCase(Bridgefy.getInstance().getBridgefyClient().getUserUuid().trim())) {
-                        Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedToForward));
+                        // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedToForward));
                         ForwardPacket a2 = m7809a(forwardPacket, a);
                         if (a2 == null || a2.getHops() <= 0 || Bridgefy.getInstance().getBridgefyClient().getUserUuid().equalsIgnoreCase(a2.getSender())) {
                             String str = this.f5895a;
@@ -126,8 +126,8 @@ class C1895af {
                         } catch (Exception e) {
                             this.f5897d.mo7442a(forwardPacket.getSender(), new MessageException("Can't be possible decrypt message.", e));
                         }
-                        Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedReached));
-                        Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshReceived);
+                        // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedReached));
+                        // Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshReceived);
                         Message b = m7811b(forwardPacket);
                         if (b == null || b.getContent() != null) {
                             this.f5897d.mo7440a(b);
@@ -137,16 +137,16 @@ class C1895af {
                         this.f5898e.mo7564b(forwardPacket);
                     }
                 } else if (forwardPacket.getReceiver_type() == 1) {
-                    Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedBroadcast));
-                    Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastReceived);
+                    // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedBroadcast));
+                    // Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastReceived);
                     Message b2 = m7811b(forwardPacket);
                     if (!this.f5898e.mo7563a(forwardPacket) && forwardPacket.getHops() >= 0 && !b2.getSenderId().trim().equalsIgnoreCase(Bridgefy.getInstance().getBridgefyClient().getUserUuid())) {
                         new Bundle().putParcelable("parcelable.forwardPacket", forwardPacket);
                         mo7451a(forwardPacket);
-                        if (Bridgefy.getInstance().getBridgefyCore().mo7363c() != null) {
+                        if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
                             new Handler(Looper.getMainLooper()).post(new Runnable() {
                                 public final void run() {
-                                    Bridgefy.getInstance().getBridgefyCore().mo7363c().onBroadcastMessageReceived(Message.this);
+                                    Bridgefy.getInstance().getBridgefyCore().get_message_listener().onBroadcastMessageReceived(Message.this);
                                 }
                             });
                         }
@@ -206,26 +206,27 @@ class C1895af {
 
     /* renamed from: c */
     private void m7816c(ForwardPacket forwardPacket) {
-        Logger.log(LogFactory.build(forwardPacket));
-        Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshSent);
+        // Logger.log(LogFactory.build(forwardPacket));
+        // Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshSent);
         this.f5898e.mo7560a(forwardPacket, true);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7446a(Context context, Message message, Device device, BFEngineProfile bFEngineProfile) {
-        if (mo7443a().isEncryption() && !Session.m7735j().containsKey(message.getReceiverId())) {
-            MessageListener c = Bridgefy.getInstance().getBridgefyCore().mo7363c();
+    // send message
+    public void send_message(Context context, Message message, Device device, BFEngineProfile bFEngineProfile) {
+        if (get_config().isEncryption() && !Session.get_key_pairs().containsKey(message.getReceiverId())) {
+            MessageListener c = Bridgefy.getInstance().getBridgefyCore().get_message_listener();
             StringBuilder sb = new StringBuilder();
             sb.append("Unable to send message, missing public key for receiver: ");
             sb.append(message.getReceiverId());
             c.onMessageFailed(message, new MessageException(sb.toString()));
         }
         if (device != null) {
-            mo7445a(context, message, device);
+            send_direct_message(context, message, device);
         } else if (bFEngineProfile != BFEngineProfile.BFConfigProfileNoFowarding) {
             m7816c(new ForwardPacket(message, 0, bFEngineProfile));
-            if (DeviceManager.m7713a().isEmpty()) {
+            if (DeviceManager.get_devices().isEmpty()) {
                 this.f5897d.mo7441a(message, new MessageException("No nearby devices, message will be queued for later."));
             }
         }
@@ -233,20 +234,22 @@ class C1895af {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7447a(Message message, BFEngineProfile bFEngineProfile) {
-        m7814b(message, bFEngineProfile);
+    // broadcast message
+    public void send_broadcast(Message message, BFEngineProfile bFEngineProfile) {
+        send_broadcast_2(message, bFEngineProfile);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7445a(Context context, Message message, Device device) {
-        m7813b(context, message, device);
+    // direct message
+    public void send_direct_message(Context context, Message message, Device device) {
+        send_direct_2(context, message, device);
     }
 
     /* renamed from: b */
-    private void m7813b(Context context, Message message, Device device) {
+    private void send_direct_2(Context context, Message message, Device device) {
         Session session;
-        mo7444a(context);
+        set_context(context);
         if (device.getAntennaType() == Antenna.BLUETOOTH || device.getAntennaType() == Antenna.BLUETOOTH_LE) {
             session = SessionManager.getSession(device.getDeviceAddress());
         } else {
@@ -258,14 +261,14 @@ class C1895af {
         if (session != null) {
             try {
                 BridgefyCore.m7704a(session, BleEntity.message(message));
-                Logger.log(LogFactory.build(message, (Session) session, MessageEvent.BFMessageTypeDirectMessageSent));
-                Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectSent);
+                // Logger.log(LogFactory.build(message, (Session) session, MessageEvent.BFMessageTypeDirectMessageSent));
+                // Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectSent);
             } catch (IOException e) {
-                Logger.log(LogFactory.build(message, new MessageException((Exception) e)));
+                // Logger.log(LogFactory.build(message, new MessageException((Exception) e)));
                 session.mo7391i();
                 this.f5897d.mo7441a(message, new MessageException((Exception) e));
             } catch (MessageException e2) {
-                Logger.log(LogFactory.build(message, new MessageException((Exception) e2)));
+                // Logger.log(LogFactory.build(message, new MessageException((Exception) e2)));
                 this.f5897d.mo7441a(message, new MessageException((Exception) e2));
             }
             return;
@@ -276,20 +279,20 @@ class C1895af {
     }
 
     /* renamed from: b */
-    private void m7814b(Message message, BFEngineProfile bFEngineProfile) {
+    private void send_broadcast_2(Message message, BFEngineProfile bFEngineProfile) {
         this.f5898e.mo7560a(new ForwardPacket(message, 1, bFEngineProfile), true);
-        Logger.log(LogFactory.build(message));
-        Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastSent);
+        // Logger.log(LogFactory.build(message));
+        // Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastSent);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7444a(Context context) {
-        this.f5897d.mo7436a(context);
+    public void set_context(Context context) {
+        this.f5897d.set_context(context);
     }
 
     /* renamed from: a */
-    public Config mo7443a() {
-        return this.f5896c;
+    public Config get_config() {
+        return this.config;
     }
 }

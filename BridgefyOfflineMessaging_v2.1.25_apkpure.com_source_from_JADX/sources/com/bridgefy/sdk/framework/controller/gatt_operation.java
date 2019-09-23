@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothGatt;
 import java.util.UUID;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.ab */
-abstract class C1891ab {
+abstract class gatt_operation {
 
     /* renamed from: a */
     private BluetoothDevice f5884a;
@@ -14,7 +14,7 @@ abstract class C1891ab {
     private C1892ac f5885b;
 
     /* renamed from: c */
-    private String f5886c = UUID.randomUUID().toString();
+    private String operation_id = UUID.randomUUID().toString();
 
     /* renamed from: a */
     public abstract void mo7423a(BluetoothGatt bluetoothGatt);
@@ -35,23 +35,23 @@ abstract class C1891ab {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        return this.f5886c.equals(((C1891ab) obj).f5886c);
+        return this.operation_id.equals(((gatt_operation) obj).operation_id);
     }
 
     public int hashCode() {
-        return this.f5886c.hashCode();
+        return this.operation_id.hashCode();
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("GattOperation {\toperationId='");
-        sb.append(this.f5886c);
+        sb.append(this.operation_id);
         sb.append('\'');
         sb.append('}');
         return sb.toString();
     }
 
-    C1891ab(BluetoothDevice bluetoothDevice) {
+    gatt_operation(BluetoothDevice bluetoothDevice) {
         this.f5884a = bluetoothDevice;
     }
 
@@ -73,6 +73,6 @@ abstract class C1891ab {
     /* access modifiers changed from: 0000 */
     /* renamed from: e */
     public String mo7429e() {
-        return this.f5886c;
+        return this.operation_id;
     }
 }

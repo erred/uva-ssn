@@ -40,7 +40,7 @@ final class zze implements zzj<TokenData> {
             }
             throw new GoogleAuthException(string);
         }
-        Logger zza2 = zzd.zzn;
+        // Logger zza2 = zzd.zzn;
         String valueOf = String.valueOf(zzc);
         StringBuilder sb = new StringBuilder(String.valueOf(valueOf).length() + 31);
         sb.append("isUserRecoverableError status: ");

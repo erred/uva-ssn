@@ -23,7 +23,7 @@ public class MessagingAnalytics {
     public static void logNotificationOpen(Intent intent) {
         if (intent != null) {
             if ("1".equals(intent.getStringExtra("google.c.a.tc"))) {
-                AnalyticsConnector analyticsConnector = (AnalyticsConnector) FirebaseApp.getInstance().get(AnalyticsConnector.class);
+                // AnalyticsConnector analyticsConnector = (AnalyticsConnector) FirebaseApp.getInstance().get(AnalyticsConnector.class);
                 if (Log.isLoggable("FirebaseMessaging", 3)) {
                     Log.d("FirebaseMessaging", "Received event with track-conversion=true. Setting user property and reengagement event");
                 }
@@ -111,7 +111,7 @@ public class MessagingAnalytics {
             sb.append(valueOf);
             Log.d("FirebaseMessaging", sb.toString());
         }
-        AnalyticsConnector analyticsConnector = (AnalyticsConnector) FirebaseApp.getInstance().get(AnalyticsConnector.class);
+        // AnalyticsConnector analyticsConnector = (AnalyticsConnector) FirebaseApp.getInstance().get(AnalyticsConnector.class);
         if (analyticsConnector != null) {
             analyticsConnector.logEvent(AppMeasurement.FCM_ORIGIN, str, bundle);
         } else {

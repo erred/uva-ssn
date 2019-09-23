@@ -31,7 +31,7 @@ final class JULLogger extends Logger {
     }
 
     public void debug(String str, String str2) {
-        Logger logger = this.LOGGER;
+        // Logger logger = this.LOGGER;
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.append(str2);
@@ -43,7 +43,7 @@ final class JULLogger extends Logger {
     }
 
     public void info(String str, String str2) {
-        Logger logger = this.LOGGER;
+        // Logger logger = this.LOGGER;
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.append(str2);
@@ -55,7 +55,7 @@ final class JULLogger extends Logger {
     }
 
     public void warn(String str, String str2) {
-        Logger logger = this.LOGGER;
+        // Logger logger = this.LOGGER;
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.append(str2);
@@ -67,7 +67,7 @@ final class JULLogger extends Logger {
     }
 
     public void error(String str, Throwable th) {
-        Logger logger = this.LOGGER;
+        // Logger logger = this.LOGGER;
         StringBuilder sb = new StringBuilder();
         sb.append(str);
         sb.append(th.getMessage());

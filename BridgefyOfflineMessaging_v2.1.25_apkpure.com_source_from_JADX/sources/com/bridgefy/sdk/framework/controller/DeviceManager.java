@@ -45,7 +45,7 @@ public class DeviceManager {
     static void m7717a(Device device, Session session) {
         m7716a(device, getDevice(device.getDeviceAddress()));
         if (f5856a.put(device.getDeviceAddress(), device) == null) {
-            Logger.log(LogFactory.build(device, String.valueOf(f5856a.size()), CommunicationEvent.BFCommunicationTypePeerDetected));
+            // Logger.log(LogFactory.build(device, String.valueOf(f5856a.size()), CommunicationEvent.BFCommunicationTypePeerDetected));
         }
         StringBuilder sb = new StringBuilder();
         sb.append("... Adding device: ");
@@ -77,8 +77,8 @@ public class DeviceManager {
     /* access modifiers changed from: private */
     /* renamed from: a */
     public static /* synthetic */ void m7718a(Session session, Device device) {
-        if (Bridgefy.getInstance().getBridgefyCore() != null && session != null && Bridgefy.getInstance().getBridgefyCore().mo7365d() != null) {
-            Bridgefy.getInstance().getBridgefyCore().mo7365d().onDeviceConnected(device, session);
+        if (Bridgefy.getInstance().getBridgefyCore() != null && session != null && Bridgefy.getInstance().getBridgefyCore().get_state_listener() != null) {
+            Bridgefy.getInstance().getBridgefyCore().get_state_listener().onDeviceConnected(device, session);
         }
     }
 
@@ -241,9 +241,9 @@ public class DeviceManager {
     /* access modifiers changed from: private */
     /* renamed from: h */
     public static /* synthetic */ void m7726h(Device device) {
-        if (Bridgefy.getInstance().getBridgefyCore() != null && Bridgefy.getInstance().getBridgefyCore().mo7365d() != null) {
+        if (Bridgefy.getInstance().getBridgefyCore() != null && Bridgefy.getInstance().getBridgefyCore().get_state_listener() != null) {
             Log.i("DeviceManager", "onDeviceLost: ondevicelost");
-            Bridgefy.getInstance().getBridgefyCore().mo7365d().onDeviceLost(device);
+            Bridgefy.getInstance().getBridgefyCore().get_state_listener().onDeviceLost(device);
         }
     }
 
@@ -342,13 +342,13 @@ public class DeviceManager {
     }
 
     /* renamed from: a */
-    static List<Device> m7713a() {
+    static List<Device> get_devices() {
         return new ArrayList(f5856a.values());
     }
 
     /* renamed from: a */
     static Device m7712a(String str) {
-        for (Device device : m7713a()) {
+        for (Device device : get_devices()) {
             if (device.getUserId() != null && device.getUserId().equals(str)) {
                 return device;
             }

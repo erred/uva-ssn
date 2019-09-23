@@ -6,7 +6,7 @@ import java.util.ArrayList;
 class C1892ac {
 
     /* renamed from: a */
-    final ArrayList<C1891ab> f5887a = new ArrayList<>();
+    final ArrayList<gatt_operation> f5887a = new ArrayList<>();
 
     /* renamed from: b */
     C1902al f5888b;
@@ -17,13 +17,13 @@ class C1892ac {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7434a(C1891ab abVar) {
+    public void mo7434a(gatt_operation abVar) {
         this.f5887a.add(abVar);
         abVar.mo7424a(this);
     }
 
     /* renamed from: a */
-    public ArrayList<C1891ab> mo7433a() {
+    public ArrayList<gatt_operation> mo7433a() {
         return this.f5887a;
     }
 

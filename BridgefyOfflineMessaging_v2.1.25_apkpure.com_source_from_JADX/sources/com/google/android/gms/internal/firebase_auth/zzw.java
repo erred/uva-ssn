@@ -53,7 +53,7 @@ public final class zzw {
             sb.append('@');
             sb.append(hexString);
             String sb2 = sb.toString();
-            Logger logger = Logger.getLogger("com.google.common.base.Strings");
+            // Logger logger = Logger.getLogger("com.google.common.base.Strings");
             Level level = Level.WARNING;
             String str = "com.google.common.base.Strings";
             String str2 = "lenientToString";

@@ -48,7 +48,7 @@ abstract class zzum<T extends zzub> {
                     arrayList.add((zzub) cls.cast(((zzum) it.next()).zzwd()));
                 } catch (ServiceConfigurationError e5) {
                     ServiceConfigurationError serviceConfigurationError = e5;
-                    Logger logger2 = logger;
+                    // Logger logger2 = logger;
                     Level level = Level.SEVERE;
                     String str2 = "com.google.protobuf.GeneratedExtensionRegistryLoader";
                     String str3 = "load";

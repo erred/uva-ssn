@@ -103,12 +103,12 @@ class C1915j extends C1932t {
                 sb2.append(bluetoothGatt.getDevice().getAddress());
                 Log.e(str2, sb2.toString());
                 if (bluetoothGatt.getDevice() == null || bluetoothGatt.getDevice().getAddress() == null) {
-                    Logger.log(LogFactory.build("Got the status 133 bug."));
+                    // Logger.log(LogFactory.build("Got the status 133 bug."));
                 } else {
                     StringBuilder sb3 = new StringBuilder();
                     sb3.append("Got the status 133 bug with: ");
                     sb3.append(bluetoothGatt.getDevice().getAddress());
-                    Logger.log(LogFactory.build(sb3.toString()));
+                    // Logger.log(LogFactory.build(sb3.toString()));
                 }
                 m7960b(bluetoothGatt);
                 return;
@@ -163,7 +163,7 @@ class C1915j extends C1932t {
                         }
                         C1911h.m7920c().mo7416b().remove(address);
                         if (C1911h.m7920c().mo7418c() != null && C1911h.m7920c().mo7418c().mo7426b().getAddress().equals(bluetoothGatt.getDevice().getAddress())) {
-                            C1911h.m7920c().mo7417b((C1891ab) null);
+                            C1911h.m7920c().mo7417b((gatt_operation) null);
                         }
                         if (session2 != null) {
                             session2.mo7391i();
@@ -193,7 +193,7 @@ class C1915j extends C1932t {
             C1911h.m7920c().mo7412a(bluetoothGatt.getDevice());
             C1911h.m7920c().mo7416b().remove(bluetoothGatt.getDevice().getAddress());
             if (C1911h.m7920c().mo7418c() != null && C1911h.m7920c().mo7418c().mo7426b().getAddress().equals(bluetoothGatt.getDevice().getAddress())) {
-                C1911h.m7920c().mo7417b((C1891ab) null);
+                C1911h.m7920c().mo7417b((gatt_operation) null);
             }
             bluetoothGatt.disconnect();
             bluetoothGatt.close();
@@ -254,13 +254,13 @@ class C1915j extends C1932t {
         public void onDescriptorRead(BluetoothGatt bluetoothGatt, BluetoothGattDescriptor bluetoothGattDescriptor, int i) {
             super.onDescriptorRead(bluetoothGatt, bluetoothGattDescriptor, i);
             ((C1938y) C1911h.m7920c().mo7418c()).mo7571a(bluetoothGattDescriptor);
-            C1911h.m7920c().mo7417b((C1891ab) null);
+            C1911h.m7920c().mo7417b((gatt_operation) null);
             C1911h.m7920c().mo7411a();
         }
 
         public void onDescriptorWrite(BluetoothGatt bluetoothGatt, BluetoothGattDescriptor bluetoothGattDescriptor, int i) {
             super.onDescriptorWrite(bluetoothGatt, bluetoothGattDescriptor, i);
-            C1911h.m7920c().mo7417b((C1891ab) null);
+            C1911h.m7920c().mo7417b((gatt_operation) null);
             C1911h.m7920c().mo7411a();
         }
 
@@ -271,13 +271,13 @@ class C1915j extends C1932t {
             } else {
                 Log.e(C1915j.this.f5979b, "onCharacteristicRead: warning casting operation failed!");
             }
-            C1911h.m7920c().mo7417b((C1891ab) null);
+            C1911h.m7920c().mo7417b((gatt_operation) null);
             C1911h.m7920c().mo7411a();
         }
 
         public void onCharacteristicWrite(BluetoothGatt bluetoothGatt, BluetoothGattCharacteristic bluetoothGattCharacteristic, int i) {
             super.onCharacteristicWrite(bluetoothGatt, bluetoothGattCharacteristic, i);
-            C1911h.m7920c().mo7417b((C1891ab) null);
+            C1911h.m7920c().mo7417b((gatt_operation) null);
             C1911h.m7920c().mo7411a();
         }
 
@@ -289,7 +289,7 @@ class C1915j extends C1932t {
                 bluetoothGatt.disconnect();
                 session.mo7391i();
             } else if (a == 7) {
-                C1911h.m7920c().mo7414a((C1891ab) new C1935v(bluetoothGatt.getDevice(), C1922m.m7989b(), C1922m.m7991c()));
+                C1911h.m7920c().mo7414a((gatt_operation) new C1935v(bluetoothGatt.getDevice(), C1922m.m7989b(), C1922m.m7991c()));
             }
         }
     }
@@ -341,18 +341,18 @@ class C1915j extends C1932t {
         sb.append(device.getDeviceAddress());
         Log.d(str, sb.toString());
         C1939z zVar = new C1939z(device.getBluetoothDevice(), C1922m.m7989b(), C1922m.m7991c(), C1922m.f5994a, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-        C1911h.m7920c().mo7414a((C1891ab) zVar);
+        C1911h.m7920c().mo7414a((gatt_operation) zVar);
         try {
             BleEntity generateHandShake = BleEntity.generateHandShake();
-            Logger.log(LogFactory.build(device, (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
+            // Logger.log(LogFactory.build(device, (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
             Iterator it = C1927q.m8001a(generateHandShake, 150, true, Bridgefy.getInstance().getConfig().isEncryption(), null).iterator();
             while (it.hasNext()) {
-                C1911h.m7920c().mo7414a((C1891ab) new C1936w(device.getBluetoothDevice(), C1922m.m7989b(), C1922m.m7991c(), (byte[]) it.next()));
+                C1911h.m7920c().mo7414a((gatt_operation) new C1936w(device.getBluetoothDevice(), C1922m.m7989b(), C1922m.m7991c(), (byte[]) it.next()));
             }
             StringBuilder sb2 = new StringBuilder();
             sb2.append("crc generated with device address: ");
             sb2.append(device.getDeviceAddress());
-            Logger.log(LogFactory.build(device, sb2.toString(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
+            // Logger.log(LogFactory.build(device, sb2.toString(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
         } catch (MessageException | IOException e) {
             Log.e(this.f5979b, "sendInitialHandShake: ", e);
         }

@@ -54,7 +54,7 @@ public class LogTestsActivity extends BridgefyOrmLiteBaseActivity<DatabaseHelper
             C0840a.m3096a(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
             return;
         }
-        Logger.startLogs(m10405a());
+        // Logger.startLogs(m10405a());
         this.btnStartTests.setVisibility(8);
         this.btnFinishTests.setVisibility(0);
         Toast.makeText(this, "Iniciando logging", 0).show();

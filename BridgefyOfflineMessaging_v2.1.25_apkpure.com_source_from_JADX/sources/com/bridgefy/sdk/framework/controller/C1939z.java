@@ -8,7 +8,7 @@ import android.bluetooth.BluetoothGattService;
 import java.util.UUID;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.z */
-class C1939z extends C1891ab {
+class C1939z extends gatt_operation {
 
     /* renamed from: a */
     private final UUID f6022a;

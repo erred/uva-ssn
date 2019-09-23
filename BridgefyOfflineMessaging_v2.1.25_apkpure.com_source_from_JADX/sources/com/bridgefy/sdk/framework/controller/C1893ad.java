@@ -30,19 +30,19 @@ abstract class C1893ad<M> {
     }
 
     /* renamed from: a */
-    public void mo7436a(Context context) {
+    public void set_context(Context context) {
         this.f5891c = context;
     }
 
     /* access modifiers changed from: protected */
     /* renamed from: a */
     public boolean mo7437a() {
-        return Bridgefy.getInstance().getBridgefyCore().mo7363c() != null;
+        return Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null;
     }
 
     /* renamed from: b */
     public MessageListener mo7439b() {
-        return Bridgefy.getInstance().getBridgefyCore().mo7363c();
+        return Bridgefy.getInstance().getBridgefyCore().get_message_listener();
     }
 
     /* renamed from: a */

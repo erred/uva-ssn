@@ -17,16 +17,16 @@ import com.bridgefy.sdk.framework.exceptions.ConnectionException;
 import com.bridgefy.sdk.framework.utils.Utils;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.a */
-class C1887a extends BroadcastReceiver {
+class broadcast_receiver extends BroadcastReceiver {
 
     /* renamed from: a */
     private final String f5873a = getClass().getSimpleName();
 
     /* renamed from: b */
-    private Config f5874b;
+    private Config config;
 
     /* renamed from: c */
-    private Context f5875c;
+    private Context context;
 
     /* renamed from: d */
     private boolean f5876d = false;
@@ -34,20 +34,20 @@ class C1887a extends BroadcastReceiver {
     /* renamed from: e */
     private C1911h f5877e;
 
-    protected C1887a(Context context, Config config) throws BridgefyException {
-        this.f5874b = config;
-        this.f5875c = context;
+    protected broadcast_receiver(Context context, Config config) throws BridgefyException {
+        this.config = config;
+        this.context = context;
         m7760a(context, config);
     }
 
     public void onReceive(Context context, Intent intent) {
-        this.f5875c = context;
+        this.context = context;
         m7759a(context, intent);
     }
 
     /* renamed from: a */
     private void m7759a(Context context, Intent intent) {
-        switch (this.f5874b.getAntennaType()) {
+        switch (this.config.getAntennaType()) {
             case BLUETOOTH:
             case BLUETOOTH_LE:
                 m7763b(context, intent);
@@ -60,7 +60,7 @@ class C1887a extends BroadcastReceiver {
     /* renamed from: a */
     private IntentFilter m7758a() {
         IntentFilter intentFilter = new IntentFilter();
-        switch (this.f5874b.getAntennaType()) {
+        switch (this.config.getAntennaType()) {
             case BLUETOOTH:
                 m7764b(intentFilter);
                 break;
@@ -154,9 +154,9 @@ class C1887a extends BroadcastReceiver {
 
     /* renamed from: b */
     private void m7762b() {
-        if (BridgefyUtils.getBluetoothAdapter(this.f5875c).isEnabled()) {
+        if (BridgefyUtils.getBluetoothAdapter(this.context).isEnabled()) {
             try {
-                this.f5877e.mo7515d(this.f5875c);
+                this.f5877e.mo7515d(this.context);
             } catch (ConnectionException unused) {
             }
         }
@@ -196,7 +196,7 @@ class C1887a extends BroadcastReceiver {
         switch (antenna) {
             case BLUETOOTH:
             case BLUETOOTH_LE:
-                this.f5877e.mo7510a(this.f5875c);
+                this.f5877e.mo7510a(this.context);
                 return;
             default:
                 return;
@@ -209,7 +209,7 @@ class C1887a extends BroadcastReceiver {
         switch (antenna) {
             case BLUETOOTH:
             case BLUETOOTH_LE:
-                this.f5877e.mo7455c(this.f5875c);
+                this.f5877e.mo7455c(this.context);
                 return;
             default:
                 return;
@@ -234,8 +234,8 @@ class C1887a extends BroadcastReceiver {
     public void mo7409h(Antenna antenna) {
         if (C18881.f5878a[antenna.ordinal()] == 2) {
             if (DeviceProfile.deviceCanStopScan() || SessionManager.getSessionsByType(Antenna.BLUETOOTH_LE).isEmpty()) {
-                this.f5877e.mo7455c(this.f5875c);
-                this.f5877e.mo7510a(this.f5875c);
+                this.f5877e.mo7455c(this.context);
+                this.f5877e.mo7510a(this.context);
                 this.f5877e.mo7453a();
                 this.f5877e.mo7454a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
             }

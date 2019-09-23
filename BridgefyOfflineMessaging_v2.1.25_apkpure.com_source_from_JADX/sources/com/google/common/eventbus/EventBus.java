@@ -59,7 +59,7 @@ public class EventBus {
         }
 
         public void handleException(Throwable th, SubscriberExceptionContext subscriberExceptionContext) {
-            Logger logger2 = this.logger;
+            // Logger logger2 = this.logger;
             Level level = Level.SEVERE;
             StringBuilder sb = new StringBuilder();
             sb.append("Could not dispatch event: ");
@@ -184,7 +184,7 @@ public class EventBus {
         } catch (InvocationTargetException e) {
             this.subscriberExceptionHandler.handleException(e.getCause(), new SubscriberExceptionContext(this, obj, eventSubscriber.getSubscriber(), eventSubscriber.getMethod()));
         } catch (Throwable th) {
-            Logger.getLogger(EventBus.class.getName()).log(Level.SEVERE, String.format("Exception %s thrown while handling exception: %s", new Object[]{th, e.getCause()}), th);
+            // Logger.getLogger(EventBus.class.getName()).log(Level.SEVERE, String.format("Exception %s thrown while handling exception: %s", new Object[]{th, e.getCause()}), th);
         }
     }
 

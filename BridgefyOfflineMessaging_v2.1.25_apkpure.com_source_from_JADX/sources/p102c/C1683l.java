@@ -240,7 +240,7 @@ public final class C1683l {
                 try {
                     socket.close();
                 } catch (Exception e) {
-                    Logger logger = C1683l.f5310a;
+                    // Logger logger = C1683l.f5310a;
                     Level level = Level.WARNING;
                     StringBuilder sb = new StringBuilder();
                     sb.append("Failed to close timed out socket ");
@@ -248,7 +248,7 @@ public final class C1683l {
                     logger.log(level, sb.toString(), e);
                 } catch (AssertionError e2) {
                     if (C1683l.m7041a(e2)) {
-                        Logger logger2 = C1683l.f5310a;
+                        // Logger logger2 = C1683l.f5310a;
                         Level level2 = Level.WARNING;
                         StringBuilder sb2 = new StringBuilder();
                         sb2.append("Failed to close timed out socket ");

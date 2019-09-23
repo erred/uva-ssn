@@ -25,7 +25,7 @@ class C1944a implements Runnable {
                 if (Logger.getInstance().shouldWriteToTempFile()) {
                     m8081a(logEntity);
                 }
-                Logger.getInstance().getContext().sendBroadcast(new Intent().setAction(Constants.LOGGING_EVENT_BROADCAST).putExtra(Constants.LOGGING_EVENT_TYPE, logEntity.getLogType()).putExtra(Constants.LOGGING_EVENT_ENTRY, logEntity.serialize()));
+                // Logger.getInstance().getContext().sendBroadcast(new Intent().setAction(Constants.LOGGING_EVENT_BROADCAST).putExtra(Constants.LOGGING_EVENT_TYPE, logEntity.getLogType()).putExtra(Constants.LOGGING_EVENT_ENTRY, logEntity.serialize()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 return;

@@ -25,7 +25,7 @@ final class zzab {
         Preconditions.checkNotEmpty(str);
         String[] split = str.split("\\.");
         if (split.length < 2) {
-            Logger logger = zzgg;
+            // Logger logger = zzgg;
             String str2 = "Invalid idToken ";
             String valueOf = String.valueOf(str);
             logger.mo13499e(valueOf.length() != 0 ? str2.concat(valueOf) : new String(str2), new Object[0]);

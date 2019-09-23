@@ -35,7 +35,7 @@ public abstract class Logger {
 
     static {
         String property = System.getProperty(LOGGER_FACTORY_IMPLEMENTATION);
-        LoggerFactory loggerFactoryIfAvailable = property != null ? getLoggerFactoryIfAvailable(property, property) : null;
+        // LoggerFactory loggerFactoryIfAvailable = property != null ? getLoggerFactoryIfAvailable(property, property) : null;
         Configuration instance = ConfigurationContext.getInstance();
         String loggerFactory = instance.getLoggerFactory();
         if (loggerFactory != null) {

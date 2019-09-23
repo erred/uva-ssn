@@ -147,7 +147,7 @@ class C1918k extends C1906c {
                         sb.append(e2.getMessage());
                         Log.e("Bluetooth_LE_Discovery", sb.toString());
                     }
-                    Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeDiscoveryStarted, Antenna.BLUETOOTH_LE));
+                    // Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeDiscoveryStarted, Antenna.BLUETOOTH_LE));
                 }
             }
         }, C0151a.BUFFER);
@@ -193,7 +193,7 @@ class C1918k extends C1906c {
             }
         }
         mo7481a(false);
-        Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeDiscoveryStopped, Antenna.BLUETOOTH_LE));
+        // Logger.log(new OperatorStatusLog(StatusEvent.BFStatusTypeDiscoveryStopped, Antenna.BLUETOOTH_LE));
     }
 
     /* access modifiers changed from: protected */

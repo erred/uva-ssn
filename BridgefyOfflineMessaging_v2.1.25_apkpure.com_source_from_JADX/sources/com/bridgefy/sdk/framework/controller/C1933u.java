@@ -100,7 +100,7 @@ class C1933u {
                 sb2.append(" dump: ");
                 sb2.append(this.f6011b);
                 Log.m8073d(str2, sb2.toString());
-                Logger.log(LogFactory.build(a.size()));
+                // Logger.log(LogFactory.build(a.size()));
             }
         }
     }
@@ -242,7 +242,7 @@ class C1933u {
                 }
             }
             if (arrayList.size() > 0) {
-                Logger.log(LogFactory.build(arrayList));
+                // Logger.log(LogFactory.build(arrayList));
                 String str = this.f6006a;
                 StringBuilder sb = new StringBuilder();
                 sb.append("discardExpiredPackets: implements log for remove forwardPackets: ");
@@ -252,7 +252,7 @@ class C1933u {
             ArrayList<String> arrayList2 = new ArrayList<>();
             for (ForwardPacket forwardPacket2 : arrayList) {
                 this.f6007b.remove(forwardPacket2);
-                Logger.log(LogFactory.build(forwardPacket2, MeshErrorEvent.BFErrorMeshTypeDiscardInvalidMessages));
+                // Logger.log(LogFactory.build(forwardPacket2, MeshErrorEvent.BFErrorMeshTypeDiscardInvalidMessages));
                 arrayList2.add(forwardPacket2.getId());
             }
             for (String str2 : arrayList2) {
@@ -359,8 +359,8 @@ class C1933u {
             if (Bridgefy.getInstance().getBridgefyClient().getUserUuid().equalsIgnoreCase(forwardPacket.getSender())) {
                 Message message = new Message(forwardPacket.getPayload(), null, null);
                 message.setUuid(forwardPacket.getId());
-                Bridgefy.getInstance().getBridgefyCore().mo7363c().onMessageSent(message.getUuid());
-                Bridgefy.getInstance().getBridgefyCore().mo7363c().onMessageSent(message);
+                Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageSent(message.getUuid());
+                Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageSent(message);
             }
         }
     }
@@ -372,7 +372,7 @@ class C1933u {
             if (Bridgefy.getInstance().getBridgefyClient().getUserUuid().equalsIgnoreCase(forwardPacket.getSender())) {
                 Message message = new Message(forwardPacket.getPayload(), null, null);
                 message.setUuid(forwardPacket.getId());
-                MessageListener c = Bridgefy.getInstance().getBridgefyCore().mo7363c();
+                MessageListener c = Bridgefy.getInstance().getBridgefyCore().get_message_listener();
                 StringBuilder sb = new StringBuilder();
                 sb.append("Unable to acquire session: ");
                 sb.append(session.getSessionId());
@@ -402,7 +402,7 @@ class C1933u {
     /* renamed from: a */
     private void m8026a(ForwardPacket forwardPacket, Session session) {
         if (mo7563a(forwardPacket)) {
-            Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedDuplicated));
+            // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedDuplicated));
         } else {
             mo7560a(forwardPacket, false);
         }

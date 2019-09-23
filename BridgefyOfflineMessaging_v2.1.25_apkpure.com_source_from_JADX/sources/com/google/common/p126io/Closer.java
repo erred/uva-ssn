@@ -29,7 +29,7 @@ public final class Closer implements Closeable {
         }
 
         public void suppress(Closeable closeable, Throwable th, Throwable th2) {
-            Logger logger = Closeables.logger;
+            // Logger logger = Closeables.logger;
             Level level = Level.WARNING;
             StringBuilder sb = new StringBuilder();
             sb.append("Suppressing exception thrown when closing ");

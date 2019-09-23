@@ -29,7 +29,7 @@ public final class zzco {
             }
             Log.e((String) zzcf.zzyx.get(), str2);
         }
-        Logger logger = zzabg;
+        // Logger logger = zzabg;
         if (logger != null) {
             logger.error(str);
         }
@@ -44,7 +44,7 @@ public final class zzco {
         } else if (isLoggable(0)) {
             Log.v((String) zzcf.zzyx.get(), str);
         }
-        Logger logger = zzabg;
+        // Logger logger = zzabg;
         if (logger != null) {
             logger.verbose(str);
         }
@@ -58,7 +58,7 @@ public final class zzco {
         } else if (isLoggable(2)) {
             Log.w((String) zzcf.zzyx.get(), str);
         }
-        Logger logger = zzabg;
+        // Logger logger = zzabg;
         if (logger != null) {
             logger.warn(str);
         }

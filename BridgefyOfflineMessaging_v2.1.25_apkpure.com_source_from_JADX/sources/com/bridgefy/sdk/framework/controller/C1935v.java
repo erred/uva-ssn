@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothGatt;
 import java.util.UUID;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.v */
-class C1935v extends C1891ab {
+class C1935v extends gatt_operation {
 
     /* renamed from: a */
     private final UUID f6012a;
@@ -84,7 +84,7 @@ class C1935v extends C1891ab {
         throw r4;
      */
     /* JADX WARNING: Code restructure failed: missing block: B:28:0x0099, code lost:
-        com.bridgefy.sdk.framework.controller.C1911h.m7920c().mo7414a((com.bridgefy.sdk.framework.controller.C1891ab) new com.bridgefy.sdk.framework.controller.C1935v(r5.getDevice(), com.bridgefy.sdk.framework.controller.C1922m.m7989b(), com.bridgefy.sdk.framework.controller.C1922m.m7991c()));
+        com.bridgefy.sdk.framework.controller.C1911h.m7920c().mo7414a((com.bridgefy.sdk.framework.controller.gatt_operation) new com.bridgefy.sdk.framework.controller.C1935v(r5.getDevice(), com.bridgefy.sdk.framework.controller.C1922m.m7989b(), com.bridgefy.sdk.framework.controller.C1922m.m7991c()));
      */
     /* JADX WARNING: Code restructure failed: missing block: B:29:0x00b2, code lost:
         r0 = new java.lang.StringBuilder();

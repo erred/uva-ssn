@@ -50,7 +50,7 @@ public class BridgefyCore {
     private C1895af f5852f;
 
     /* renamed from: g */
-    private C1887a f5853g;
+    private broadcast_receiver f5853g;
 
     /* renamed from: h */
     private StateListener f5854h;
@@ -64,18 +64,18 @@ public class BridgefyCore {
         this.f5847a = this.f5849c.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
         this.f5848b = this.f5847a.edit();
         this.f5852f = new C1895af(context, config);
-        this.f5853g = new C1887a(context, config);
+        this.f5853g = new broadcast_receiver(context, config);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public SharedPreferences mo7361a() {
+    public SharedPreferences get_shared_preferences() {
         return this.f5847a;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public Editor mo7362b() {
+    public Editor get_editor() {
         return this.f5848b;
     }
 
@@ -106,10 +106,10 @@ public class BridgefyCore {
     /* access modifiers changed from: private */
     /* renamed from: f */
     public /* synthetic */ void m7706f() throws Exception {
-        if (mo7365d() != null) {
+        if (get_state_listener() != null) {
             Log.w("BridgefyCore", "setting null bridgefy core: ");
             Bridgefy.getInstance().setBridgefyCore(null);
-            mo7365d().onStopped();
+            get_state_listener().onStopped();
         }
     }
 
@@ -150,23 +150,23 @@ public class BridgefyCore {
     }
 
     public void sendDirectMessage(Message message, Device device) {
-        this.f5852f.mo7445a(this.f5849c, message, device);
+        this.f5852f.send_direct_message(this.f5849c, message, device);
     }
 
     public void sendMessage(Message message, String str, BFEngineProfile bFEngineProfile) {
-        this.f5852f.mo7446a(this.f5849c, message, DeviceManager.m7712a(str), bFEngineProfile);
+        this.f5852f.send_message(this.f5849c, message, DeviceManager.m7712a(str), bFEngineProfile);
     }
 
     public void sendBroadcastMessage(Message message, BFEngineProfile bFEngineProfile) {
         if (bFEngineProfile == null) {
             bFEngineProfile = BFEngineProfile.BFConfigProfileDefault;
         }
-        this.f5852f.mo7447a(message, bFEngineProfile);
+        this.f5852f.send_broadcast(message, bFEngineProfile);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: c */
-    public MessageListener mo7363c() {
+    public MessageListener get_message_listener() {
         return this.f5851e;
     }
 
@@ -184,7 +184,7 @@ public class BridgefyCore {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: d */
-    public StateListener mo7365d() {
+    public StateListener get_state_listener() {
         return this.f5854h;
     }
 

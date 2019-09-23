@@ -58,7 +58,7 @@ public class Analytics {
         @Expose
         int type = 0;
 
-        AnalyticsMessageHolder() {
+        // AnalyticsMessageHolder() {
         }
 
         /* access modifiers changed from: 0000 */
@@ -122,7 +122,7 @@ public class Analytics {
         public boolean onStartJob(final JobParameters jobParameters) {
             new Thread() {
                 public void run() {
-                    AnalyticsMessageHolder a = Analytics.m7699e();
+                    // AnalyticsMessageHolder a = Analytics.m7699e();
                     if (a != null) {
                         String timestamp = a.getTimestamp();
                         if (a.getInfo().size() > 0) {
@@ -147,9 +147,9 @@ public class Analytics {
                                     sb3.append("... ");
                                     sb3.append(f);
                                     Log.v("NetworkJobService", sb3.toString());
-                                    Analytics.m7700f();
+                                    // Analytics.m7700f();
                                     a.setInfo(new HashMap());
-                                    Analytics.f5838a = 0;
+                                    // Analytics.f5838a = 0;
                                 } else {
                                     StringBuilder sb4 = new StringBuilder();
                                     sb4.append("Bgfy Analytics reporting failed with code: ");
@@ -159,7 +159,7 @@ public class Analytics {
                                     Log.w("NetworkJobService", sb4.toString());
                                     a.setTimestamp(timestamp);
                                     if (post.mo6481c() != 401 || Analytics.f5838a >= 3) {
-                                        Analytics.f5838a = 0;
+                                        // Analytics.f5838a = 0;
                                     } else {
                                         Log.w("NetworkJobService", "... request failed because of a problem with the token. Will try to recover by registering again.");
                                         Registration.requestToken(NetworkJobService.this.getApplicationContext(), sharedPreferences.getString(BridgefyCore.PREFS_USER_UUID, null)).mo564b(C0331a.m925b()).mo562a(C0153a.m534a()).mo563a((C0355t<? super T>) new C0355t<String>() {
@@ -186,13 +186,13 @@ public class Analytics {
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 a.setTimestamp(timestamp);
-                                Analytics.f5838a = 0;
+                                // Analytics.f5838a = 0;
                             } catch (Throwable th) {
-                                Analytics.m7695b(a);
+                                // Analytics.m7695b(a);
                                 sharedPreferences.edit().putString("com.bridgefy.sdk.client.analytics.messages", a.toString()).apply();
                                 throw th;
                             }
-                            Analytics.m7695b(a);
+                            // Analytics.m7695b(a);
                             sharedPreferences.edit().putString("com.bridgefy.sdk.client.analytics.messages", a.toString()).apply();
                             return;
                         }

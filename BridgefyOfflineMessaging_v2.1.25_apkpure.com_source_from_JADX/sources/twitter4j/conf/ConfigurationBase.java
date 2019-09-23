@@ -181,7 +181,7 @@ class ConfigurationBase implements Serializable, Configuration {
 
     public void dumpConfiguration() {
         Field[] declaredFields;
-        Logger logger = Logger.getLogger(ConfigurationBase.class);
+        // Logger logger = Logger.getLogger(ConfigurationBase.class);
         if (this.debug) {
             for (Field field : ConfigurationBase.class.getDeclaredFields()) {
                 try {

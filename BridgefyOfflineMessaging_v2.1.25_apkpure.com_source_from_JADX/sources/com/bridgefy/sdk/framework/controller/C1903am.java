@@ -215,7 +215,7 @@ class C1903am {
         int et = alVar.mo7469e().getEt();
         if (et == 1) {
             for (Message message : m7870f(alVar)) {
-                if (Bridgefy.getInstance().getBridgefyCore().mo7363c() != null) {
+                if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         public final void run() {
                             C1903am.m7856a(Message.this);
@@ -234,8 +234,8 @@ class C1903am {
     /* access modifiers changed from: private */
     /* renamed from: a */
     public static /* synthetic */ void m7856a(Message message) {
-        Bridgefy.getInstance().getBridgefyCore().mo7363c().onMessageSent(message.getUuid());
-        Bridgefy.getInstance().getBridgefyCore().mo7363c().onMessageSent(message);
+        Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageSent(message.getUuid());
+        Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageSent(message);
     }
 
     /* access modifiers changed from: private */
@@ -244,8 +244,8 @@ class C1903am {
         int et = alVar.mo7469e().getEt();
         if (et == 1) {
             for (Message message : m7870f(alVar)) {
-                if (Bridgefy.getInstance().getBridgefyCore().mo7363c() != null) {
-                    Bridgefy.getInstance().getBridgefyCore().mo7363c().onMessageFailed(message, new MessageException("Send Message Failed."));
+                if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
+                    Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageFailed(message, new MessageException("Send Message Failed."));
                 }
             }
         } else if (et == 3) {

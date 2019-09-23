@@ -27,7 +27,7 @@ public abstract class Java7Support {
         try {
             java7Support = (Java7Support) Class.forName("com.fasterxml.jackson.databind.ext.Java7SupportImpl").newInstance();
         } catch (Throwable unused) {
-            Logger.getLogger(Java7Support.class.getName()).warning("Unable to load JDK7 types (annotations, java.nio.file.Path): no Java7 support added");
+            // Logger.getLogger(Java7Support.class.getName()).warning("Unable to load JDK7 types (annotations, java.nio.file.Path): no Java7 support added");
             java7Support = null;
         }
         IMPL = java7Support;

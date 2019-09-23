@@ -76,7 +76,7 @@ public interface AnalyticsConnector {
     void logEvent(String str, String str2, Bundle bundle);
 
     @KeepForSdk
-    AnalyticsConnectorHandle registerAnalyticsConnectorListener(String str, AnalyticsConnectorListener analyticsConnectorListener);
+    // AnalyticsConnectorHandle registerAnalyticsConnectorListener(String str, AnalyticsConnectorListener analyticsConnectorListener);
 
     @KeepForSdk
     void setConditionalUserProperty(ConditionalUserProperty conditionalUserProperty);

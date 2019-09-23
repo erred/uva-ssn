@@ -178,7 +178,7 @@ public class ShortNumberInfo {
                 case TOLL_FREE:
                     break;
                 default:
-                    Logger logger2 = logger;
+                    // Logger logger2 = logger;
                     Level level = Level.SEVERE;
                     String valueOf = String.valueOf(String.valueOf(expectedCostForRegion2));
                     StringBuilder sb = new StringBuilder(valueOf.length() + 30);

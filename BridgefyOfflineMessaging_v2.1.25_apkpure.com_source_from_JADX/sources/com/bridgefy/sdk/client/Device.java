@@ -32,6 +32,7 @@ public class Device implements Parcelable {
     private BluetoothDevice f5802c;
 
     /* renamed from: d */
+    // receiver ID
     private String f5803d;
 
     /* renamed from: e */

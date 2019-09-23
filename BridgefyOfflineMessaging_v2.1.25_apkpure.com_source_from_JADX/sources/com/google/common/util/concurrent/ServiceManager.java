@@ -140,7 +140,7 @@ public final class ServiceManager {
             ServiceManagerState serviceManagerState = (ServiceManagerState) this.state.get();
             if (serviceManagerState != null) {
                 if (!(this.service instanceof NoOpService)) {
-                    Logger access$200 = ServiceManager.logger;
+                    // Logger access$200 = ServiceManager.logger;
                     Level level = Level.SEVERE;
                     StringBuilder sb = new StringBuilder();
                     sb.append("Service ");
@@ -444,7 +444,7 @@ public final class ServiceManager {
             try {
                 service2.startAsync();
             } catch (IllegalStateException e) {
-                Logger logger2 = logger;
+                // Logger logger2 = logger;
                 Level level = Level.WARNING;
                 StringBuilder sb = new StringBuilder();
                 sb.append("Unable to start Service ");

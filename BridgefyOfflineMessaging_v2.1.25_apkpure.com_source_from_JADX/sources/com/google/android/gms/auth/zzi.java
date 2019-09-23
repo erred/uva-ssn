@@ -25,7 +25,7 @@ final class zzi implements zzj<Boolean> {
             return Boolean.valueOf(true);
         }
         if (zzay.zza(zzc)) {
-            Logger zza = zzd.zzn;
+            // Logger zza = zzd.zzn;
             String valueOf = String.valueOf(zzc);
             StringBuilder sb = new StringBuilder(String.valueOf(valueOf).length() + 31);
             sb.append("isUserRecoverableError status: ");

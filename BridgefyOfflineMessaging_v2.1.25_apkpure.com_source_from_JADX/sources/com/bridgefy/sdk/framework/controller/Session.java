@@ -263,7 +263,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
             this.f5861f = null;
         }
         mo7379a(false);
-        Logger.log(LogFactory.build((com.bridgefy.sdk.client.Session) this, CommunicationErrorEvent.BFCommunicationErrorTypePeerDisconnected, new ConnectionException("Session was interrupted.")));
+        // Logger.log(LogFactory.build((com.bridgefy.sdk.client.Session) this, CommunicationErrorEvent.BFCommunicationErrorTypePeerDisconnected, new ConnectionException("Session was interrupted.")));
         Device device = getDevice();
         if (device != null) {
             device.setSessionId(null);
@@ -353,14 +353,14 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                                 mo7497b(a);
                             }
                         }
-                        Logger.log(LogFactory.build(getDevice(), bleHandshake, CommunicationEvent.BFCommunicationTypeReceivedHandshakePacket));
+                        // Logger.log(LogFactory.build(getDevice(), bleHandshake, CommunicationEvent.BFCommunicationTypeReceivedHandshakePacket));
                         break;
                     }
                     break;
                 case 1:
                     mo7497b(bleHandshake.getRp().getKey());
                     saveKey(getUserId(), bleHandshake.getRp().getKey());
-                    Logger.log(LogFactory.build(getDevice(), bleHandshake, CommunicationEvent.BFCommunicationTypeHandshakeFinished));
+                    // Logger.log(LogFactory.build(getDevice(), bleHandshake, CommunicationEvent.BFCommunicationTypeHandshakeFinished));
                     break;
             }
         }
@@ -369,16 +369,16 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
 
     /* renamed from: p */
     private static SharedPreferences m7738p() {
-        return Bridgefy.getInstance().getBridgefyCore().mo7361a();
+        return Bridgefy.getInstance().getBridgefyCore().get_shared_preferences();
     }
 
     /* renamed from: q */
     private static Editor m7739q() {
-        return Bridgefy.getInstance().getBridgefyCore().mo7362b();
+        return Bridgefy.getInstance().getBridgefyCore().get_editor();
     }
 
     /* renamed from: j */
-    static HashMap<String, String> m7735j() {
+    static HashMap<String, String> get_key_pairs() {
         String string = m7738p().getString("com.bridgefy.sdk.key.pairs", null);
         if (string == null) {
             return new HashMap<>();
@@ -388,7 +388,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     }
 
     public static void saveKey(String str, String str2) {
-        HashMap j = m7735j();
+        HashMap j = get_key_pairs();
         j.put(str, str2);
         m7739q().putString("com.bridgefy.sdk.key.pairs", new Gson().toJson((Object) j)).commit();
     }
@@ -595,9 +595,9 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
         if (session.isClient()) {
             try {
                 BleEntity generateHandShake = BleEntity.generateHandShake();
-                Logger.log(LogFactory.build(session.getDevice(), (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
+                // Logger.log(LogFactory.build(session.getDevice(), (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
                 BridgefyCore.m7704a(session, generateHandShake);
-                Logger.log(LogFactory.build(session.getDevice(), (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
+                // Logger.log(LogFactory.build(session.getDevice(), (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
             } catch (MessageException | IOException e) {
                 e.printStackTrace();
             }

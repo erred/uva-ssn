@@ -92,7 +92,7 @@ public class EmailAuthCredential extends AuthCredential {
             }
             return zzbn(Uri.parse(str).getQueryParameter("link"));
         } catch (UnsupportedOperationException e) {
-            Logger logger = zzgg;
+            // Logger logger = zzgg;
             String str2 = "EmailAuthCredential";
             Object[] objArr = new Object[1];
             String str3 = "isSignInWithEmailLink returned an UnsupportedOperationException: ";

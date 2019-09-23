@@ -40,7 +40,7 @@ public abstract class zzah<T extends zzaj> {
     private final GoogleApi<T> zzbq(String str) {
         zzai zzcy = zzcy();
         if (zzcy.zzjs.zzbr(str)) {
-            Logger logger = zzgg;
+            // Logger logger = zzgg;
             String valueOf = String.valueOf(zzcy.zzjr);
             StringBuilder sb = new StringBuilder(String.valueOf(valueOf).length() + 43);
             sb.append("getGoogleApiForMethod() returned Fallback: ");
@@ -48,7 +48,7 @@ public abstract class zzah<T extends zzaj> {
             logger.mo13503w(sb.toString(), new Object[0]);
             return zzcy.zzjr;
         }
-        Logger logger2 = zzgg;
+        // Logger logger2 = zzgg;
         String valueOf2 = String.valueOf(zzcy.zzjq);
         StringBuilder sb2 = new StringBuilder(String.valueOf(valueOf2).length() + 38);
         sb2.append("getGoogleApiForMethod() returned Gms: ");

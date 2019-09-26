@@ -25,51 +25,51 @@ public class Bridgefy {
     public static final String VERSION = "1.0.6";
 
     /* renamed from: a */
-    static Bridgefy f5752a;
+    static Bridgefy bridgefy;
 
     /* renamed from: b */
-    private BridgefyClient f5753b;
+    private BridgefyClient bridgefy_client;
 
     /* renamed from: c */
-    private BridgefyCore f5754c;
+    private BridgefyCore bridgefy_core;
 
     /* renamed from: d */
-    private Context f5755d;
+    private Context context;
 
     /* renamed from: e */
-    private Config f5756e;
+    private Config config;
 
     /* renamed from: com.bridgefy.sdk.client.Bridgefy$a */
-    private static class C1870a {
+    private static class private_bridgefy {
 
         /* renamed from: a */
-        private final Context f5757a;
+        private final Context context;
 
         /* renamed from: b */
-        private final BridgefyClient f5758b;
+        private final BridgefyClient bridgefy_client;
 
-        C1870a(Context context, BridgefyClient bridgefyClient) {
+        private_bridgefy(Context context, BridgefyClient bridgefyClient) {
             boolean z = false;
             boolean z2 = context == null;
             if (bridgefyClient == null) {
                 z = true;
             }
             if (!z && !z2) {
-                this.f5757a = context.getApplicationContext();
-                this.f5758b = bridgefyClient;
+                this.context = context.getApplicationContext();
+                this.bridgefy_client = bridgefyClient;
                 return;
             }
             throw new IllegalArgumentException("Context or BridgefyClient must not be null.");
         }
 
         /* renamed from: a */
-        public Bridgefy mo7207a() {
-            return new Bridgefy(this.f5757a, this.f5758b);
+        public Bridgefy new_bridgefy() {
+            return new Bridgefy(this.context, this.bridgefy_client);
         }
     }
 
     /* renamed from: com.bridgefy.sdk.client.Bridgefy$b */
-    private static class C1871b implements C0355t<BridgefyCertificate> {
+    private static class registration_handler implements C0355t<BridgefyCertificate> {
 
         /* renamed from: a */
         String f5759a;
@@ -78,46 +78,46 @@ public class Bridgefy {
         String f5760b;
 
         /* renamed from: c */
-        RegistrationListener f5761c;
+        RegistrationListener registration_listener;
 
         /* renamed from: d */
-        Context f5762d;
+        Context context;
 
         /* renamed from: e */
-        BridgefyCertificate f5763e;
+        BridgefyCertificate bridgefy_certificate;
 
         public void onSubscribe(C0161b bVar) {
         }
 
-        C1871b(Context context, String str, String str2, RegistrationListener registrationListener, BridgefyCertificate bridgefyCertificate) {
-            this.f5762d = context;
+        registration_handler(Context context, String str, String str2, RegistrationListener registrationListener, BridgefyCertificate bridgefyCertificate) {
+            this.context = context;
             this.f5759a = str;
             this.f5760b = str2;
-            this.f5761c = registrationListener;
-            this.f5763e = bridgefyCertificate;
+            this.registration_listener = registrationListener;
+            this.bridgefy_certificate = bridgefyCertificate;
         }
 
         /* renamed from: a */
         public void onSuccess(BridgefyCertificate bridgefyCertificate) {
-            bridgefyCertificate.save(this.f5762d.getSharedPreferences(BridgefyCore.PREFS_NAME, 0));
+            bridgefyCertificate.save(this.context.getSharedPreferences(BridgefyCore.PREFS_NAME, 0));
             try {
-                BridgefyClient c = new C1873a(this.f5762d).mo7216a(this.f5759a).mo7218b(this.f5760b).mo7215a().mo7219c();
-                Bridgefy.m7653b(this.f5762d, c);
-                Bridgefy.m7654b(this.f5761c, c);
+                BridgefyClient c = new C1873a(this.context).mo7216a(this.f5759a).mo7218b(this.f5760b).mo7215a().mo7219c();
+                Bridgefy.m7653b(this.context, c);
+                Bridgefy.on_registration_success(this.registration_listener, c);
             } catch (Exception e) {
                 onError(e);
             }
         }
 
         public void onError(Throwable th) {
-            if (this.f5763e != null) {
-                Object buildConfigValue = Utils.getBuildConfigValue(this.f5762d, "APPLICATION_ID");
+            if (this.bridgefy_certificate != null) {
+                Object buildConfigValue = Utils.getBuildConfigValue(this.context, "APPLICATION_ID");
                 String trim = buildConfigValue != null ? buildConfigValue.toString().trim() : "";
-                if (this.f5763e.getBundleIds() == null || this.f5763e.getBundleIds().length <= 0) {
-                    Bridgefy.m7655b(this.f5761c, (Throwable) new BridgefyException(-3, th.getMessage()));
+                if (this.bridgefy_certificate.getBundleIds() == null || this.bridgefy_certificate.getBundleIds().length <= 0) {
+                    Bridgefy.on_registration_failed(this.registration_listener, (Throwable) new BridgefyException(-3, th.getMessage()));
                     return;
                 }
-                String[] bundleIds = this.f5763e.getBundleIds();
+                String[] bundleIds = this.bridgefy_certificate.getBundleIds();
                 int length = bundleIds.length;
                 boolean z = false;
                 int i = 0;
@@ -131,27 +131,27 @@ public class Bridgefy {
                         i++;
                     }
                 }
-                if (!z || !this.f5763e.isValid()) {
-                    Bridgefy.m7655b(this.f5761c, (Throwable) new BridgefyException(-3, th.getMessage()));
+                if (!z || !this.bridgefy_certificate.isValid()) {
+                    Bridgefy.on_registration_failed(this.registration_listener, (Throwable) new BridgefyException(-3, th.getMessage()));
                 } else {
-                    onSuccess(this.f5763e);
+                    onSuccess(this.bridgefy_certificate);
                 }
             } else {
-                Bridgefy.m7655b(this.f5761c, th);
+                Bridgefy.on_registration_failed(this.registration_listener, th);
             }
         }
     }
 
     public static Bridgefy getInstance() {
-        if (f5752a != null) {
-            return f5752a;
+        if (bridgefy != null) {
+            return bridgefy;
         }
         throw new IllegalStateException("Bridgefy must be initialized before trying to reference it.");
     }
 
     private Bridgefy(Context context, BridgefyClient bridgefyClient) {
-        this.f5755d = context;
-        this.f5753b = bridgefyClient;
+        this.context = context;
+        this.bridgefy_client = bridgefyClient;
     }
 
     public static void initialize(Context context, RegistrationListener registrationListener) {
@@ -172,16 +172,16 @@ public class Bridgefy {
             BridgefyCertificate loadCertificate2 = Registration.loadCertificate(sharedPreferences);
             if (loadCertificate2 == null || !loadCertificate2.isValid() || !m7652a(sharedPreferences)) {
                 Log.w("Bridgefy", "... Invalid certificate! Requesting new certificate.");
-                C1871b bVar = new C1871b(context, loadApiKey, string, registrationListener, loadCertificate);
+                registration_handler bVar = new registration_handler(context, loadApiKey, string, registrationListener, loadCertificate);
                 Registration.requestCertificate(context, string, bVar);
                 return;
             }
             m7653b(context, new C1873a(context).mo7216a(loadApiKey).mo7218b(string).mo7217b().mo7219c());
-            m7654b(registrationListener, f5752a.getBridgefyClient());
+            on_registration_success(registrationListener, bridgefy.getBridgefyClient());
             return;
         }
         String uuid2 = uuid == null ? UUID.randomUUID().toString() : uuid.toString();
-        C1871b bVar2 = new C1871b(context, loadApiKey, uuid2, registrationListener, loadCertificate);
+        registration_handler bVar2 = new registration_handler(context, loadApiKey, uuid2, registrationListener, loadCertificate);
         Registration.requestCertificate(context, uuid2, bVar2);
     }
 
@@ -189,7 +189,7 @@ public class Bridgefy {
     /* renamed from: b */
     public static void m7653b(Context context, BridgefyClient bridgefyClient) {
         synchronized (Bridgefy.class) {
-            m7647a(new C1870a(context, bridgefyClient).mo7207a());
+            set_bridgefy(new private_bridgefy(context, bridgefyClient).new_bridgefy());
         }
     }
 
@@ -200,17 +200,17 @@ public class Bridgefy {
     public static void start(MessageListener messageListener, StateListener stateListener, Config config) {
         try {
             if (getInstance().getBridgefyCore() == null) {
-                BridgefyUtils.verify_has_bluetooth_le(getInstance().m7645a(), config);
-                getInstance().m7648a(config);
-                getInstance().setBridgefyCore(new BridgefyCore(getInstance().m7645a(), config));
+                BridgefyUtils.verify_has_bluetooth_le(getInstance().get_context(), config);
+                getInstance().set_config(config);
+                getInstance().setBridgefyCore(new BridgefyCore(getInstance().get_context(), config));
                 getInstance().getBridgefyCore().setMessageListener(messageListener);
                 getInstance().getBridgefyCore().setStateListener(stateListener);
                 getInstance().getBridgefyCore().initializeServices();
-                Reflection.privateMethod("initialize").ofClass(Analytics.class).withArgs(getInstance().m7645a()).argTypes(Context.class).execute();
+                Reflection.privateMethod("initialize").ofClass(Analytics.class).withArgs(getInstance().get_context()).argTypes(Context.class).execute();
                 if (stateListener != null) {
                     stateListener.onStarted();
                 }
-                getInstance().f5755d.getSharedPreferences(BridgefyCore.PREFS_NAME, 0).edit().putLong("com.bridgefy.sdk.last_use", System.currentTimeMillis()).apply();
+                getInstance().context.getSharedPreferences(BridgefyCore.PREFS_NAME, 0).edit().putLong("com.bridgefy.sdk.last_use", System.currentTimeMillis()).apply();
             }
         } catch (NullPointerException e) {
             if (stateListener != null) {
@@ -326,7 +326,7 @@ public class Bridgefy {
 
     /* access modifiers changed from: private */
     /* renamed from: b */
-    public static void m7654b(RegistrationListener registrationListener, BridgefyClient bridgefyClient) {
+    public static void on_registration_success(RegistrationListener registrationListener, BridgefyClient bridgefyClient) {
         new Handler(Looper.getMainLooper()).post(new Runnable(bridgefyClient) {
             private final /* synthetic */ BridgefyClient f$1;
 
@@ -342,7 +342,7 @@ public class Bridgefy {
 
     /* access modifiers changed from: private */
     /* renamed from: b */
-    public static void m7655b(RegistrationListener registrationListener, Throwable th) {
+    public static void on_registration_failed(RegistrationListener registrationListener, Throwable th) {
         com.bridgefy.sdk.logging.Log.m8075e("Bridgefy", "onRegistrationFailed: ", th);
         if (th instanceof BridgefyException) {
             new Handler(Looper.getMainLooper()).post(new Runnable(th) {
@@ -417,19 +417,19 @@ public class Bridgefy {
     }
 
     public Config getConfig() {
-        return this.f5756e;
+        return this.config;
     }
 
     public BridgefyClient getBridgefyClient() {
-        return this.f5753b;
+        return this.bridgefy_client;
     }
 
     public BridgefyCore getBridgefyCore() {
-        return this.f5754c;
+        return this.bridgefy_core;
     }
 
     public void setBridgefyCore(BridgefyCore bridgefyCore) {
-        this.f5754c = bridgefyCore;
+        this.bridgefy_core = bridgefyCore;
     }
 
     public static boolean setEnergyProfile(BFEnergyProfile bFEnergyProfile) {
@@ -444,18 +444,18 @@ public class Bridgefy {
     }
 
     /* renamed from: a */
-    private static void m7647a(Bridgefy bridgefy) {
-        f5752a = bridgefy;
+    private static void set_bridgefy(Bridgefy bridgefy) {
+        bridgefy = bridgefy;
     }
 
     /* renamed from: a */
-    private Context m7645a() {
-        return this.f5755d;
+    private Context get_context() {
+        return this.context;
     }
 
     /* renamed from: a */
-    private void m7648a(Config config) {
-        this.f5756e = config;
+    private void set_config(Config config) {
+        this.config = config;
     }
 
     /* renamed from: a */

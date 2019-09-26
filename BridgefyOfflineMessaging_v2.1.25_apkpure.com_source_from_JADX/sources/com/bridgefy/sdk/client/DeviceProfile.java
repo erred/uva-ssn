@@ -8,16 +8,16 @@ import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
 public class DeviceProfile {
 
     /* renamed from: a */
-    private String f5807a;
+    private String device_evaluation;
 
     /* renamed from: b */
-    private int f5808b;
+    private int rating;
 
     /* renamed from: c */
-    private C1877a f5809c;
+    private device_characteristics device_characteristics_profile;
 
     /* renamed from: com.bridgefy.sdk.client.DeviceProfile$a */
-    enum C1877a {
+    enum device_characteristics {
         DeviceSupportsBluetoothClassic,
         DeviceSupportsBluetoothLeCentral,
         DeviceSupportsBluetoothLePeripheral,
@@ -98,102 +98,102 @@ public class DeviceProfile {
 
     DeviceProfile(Context context) {
         m7676a(context);
-        m7678c(context);
+        get_device_characteristics(context);
     }
 
     /* renamed from: a */
     private void m7676a(Context context) {
-        this.f5808b = VERSION.SDK_INT - 21;
+        this.rating = VERSION.SDK_INT - 21;
         StringBuilder sb = new StringBuilder();
         sb.append(m7675a());
         sb.append(" Android SDK version ");
         sb.append(VERSION.SDK_INT);
         sb.append(" +");
-        sb.append(this.f5808b);
+        sb.append(this.rating);
         sb.append("\n");
-        this.f5807a = sb.toString();
+        this.device_evaluation = sb.toString();
         if (BridgefyUtils.getBluetoothAdapter(context).getBluetoothLeAdvertiser() != null) {
-            this.f5808b++;
+            this.rating++;
             StringBuilder sb2 = new StringBuilder();
-            sb2.append(this.f5807a);
+            sb2.append(this.device_evaluation);
             sb2.append(" Device can act as a client and a server +1\n");
-            this.f5807a = sb2.toString();
+            this.device_evaluation = sb2.toString();
         } else {
             StringBuilder sb3 = new StringBuilder();
-            sb3.append(this.f5807a);
+            sb3.append(this.device_evaluation);
             sb3.append(" Device can only act as a client \n");
-            this.f5807a = sb3.toString();
+            this.device_evaluation = sb3.toString();
         }
         if (BridgefyUtils.getBluetoothAdapter(context).isOffloadedFilteringSupported()) {
-            this.f5808b++;
+            this.rating++;
             StringBuilder sb4 = new StringBuilder();
-            sb4.append(this.f5807a);
+            sb4.append(this.device_evaluation);
             sb4.append(" Device can filter unwanted interference +1\n");
-            this.f5807a = sb4.toString();
+            this.device_evaluation = sb4.toString();
         } else {
             StringBuilder sb5 = new StringBuilder();
-            sb5.append(this.f5807a);
+            sb5.append(this.device_evaluation);
             sb5.append(" Device may experience interference from external sources \n");
-            this.f5807a = sb5.toString();
+            this.device_evaluation = sb5.toString();
         }
         if (BridgefyUtils.getBluetoothAdapter(context).isOffloadedScanBatchingSupported()) {
-            this.f5808b++;
+            this.rating++;
             StringBuilder sb6 = new StringBuilder();
-            sb6.append(this.f5807a);
+            sb6.append(this.device_evaluation);
             sb6.append(" Device can batch scan results +1\n");
-            this.f5807a = sb6.toString();
+            this.device_evaluation = sb6.toString();
         } else {
             StringBuilder sb7 = new StringBuilder();
-            sb7.append(this.f5807a);
+            sb7.append(this.device_evaluation);
             sb7.append(" Device cannot batch scan results \n");
-            this.f5807a = sb7.toString();
+            this.device_evaluation = sb7.toString();
         }
         if (VERSION.SDK_INT >= 26) {
             if (isLeExtendedRangeSupported(context)) {
-                this.f5808b++;
+                this.rating++;
                 StringBuilder sb8 = new StringBuilder();
-                sb8.append(this.f5807a);
+                sb8.append(this.device_evaluation);
                 sb8.append(" Device supports Bluetooth 5 LE Coded PHY features +1 \n");
-                this.f5807a = sb8.toString();
+                this.device_evaluation = sb8.toString();
             }
             if (isLeDoubleRateSupported(context)) {
-                this.f5808b++;
+                this.rating++;
                 StringBuilder sb9 = new StringBuilder();
-                sb9.append(this.f5807a);
+                sb9.append(this.device_evaluation);
                 sb9.append(" Device supports Bluetooth 5 LE 2M PHY features +1 \n");
-                this.f5807a = sb9.toString();
+                this.device_evaluation = sb9.toString();
             }
             if (isLeExtendedAdvertisingSupported(context)) {
-                this.f5808b++;
+                this.rating++;
                 StringBuilder sb10 = new StringBuilder();
-                sb10.append(this.f5807a);
+                sb10.append(this.device_evaluation);
                 sb10.append(" Device supports Bluetooth 5 Extended Advertising +1 \n");
-                this.f5807a = sb10.toString();
+                this.device_evaluation = sb10.toString();
             }
-            if (m7677b(context)) {
-                this.f5808b++;
+            if (is_le_periodic_advertising_supported(context)) {
+                this.rating++;
                 StringBuilder sb11 = new StringBuilder();
-                sb11.append(this.f5807a);
+                sb11.append(this.device_evaluation);
                 sb11.append(" Device supports Bluetooth 5 Periodic Advertising +1 \n");
-                this.f5807a = sb11.toString();
+                this.device_evaluation = sb11.toString();
             }
         }
         if (deviceCanStopScan()) {
-            this.f5808b++;
+            this.rating++;
             StringBuilder sb12 = new StringBuilder();
-            sb12.append(this.f5807a);
+            sb12.append(this.device_evaluation);
             sb12.append(" Device can reset ongoing scans without side effects +1\n");
-            this.f5807a = sb12.toString();
+            this.device_evaluation = sb12.toString();
             return;
         }
         StringBuilder sb13 = new StringBuilder();
-        sb13.append(this.f5807a);
+        sb13.append(this.device_evaluation);
         sb13.append(" Device may not be able to reset ongoing scans\n");
-        this.f5807a = sb13.toString();
+        this.device_evaluation = sb13.toString();
     }
 
     /* renamed from: b */
-    private static boolean m7677b(Context context) {
+    private static boolean is_le_periodic_advertising_supported(Context context) {
         return VERSION.SDK_INT >= 26 && BridgefyUtils.getBluetoothAdapter(context).isLePeriodicAdvertisingSupported();
     }
 
@@ -210,15 +210,15 @@ public class DeviceProfile {
     }
 
     /* renamed from: c */
-    private void m7678c(Context context) {
+    private void get_device_characteristics(Context context) {
         if (!context.getPackageManager().hasSystemFeature("android.hardware.bluetooth_le")) {
-            this.f5809c = C1877a.DeviceSupportsBluetoothClassic;
+            this.device_characteristics_profile = device_characteristics.DeviceSupportsBluetoothClassic;
         } else if (!isAdvertisingSupported(context)) {
-            this.f5809c = C1877a.DeviceSupportsBluetoothLeCentral;
+            this.device_characteristics_profile = device_characteristics.DeviceSupportsBluetoothLeCentral;
         } else if (VERSION.SDK_INT >= 23) {
-            this.f5809c = C1877a.DeviceSupportsAllCharacteristics;
+            this.device_characteristics_profile = device_characteristics.DeviceSupportsAllCharacteristics;
         } else {
-            this.f5809c = C1877a.DeviceSupportsBluetoothLePeripheral;
+            this.device_characteristics_profile = device_characteristics.DeviceSupportsBluetoothLePeripheral;
         }
     }
 
@@ -244,14 +244,14 @@ public class DeviceProfile {
     }
 
     public String getDeviceEvaluation() {
-        return this.f5807a;
+        return this.device_evaluation;
     }
 
     public int getRating() {
-        return this.f5808b;
+        return this.rating;
     }
 
-    public C1877a getDeviceCharacteristicsProfile() {
-        return this.f5809c;
+    public device_characteristics getDeviceCharacteristicsProfile() {
+        return this.device_characteristics_profile;
     }
 }

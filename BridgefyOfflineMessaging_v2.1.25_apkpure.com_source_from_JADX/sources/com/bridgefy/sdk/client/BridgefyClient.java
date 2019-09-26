@@ -10,22 +10,22 @@ import java.util.HashMap;
 public class BridgefyClient {
 
     /* renamed from: a */
-    private String f5764a;
+    private String user_uuid;
 
     /* renamed from: b */
-    private String f5765b;
+    private String bundle_id;
 
     /* renamed from: c */
-    private String f5766c;
+    private String api_key;
 
     /* renamed from: d */
-    private String f5767d;
+    private String public_key;
 
     /* renamed from: e */
-    private String f5768e;
+    private String secret_key;
 
     /* renamed from: f */
-    private DeviceProfile f5769f;
+    private DeviceProfile device_profile;
 
     /* renamed from: com.bridgefy.sdk.client.BridgefyClient$a */
     static class C1873a {
@@ -46,10 +46,10 @@ public class BridgefyClient {
         private String f5774e;
 
         /* renamed from: f */
-        private String f5775f;
+        private String public_key;
 
         /* renamed from: g */
-        private String f5776g;
+        private String private_key;
 
         /* renamed from: h */
         private DeviceProfile f5777h;
@@ -84,19 +84,19 @@ public class BridgefyClient {
         /* renamed from: a */
         public C1873a mo7215a() throws Exception {
             HashMap a = CryptoRSA.m7670a();
-            this.f5775f = (String) a.get("tirmo");
-            this.f5776g = (String) a.get("satya");
+            this.public_key = (String) a.get("tirmo");
+            this.private_key = (String) a.get("satya");
             Log.d("BridgefyClient", "... generated new pair of keys");
-            this.f5771b.putString("com.bridgefy.sdk.key.public", this.f5775f);
-            this.f5771b.putString("com.bridgefy.sdk.key.secret", this.f5776g);
+            this.f5771b.putString("com.bridgefy.sdk.key.public", this.public_key);
+            this.f5771b.putString("com.bridgefy.sdk.key.secret", this.private_key);
             return this;
         }
 
         /* access modifiers changed from: 0000 */
         /* renamed from: b */
         public C1873a mo7217b() {
-            this.f5775f = this.f5770a.getString("com.bridgefy.sdk.key.public", null);
-            this.f5776g = this.f5770a.getString("com.bridgefy.sdk.key.secret", null);
+            this.public_key = this.f5770a.getString("com.bridgefy.sdk.key.public", null);
+            this.private_key = this.f5770a.getString("com.bridgefy.sdk.key.secret", null);
             return this;
         }
 
@@ -105,41 +105,41 @@ public class BridgefyClient {
         public BridgefyClient mo7219c() {
             this.f5771b.putString(BridgefyCore.PREFS_USER_UUID, this.f5773d);
             this.f5771b.apply();
-            BridgefyClient bridgefyClient = new BridgefyClient(this.f5773d, this.f5774e, this.f5772c, this.f5775f, this.f5776g, this.f5777h);
+            BridgefyClient bridgefyClient = new BridgefyClient(this.f5773d, this.f5774e, this.f5772c, this.public_key, this.private_key, this.f5777h);
             return bridgefyClient;
         }
     }
 
     private BridgefyClient(String str, String str2, String str3, String str4, String str5, DeviceProfile deviceProfile) {
-        this.f5764a = str;
-        this.f5765b = str2;
-        this.f5766c = str3;
-        this.f5767d = str4;
-        this.f5768e = str5;
-        this.f5769f = deviceProfile;
+        this.user_uuid = str;
+        this.bundle_id = str2;
+        this.api_key = str3;
+        this.public_key = str4;
+        this.secret_key = str5;
+        this.device_profile = deviceProfile;
     }
 
     public String getUserUuid() {
-        return this.f5764a;
+        return this.user_uuid;
     }
 
     public String getBundleId() {
-        return this.f5765b;
+        return this.bundle_id;
     }
 
     public String getApiKey() {
-        return this.f5766c;
+        return this.api_key;
     }
 
     public String getPublicKey() {
-        return this.f5767d;
+        return this.public_key;
     }
 
     public String getSecretKey() {
-        return this.f5768e;
+        return this.secret_key;
     }
 
     public DeviceProfile getDeviceProfile() {
-        return this.f5769f;
+        return this.device_profile;
     }
 }

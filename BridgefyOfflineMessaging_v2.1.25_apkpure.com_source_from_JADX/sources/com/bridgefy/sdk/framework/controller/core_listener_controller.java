@@ -32,27 +32,27 @@ import java.util.HashMap;
 import java.util.List;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.af */
-class C1895af {
+class core_listener_controller {
 
     /* renamed from: b */
     private static boolean f5894b = false;
 
     /* renamed from: a */
-    public final String f5895a = getClass().getSimpleName();
+    public final String simple_name = getClass().getSimpleName();
 
     /* renamed from: c */
     private Config config;
 
     /* renamed from: d */
-    private C1894ae f5897d;
+    private message_listener_controller f5897d;
 
     /* renamed from: e */
-    private forward_controller f5898e;
+    private forward_controller forward_controller;
 
-    C1895af(Context context, Config config) {
+    core_listener_controller(Context context, Config config) {
         this.config = (Config) C1897ah.m7831a(config, "Missing Config.");
-        this.f5897d = new C1894ae(config);
-        this.f5898e = new forward_controller();
+        this.f5897d = new message_listener_controller(config);
+        this.forward_controller = new forward_controller();
         this.f5897d.set_context(context);
     }
 
@@ -78,7 +78,7 @@ class C1895af {
             }
 
             public final void run() {
-                C1895af.this.m7815b(this.f$1, this.f$2);
+                core_listener_controller.this.m7815b(this.f$1, this.f$2);
             }
         }.run();
     }
@@ -89,7 +89,7 @@ class C1895af {
         if (session != null) {
             ArrayList arrayList = new ArrayList();
             arrayList.add(session);
-            this.f5898e.mo7562a(arrayList, z);
+            this.forward_controller.mo7562a(arrayList, z);
         }
     }
 
@@ -108,7 +108,7 @@ class C1895af {
                         // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedToForward));
                         ForwardPacket a2 = m7809a(forwardPacket, a);
                         if (a2 == null || a2.getHops() <= 0 || Bridgefy.getInstance().getBridgefyClient().getUserUuid().equalsIgnoreCase(a2.getSender())) {
-                            String str = this.f5895a;
+                            String str = this.simple_name;
                             StringBuilder sb = new StringBuilder();
                             sb.append("onMeshMessageIncomingAction:  hops: ");
                             sb.append(forwardPacket.getHops());
@@ -134,13 +134,13 @@ class C1895af {
                         } else {
                             this.f5897d.mo7442a(forwardPacket.getSender(), new MessageException("Unable to decrypt message."));
                         }
-                        this.f5898e.send_mesh_reach(forwardPacket);
+                        this.forward_controller.send_mesh_reach(forwardPacket);
                     }
                 } else if (forwardPacket.getReceiver_type() == 1) {
                     // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedBroadcast));
                     // Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastReceived);
                     Message b2 = m7811b(forwardPacket);
-                    if (!this.f5898e.mo7563a(forwardPacket) && forwardPacket.getHops() >= 0 && !b2.getSenderId().trim().equalsIgnoreCase(Bridgefy.getInstance().getBridgefyClient().getUserUuid())) {
+                    if (!this.forward_controller.mo7563a(forwardPacket) && forwardPacket.getHops() >= 0 && !b2.getSenderId().trim().equalsIgnoreCase(Bridgefy.getInstance().getBridgefyClient().getUserUuid())) {
                         new Bundle().putParcelable("parcelable.forwardPacket", forwardPacket);
                         mo7451a(forwardPacket);
                         if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
@@ -154,7 +154,7 @@ class C1895af {
                 }
             }
             if (!arrayList.isEmpty()) {
-                this.f5898e.mo7561a(arrayList, session);
+                this.forward_controller.mo7561a(arrayList, session);
             }
         }
     }
@@ -162,9 +162,9 @@ class C1895af {
     /* access modifiers changed from: protected */
     /* renamed from: a */
     public void mo7451a(ForwardPacket forwardPacket) {
-        if (!this.f5898e.mo7563a(forwardPacket)) {
+        if (!this.forward_controller.mo7563a(forwardPacket)) {
             forwardPacket.setAdded(new Date(System.currentTimeMillis()));
-            this.f5898e.mo7560a(forwardPacket, true);
+            this.forward_controller.mo7560a(forwardPacket, true);
         }
     }
 
@@ -201,14 +201,14 @@ class C1895af {
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
     public void mo7452a(String str) {
-        this.f5898e.mo7565b(str);
+        this.forward_controller.mo7565b(str);
     }
 
     /* renamed from: c */
     private void m7816c(ForwardPacket forwardPacket) {
         // Logger.log(LogFactory.build(forwardPacket));
         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshSent);
-        this.f5898e.mo7560a(forwardPacket, true);
+        this.forward_controller.mo7560a(forwardPacket, true);
     }
 
     /* access modifiers changed from: 0000 */
@@ -260,7 +260,7 @@ class C1895af {
         }
         if (session != null) {
             try {
-                BridgefyCore.m7704a(session, BleEntity.message(message));
+                BridgefyCore.send_entity(session, BleEntity.message(message));
                 // Logger.log(LogFactory.build(message, (Session) session, MessageEvent.BFMessageTypeDirectMessageSent));
                 // Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectSent);
             } catch (IOException e) {
@@ -280,7 +280,7 @@ class C1895af {
 
     /* renamed from: b */
     private void send_broadcast_2(Message message, BFEngineProfile bFEngineProfile) {
-        this.f5898e.mo7560a(new ForwardPacket(message, 1, bFEngineProfile), true);
+        this.forward_controller.mo7560a(new ForwardPacket(message, 1, bFEngineProfile), true);
         // Logger.log(LogFactory.build(message));
         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastSent);
     }

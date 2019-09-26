@@ -32,25 +32,25 @@ public class BridgefyCore {
     public static final String PREFS_USER_UUID = "com.bridgefy.sdk.uuid";
 
     /* renamed from: a */
-    private SharedPreferences f5847a;
+    private SharedPreferences shared_preferences;
 
     /* renamed from: b */
-    private Editor f5848b;
+    private Editor editor;
 
     /* renamed from: c */
-    private Context f5849c;
+    private Context context;
 
     /* renamed from: d */
-    private Config f5850d;
+    private Config config;
 
     /* renamed from: e */
-    private MessageListener f5851e;
+    private MessageListener message_listener;
 
     /* renamed from: f */
-    private C1895af f5852f;
+    private core_listener_controller core_listener_controller;
 
     /* renamed from: g */
-    private broadcast_receiver f5853g;
+    private broadcast_receiver broadcast_receiver;
 
     /* renamed from: h */
     private StateListener state_listener;
@@ -59,42 +59,42 @@ public class BridgefyCore {
     private C0159b f5855i = C0159b.m542a((C0184e) $$Lambda$BridgefyCore$XQDii8meLrMOm8WBhkh5XNaOGk.INSTANCE);
 
     public BridgefyCore(Context context, Config config) throws BridgefyException {
-        this.f5849c = (Context) C1897ah.m7831a(context, "missing Context.");
-        this.f5850d = (Config) C1897ah.m7831a(config, "missing Config.");
-        this.f5847a = this.f5849c.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-        this.f5848b = this.f5847a.edit();
-        this.f5852f = new C1895af(context, config);
-        this.f5853g = new broadcast_receiver(context, config);
+        this.context = (Context) C1897ah.m7831a(context, "missing Context.");
+        this.config = (Config) C1897ah.m7831a(config, "missing Config.");
+        this.shared_preferences = this.context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+        this.editor = this.shared_preferences.edit();
+        this.core_listener_controller = new core_listener_controller(context, config);
+        this.broadcast_receiver = new broadcast_receiver(context, config);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
     public SharedPreferences get_shared_preferences() {
-        return this.f5847a;
+        return this.shared_preferences;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
     public Editor get_editor() {
-        return this.f5848b;
+        return this.editor;
     }
 
     /* renamed from: a */
-    static void m7704a(Session session, BleEntity bleEntity) throws IOException, MessageException {
+    static void send_entity(Session session, BleEntity bleEntity) throws IOException, MessageException {
         transaction_manager.send_entity(session, bleEntity);
     }
 
     public void initializeServices() {
-        this.f5853g.mo7400a(this.f5849c);
-        this.f5853g.mo7401a(this.f5850d.getAntennaType());
-        this.f5853g.mo7405d(this.f5850d.getAntennaType());
+        this.broadcast_receiver.mo7400a(this.context);
+        this.broadcast_receiver.mo7401a(this.config.getAntennaType());
+        this.broadcast_receiver.mo7405d(this.config.getAntennaType());
     }
 
     public void shutdownServices() {
-        this.f5853g.mo7402b(this.f5849c);
-        this.f5853g.mo7404c(this.f5850d.getAntennaType());
-        this.f5853g.mo7406e(this.f5850d.getAntennaType());
-        this.f5853g.mo7403b(this.f5850d.getAntennaType());
+        this.broadcast_receiver.mo7402b(this.context);
+        this.broadcast_receiver.mo7404c(this.config.getAntennaType());
+        this.broadcast_receiver.mo7406e(this.config.getAntennaType());
+        this.broadcast_receiver.mo7403b(this.config.getAntennaType());
         connection_manager.m8011b();
         this.f5855i.mo341a((C0181e<? super C0330h<Throwable>, ? extends C3682b<?>>) new C1898ai<Object,Object>(3, 500)).mo342a(C0153a.m534a()).mo347b(C0331a.m925b()).mo340a((C0177a) new C0177a() {
             public final void run() {
@@ -136,8 +136,8 @@ public class BridgefyCore {
 
     public boolean pauseServices() {
         if (SessionManager.sessions.isEmpty()) {
-            this.f5853g.mo7406e(this.f5850d.getAntennaType());
-            this.f5853g.mo7407f(this.f5850d.getAntennaType());
+            this.broadcast_receiver.mo7406e(this.config.getAntennaType());
+            this.broadcast_receiver.mo7407f(this.config.getAntennaType());
             return true;
         }
         Log.e("BridgefyCore", "pauseServices: Cannot go to paused state with active connections");
@@ -145,37 +145,37 @@ public class BridgefyCore {
     }
 
     public void resumeServices() {
-        this.f5853g.mo7405d(this.f5850d.getAntennaType());
-        this.f5853g.mo7408g(this.f5850d.getAntennaType());
+        this.broadcast_receiver.mo7405d(this.config.getAntennaType());
+        this.broadcast_receiver.mo7408g(this.config.getAntennaType());
     }
 
     public void sendDirectMessage(Message message, Device device) {
-        this.f5852f.send_direct_message(this.f5849c, message, device);
+        this.core_listener_controller.send_direct_message(this.context, message, device);
     }
 
     public void sendMessage(Message message, String str, BFEngineProfile bFEngineProfile) {
-        this.f5852f.send_message(this.f5849c, message, DeviceManager.m7712a(str), bFEngineProfile);
+        this.core_listener_controller.send_message(this.context, message, DeviceManager.m7712a(str), bFEngineProfile);
     }
 
     public void sendBroadcastMessage(Message message, BFEngineProfile bFEngineProfile) {
         if (bFEngineProfile == null) {
             bFEngineProfile = BFEngineProfile.BFConfigProfileDefault;
         }
-        this.f5852f.send_broadcast(message, bFEngineProfile);
+        this.core_listener_controller.send_broadcast(message, bFEngineProfile);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: c */
     public MessageListener get_message_listener() {
-        return this.f5851e;
+        return this.message_listener;
     }
 
     public void setMessageListener(MessageListener messageListener) {
-        this.f5851e = messageListener;
+        this.message_listener = messageListener;
     }
 
     public Context getContext() {
-        return this.f5849c;
+        return this.context;
     }
 
     public void setStateListener(StateListener stateListener) {
@@ -190,11 +190,11 @@ public class BridgefyCore {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: e */
-    public C1895af mo7366e() {
-        return this.f5852f;
+    public core_listener_controller mo7366e() {
+        return this.core_listener_controller;
     }
 
     public void changeEnergyProfile(Antenna antenna) {
-        this.f5853g.mo7409h(antenna);
+        this.broadcast_receiver.mo7409h(antenna);
     }
 }

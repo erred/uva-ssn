@@ -112,11 +112,11 @@ public class CryptoRSA {
     }
 
     public static byte[] bytesFromBase64(String str) {
-        return Base64.decode(m7669a(str), 0);
+        return Base64.decode(clean_base64(str), 0);
     }
 
     /* renamed from: a */
-    private static String m7669a(String str) {
+    private static String clean_base64(String str) {
         return str.replaceAll("[^a-zA-Z0-9+/=]", "").split("==")[0];
     }
 

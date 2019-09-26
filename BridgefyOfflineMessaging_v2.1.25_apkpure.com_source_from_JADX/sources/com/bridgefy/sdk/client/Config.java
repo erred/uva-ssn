@@ -3,22 +3,22 @@ package com.bridgefy.sdk.client;
 public class Config {
 
     /* renamed from: a */
-    private boolean f5786a;
+    private boolean is_encryption;
 
     /* renamed from: b */
-    private Antenna f5787b;
+    private Antenna antenna;
 
     /* renamed from: c */
-    private BFEnergyProfile f5788c;
+    private BFEnergyProfile bf_eneergy_profile;
 
     /* renamed from: d */
-    private BFBleProfile f5789d;
+    private BFBleProfile bf_ble_profile;
 
     /* renamed from: e */
-    private BFEngineProfile f5790e;
+    private BFEngineProfile bf_engine_profile;
 
     /* renamed from: f */
-    private int f5791f;
+    private int max_connection_retries;
 
     public enum Antenna {
         BLUETOOTH,
@@ -29,98 +29,98 @@ public class Config {
     public static final class Builder {
 
         /* renamed from: a */
-        private boolean f5793a = true;
+        private boolean is_encryption = true;
 
         /* renamed from: b */
-        private Antenna f5794b = Antenna.BLUETOOTH_LE;
+        private Antenna antenna = Antenna.BLUETOOTH_LE;
 
         /* renamed from: c */
-        private BFEnergyProfile f5795c = BFEnergyProfile.BALANCED;
+        private BFEnergyProfile bf_energy_profile = BFEnergyProfile.BALANCED;
 
         /* renamed from: d */
-        private BFBleProfile f5796d = BFBleProfile.BACKWARDS_COMPATIBLE;
+        private BFBleProfile bf_ble_profile = BFBleProfile.BACKWARDS_COMPATIBLE;
 
         /* renamed from: e */
-        private BFEngineProfile f5797e = BFEngineProfile.BFConfigProfileDefault;
+        private BFEngineProfile bf_engine_profile = BFEngineProfile.BFConfigProfileDefault;
 
         /* renamed from: f */
-        private int f5798f = 10;
+        private int max_connection_retries = 10;
 
         public Builder setMaxConnectionRetries(int i) {
-            this.f5798f = i;
+            this.max_connection_retries = i;
             return this;
         }
 
         public Builder setEncryption(boolean z) {
-            this.f5793a = z;
+            this.is_encryption = z;
             return this;
         }
 
         public Builder setAntennaType(Antenna antenna) {
-            this.f5794b = antenna;
+            this.antenna = antenna;
             return this;
         }
 
         public Builder setEnergyProfile(BFEnergyProfile bFEnergyProfile) {
-            this.f5795c = bFEnergyProfile;
+            this.bf_energy_profile = bFEnergyProfile;
             return this;
         }
 
         public Builder setBleProfile(BFBleProfile bFBleProfile) {
-            this.f5796d = bFBleProfile;
+            this.bf_ble_profile = bFBleProfile;
             return this;
         }
 
         public Builder setEngineProfile(BFEngineProfile bFEngineProfile) {
-            this.f5797e = bFEngineProfile;
+            this.bf_engine_profile = bFEngineProfile;
             return this;
         }
 
         public Config build() {
-            Config config = new Config(this.f5793a, this.f5794b, this.f5795c, this.f5796d, this.f5797e, this.f5798f);
+            Config config = new Config(this.is_encryption, this.antenna, this.bf_energy_profile, this.bf_ble_profile, this.bf_engine_profile, this.max_connection_retries);
             return config;
         }
     }
 
     public BFEngineProfile getEngineProfile() {
-        return this.f5790e;
+        return this.bf_engine_profile;
     }
 
     public int getMaxConnectionRetries() {
-        return this.f5791f;
+        return this.max_connection_retries;
     }
 
     private Config(boolean z, Antenna antenna, BFEnergyProfile bFEnergyProfile, BFBleProfile bFBleProfile, BFEngineProfile bFEngineProfile, int i) {
-        this.f5786a = z;
-        this.f5787b = antenna;
-        this.f5788c = bFEnergyProfile;
-        this.f5789d = bFBleProfile;
-        this.f5790e = bFEngineProfile;
-        this.f5791f = i;
+        this.is_encryption = z;
+        this.antenna = antenna;
+        this.bf_eneergy_profile = bFEnergyProfile;
+        this.bf_ble_profile = bFBleProfile;
+        this.bf_engine_profile = bFEngineProfile;
+        this.max_connection_retries = i;
     }
 
     public Antenna getAntennaType() {
-        return this.f5787b;
+        return this.antenna;
     }
 
     public void setAntennaType(Antenna antenna) {
-        this.f5787b = antenna;
+        this.antenna = antenna;
     }
 
     public BFEnergyProfile getEnergyProfile() {
-        return this.f5788c;
+        return this.bf_eneergy_profile;
     }
 
     public Config setEnergyProfile(BFEnergyProfile bFEnergyProfile) {
-        this.f5788c = bFEnergyProfile;
+        this.bf_eneergy_profile = bFEnergyProfile;
         return this;
     }
 
     public BFBleProfile getBleProfile() {
-        return this.f5789d;
+        return this.bf_ble_profile;
     }
 
     public boolean isEncryption() {
-        return this.f5786a;
+        return this.is_encryption;
     }
 }

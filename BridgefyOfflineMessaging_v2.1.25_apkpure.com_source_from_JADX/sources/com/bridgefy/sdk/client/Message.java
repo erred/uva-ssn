@@ -21,26 +21,26 @@ public class Message implements Parcelable {
 
     /* renamed from: a */
     // hashMap content
-    private HashMap f5816a;
+    private HashMap content;
 
     /* renamed from: b */
     // receiver ID
-    private String f5817b;
+    private String receiver_id;
 
     /* renamed from: c */
     // sender ID
-    private String f5818c;
+    private String sender_id;
 
     /* renamed from: d */
     // random UUID
-    private String f5819d;
+    private String message_uuid;
 
     /* renamed from: e */
     // Timestamp milliseconds
-    private long f5820e;
+    private long timestamp;
 
     /* renamed from: f */
-    private byte[] f5821f;
+    private byte[] data;
 
     /* renamed from: g */
     // isMesh
@@ -48,7 +48,7 @@ public class Message implements Parcelable {
 
     /* renamed from: h */
     // hop (current)
-    private int f5823h;
+    private int hop;
 
     /* renamed from: i */
     // hops
@@ -57,31 +57,31 @@ public class Message implements Parcelable {
     public static class Builder {
 
         /* renamed from: a */
-        private HashMap<String, Object> f5825a;
+        private HashMap<String, Object> content;
 
         /* renamed from: b */
-        private String f5826b;
+        private String receiver_id;
 
         /* renamed from: c */
-        private byte[] f5827c;
+        private byte[] data;
 
         public Builder setContent(HashMap hashMap) {
-            this.f5825a = hashMap;
+            this.content = hashMap;
             return this;
         }
 
         public Builder setReceiverId(String str) {
-            this.f5826b = str;
+            this.receiver_id = str;
             return this;
         }
 
         public Builder setData(byte[] bArr) {
-            this.f5827c = bArr;
+            this.data = bArr;
             return this;
         }
 
         public Message build() {
-            return new Message(this.f5825a, this.f5826b, Bridgefy.getInstance().getBridgefyClient().getUserUuid(), this.f5827c);
+            return new Message(this.content, this.receiver_id, Bridgefy.getInstance().getBridgefyClient().getUserUuid(), this.data);
         }
     }
 
@@ -90,106 +90,106 @@ public class Message implements Parcelable {
     }
 
     public Message(HashMap<String, Object> hashMap, String str, String str2) {
-        this.f5816a = hashMap;
-        this.f5817b = str;
-        this.f5818c = str2;
-        this.f5820e = System.currentTimeMillis();
-        this.f5819d = UUID.randomUUID().toString();
+        this.content = hashMap;
+        this.receiver_id = str;
+        this.sender_id = str2;
+        this.timestamp = System.currentTimeMillis();
+        this.message_uuid = UUID.randomUUID().toString();
     }
 
     public Message(HashMap<String, Object> hashMap, String str, String str2, boolean z, int i) {
-        this.f5816a = hashMap;
-        this.f5817b = str;
-        this.f5818c = str2;
-        this.f5820e = System.currentTimeMillis();
-        this.f5819d = UUID.randomUUID().toString();
+        this.content = hashMap;
+        this.receiver_id = str;
+        this.sender_id = str2;
+        this.timestamp = System.currentTimeMillis();
+        this.message_uuid = UUID.randomUUID().toString();
         this.is_mesh = z;
-        this.f5823h = i;
+        this.hop = i;
     }
 
     public Message(HashMap<String, Object> hashMap, String str, String str2, byte[] bArr) {
-        this.f5816a = hashMap;
-        this.f5817b = str;
-        this.f5818c = str2;
-        this.f5820e = System.currentTimeMillis();
-        this.f5819d = UUID.randomUUID().toString();
-        this.f5821f = bArr;
+        this.content = hashMap;
+        this.receiver_id = str;
+        this.sender_id = str2;
+        this.timestamp = System.currentTimeMillis();
+        this.message_uuid = UUID.randomUUID().toString();
+        this.data = bArr;
     }
 
     protected Message(Parcel parcel) {
         boolean z = false;
-        this.f5817b = parcel.readString();
-        this.f5818c = parcel.readString();
-        this.f5819d = parcel.readString();
-        this.f5820e = parcel.readLong();
-        this.f5821f = parcel.createByteArray();
+        this.receiver_id = parcel.readString();
+        this.sender_id = parcel.readString();
+        this.message_uuid = parcel.readString();
+        this.timestamp = parcel.readLong();
+        this.data = parcel.createByteArray();
         if (parcel.readByte() != 0) {
             z = true;
         }
         this.is_mesh = z;
-        this.f5823h = parcel.readInt();
+        this.hop = parcel.readInt();
     }
 
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(this.f5817b);
-        parcel.writeString(this.f5818c);
-        parcel.writeString(this.f5819d);
-        parcel.writeLong(this.f5820e);
-        parcel.writeByteArray(this.f5821f);
+        parcel.writeString(this.receiver_id);
+        parcel.writeString(this.sender_id);
+        parcel.writeString(this.message_uuid);
+        parcel.writeLong(this.timestamp);
+        parcel.writeByteArray(this.data);
         parcel.writeByte(this.is_mesh ? (byte) 1 : 0);
-        parcel.writeInt(this.f5823h);
+        parcel.writeInt(this.hop);
     }
 
     public HashMap getContent() {
-        return this.f5816a;
+        return this.content;
     }
 
     public void setContent(HashMap hashMap) {
-        this.f5816a = hashMap;
+        this.content = hashMap;
     }
 
     public long getDateSent() {
-        return this.f5820e;
+        return this.timestamp;
     }
 
     public void setDateSent(long j) {
-        this.f5820e = j;
+        this.timestamp = j;
     }
 
     public String getReceiverId() {
-        return this.f5817b;
+        return this.receiver_id;
     }
 
     public void setReceiverId(String str) {
-        this.f5817b = str;
+        this.receiver_id = str;
     }
 
     public String getSenderId() {
-        return this.f5818c;
+        return this.sender_id;
     }
 
     public void setSenderId(String str) {
-        this.f5818c = str;
+        this.sender_id = str;
     }
 
     public String getUuid() {
-        return this.f5819d;
+        return this.message_uuid;
     }
 
     public void setUuid(String str) {
-        this.f5819d = str;
+        this.message_uuid = str;
     }
 
     public byte[] getData() {
-        return this.f5821f;
+        return this.data;
     }
 
     public void setData(byte[] bArr) {
-        this.f5821f = bArr;
+        this.data = bArr;
     }
 
     public int getHop() {
-        return this.f5823h;
+        return this.hop;
     }
 
     public boolean isMesh() {

@@ -85,7 +85,7 @@ class forward_controller {
                     }
                 } else {
                     try {
-                        BridgefyCore.m7704a(session, meshMessage);
+                        BridgefyCore.send_entity(session, meshMessage);
                     } catch (Exception e2) {
                         e2.printStackTrace();
                         forward_controller.un_resolve_forward_packets(a, String.valueOf(session.getCrc()));
@@ -415,7 +415,7 @@ class forward_controller {
         Iterator it = SessionManager.getSessions().iterator();
         while (it.hasNext()) {
             try {
-                BridgefyCore.m7704a((Session) it.next(), meshReach);
+                BridgefyCore.send_entity((Session) it.next(), meshReach);
             } catch (Exception e) {
                 Log.m8075e(this.simple_name, "sendMeshReach: error sending mesh reach!!", e);
             }

@@ -403,7 +403,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                     BleHandshake a = process_handshake((BleHandshake) bleEntity.getCt());
                     if (!(a.getRq() == null && a.getRp() == null)) {
                         try {
-                            BridgefyCore.m7704a(this, BleEntity.generateHandShake(a));
+                            BridgefyCore.send_entity(this, BleEntity.generateHandShake(a));
                         } catch (MessageException | IOException e) {
                             e.printStackTrace();
                         }
@@ -596,7 +596,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
             try {
                 BleEntity generateHandShake = BleEntity.generateHandShake();
                 // Logger.log(LogFactory.build(session.getDevice(), (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
-                BridgefyCore.m7704a(session, generateHandShake);
+                BridgefyCore.send_entity(session, generateHandShake);
                 // Logger.log(LogFactory.build(session.getDevice(), (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
             } catch (MessageException | IOException e) {
                 e.printStackTrace();

@@ -15,10 +15,10 @@ import java.lang.reflect.Method;
 class C1909f {
 
     /* renamed from: a */
-    private final Context f5952a;
+    private final Context set_context;
 
     C1909f(Context context) {
-        this.f5952a = context;
+        this.set_context = context;
     }
 
     /* access modifiers changed from: 0000 */
@@ -51,9 +51,9 @@ class C1909f {
     /* renamed from: a */
     private BluetoothGatt m7909a(BluetoothGattCallback bluetoothGattCallback, BluetoothDevice bluetoothDevice, boolean z) {
         if (VERSION.SDK_INT >= 23) {
-            return bluetoothDevice.connectGatt(this.f5952a, z, bluetoothGattCallback, 0);
+            return bluetoothDevice.connectGatt(this.set_context, z, bluetoothGattCallback, 0);
         }
-        return bluetoothDevice.connectGatt(this.f5952a, z, bluetoothGattCallback);
+        return bluetoothDevice.connectGatt(this.set_context, z, bluetoothGattCallback);
     }
 
     /* renamed from: a */
@@ -69,9 +69,9 @@ class C1909f {
         Constructor constructor = BluetoothGatt.class.getDeclaredConstructors()[0];
         constructor.setAccessible(true);
         if (constructor.getParameterTypes().length == 4) {
-            return (BluetoothGatt) constructor.newInstance(new Object[]{this.f5952a, obj, bluetoothDevice, Integer.valueOf(2)});
+            return (BluetoothGatt) constructor.newInstance(new Object[]{this.set_context, obj, bluetoothDevice, Integer.valueOf(2)});
         }
-        return (BluetoothGatt) constructor.newInstance(new Object[]{this.f5952a, obj, bluetoothDevice});
+        return (BluetoothGatt) constructor.newInstance(new Object[]{this.set_context, obj, bluetoothDevice});
     }
 
     /* renamed from: a */

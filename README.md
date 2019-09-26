@@ -7,8 +7,13 @@ JADX decompiler
 ## Bluetooth
 
 mesh:
+
 - uses TTL (hops)
 - ignore forward from self(?)
+
+GATT:
+
+- BLE comm protocol/framework
 
 ## Encrytion
 

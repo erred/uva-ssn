@@ -23,10 +23,10 @@ abstract class C1899aj<SOCKET, SERVER_SOCKET> extends Thread {
     private boolean f5907e = false;
 
     /* renamed from: a */
-    public abstract void mo7457a() throws ConnectionException;
+    public abstract void stop_server() throws ConnectionException;
 
     /* renamed from: b */
-    public abstract void mo7459b() throws ConnectionException;
+    public abstract void start_server() throws ConnectionException;
 
     /* access modifiers changed from: 0000 */
     /* renamed from: c */

@@ -209,7 +209,7 @@ class broadcast_receiver extends BroadcastReceiver {
         switch (antenna) {
             case BLUETOOTH:
             case BLUETOOTH_LE:
-                this.f5877e.mo7455c(this.context);
+                this.f5877e.stop_discovery(this.context);
                 return;
             default:
                 return;
@@ -219,7 +219,7 @@ class broadcast_receiver extends BroadcastReceiver {
     /* renamed from: f */
     public void mo7407f(Antenna antenna) {
         if (C18881.f5878a[antenna.ordinal()] == 2) {
-            this.f5877e.mo7453a();
+            this.f5877e.stop_advertising();
         }
     }
 
@@ -234,9 +234,9 @@ class broadcast_receiver extends BroadcastReceiver {
     public void mo7409h(Antenna antenna) {
         if (C18881.f5878a[antenna.ordinal()] == 2) {
             if (DeviceProfile.deviceCanStopScan() || SessionManager.getSessionsByType(Antenna.BLUETOOTH_LE).isEmpty()) {
-                this.f5877e.mo7455c(this.context);
+                this.f5877e.stop_discovery(this.context);
                 this.f5877e.mo7510a(this.context);
-                this.f5877e.mo7453a();
+                this.f5877e.stop_advertising();
                 this.f5877e.mo7454a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
             }
         }

@@ -33,14 +33,14 @@ class C1910g extends C1932t {
     public C0159b mo7509a() {
         return C0159b.m542a((C0184e) new C0184e() {
             public final void subscribe(C0165c cVar) {
-                C1910g.this.m7917a(cVar);
+                C1910g.this.connect(cVar);
             }
         }).mo341a((C0181e<? super C0330h<Throwable>, ? extends C3682b<?>>) new C1898ai<Object,Object>(3, 1000));
     }
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public /* synthetic */ void m7917a(C0165c cVar) throws Exception {
+    public /* synthetic */ void connect(C0165c cVar) throws Exception {
         BluetoothSocket bluetoothSocket;
         try {
             BluetoothAdapter bluetoothAdapter = BridgefyUtils.getBluetoothAdapter(Bridgefy.getInstance().getBridgefyCore().getContext());
@@ -58,8 +58,8 @@ class C1910g extends C1932t {
             session.mo7498b(true);
             mo7556b().setSessionId(session.getSessionId());
             session.mo7490a(mo7556b());
-            SessionManager.m7754a(session);
-            DeviceManager.m7715a(session.getDevice());
+            SessionManager.queue_session(session);
+            DeviceManager.add_device_null_session(session.getDevice());
             cVar.mo361a();
         } catch (IOException e) {
             String str = this.f5953a;

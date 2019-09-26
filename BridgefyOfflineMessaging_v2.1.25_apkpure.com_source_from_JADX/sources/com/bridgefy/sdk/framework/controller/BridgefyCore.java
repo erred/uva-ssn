@@ -53,7 +53,7 @@ public class BridgefyCore {
     private broadcast_receiver f5853g;
 
     /* renamed from: h */
-    private StateListener f5854h;
+    private StateListener state_listener;
 
     /* renamed from: i */
     private C0159b f5855i = C0159b.m542a((C0184e) $$Lambda$BridgefyCore$XQDii8meLrMOm8WBhkh5XNaOGk.INSTANCE);
@@ -95,7 +95,7 @@ public class BridgefyCore {
         this.f5853g.mo7404c(this.f5850d.getAntennaType());
         this.f5853g.mo7406e(this.f5850d.getAntennaType());
         this.f5853g.mo7403b(this.f5850d.getAntennaType());
-        C1928r.m8011b();
+        connection_manager.m8011b();
         this.f5855i.mo341a((C0181e<? super C0330h<Throwable>, ? extends C3682b<?>>) new C1898ai<Object,Object>(3, 500)).mo342a(C0153a.m534a()).mo347b(C0331a.m925b()).mo340a((C0177a) new C0177a() {
             public final void run() {
                 BridgefyCore.this.m7706f();
@@ -115,7 +115,7 @@ public class BridgefyCore {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m7705a(Throwable th) throws Exception {
+    public static /* synthetic */ void accept(Throwable th) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("accept: error ");
         sb.append(th.getMessage());
@@ -135,7 +135,7 @@ public class BridgefyCore {
     }
 
     public boolean pauseServices() {
-        if (SessionManager.f5869a.isEmpty()) {
+        if (SessionManager.sessions.isEmpty()) {
             this.f5853g.mo7406e(this.f5850d.getAntennaType());
             this.f5853g.mo7407f(this.f5850d.getAntennaType());
             return true;
@@ -179,13 +179,13 @@ public class BridgefyCore {
     }
 
     public void setStateListener(StateListener stateListener) {
-        this.f5854h = stateListener;
+        this.state_listener = stateListener;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: d */
     public StateListener get_state_listener() {
-        return this.f5854h;
+        return this.state_listener;
     }
 
     /* access modifiers changed from: 0000 */

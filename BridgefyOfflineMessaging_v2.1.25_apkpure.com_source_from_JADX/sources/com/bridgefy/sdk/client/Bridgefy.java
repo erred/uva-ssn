@@ -200,7 +200,7 @@ public class Bridgefy {
     public static void start(MessageListener messageListener, StateListener stateListener, Config config) {
         try {
             if (getInstance().getBridgefyCore() == null) {
-                BridgefyUtils.m7666a(getInstance().m7645a(), config);
+                BridgefyUtils.verify_has_bluetooth_le(getInstance().m7645a(), config);
                 getInstance().m7648a(config);
                 getInstance().setBridgefyCore(new BridgefyCore(getInstance().m7645a(), config));
                 getInstance().getBridgefyCore().setMessageListener(messageListener);

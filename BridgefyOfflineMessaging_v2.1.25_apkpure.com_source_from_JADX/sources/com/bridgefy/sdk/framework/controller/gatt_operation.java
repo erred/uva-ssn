@@ -17,7 +17,7 @@ abstract class gatt_operation {
     private String operation_id = UUID.randomUUID().toString();
 
     /* renamed from: a */
-    public abstract void mo7423a(BluetoothGatt bluetoothGatt);
+    public abstract void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt);
 
     /* renamed from: a */
     public abstract boolean mo7425a();
@@ -72,7 +72,7 @@ abstract class gatt_operation {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: e */
-    public String mo7429e() {
+    public String get_operation_id() {
         return this.operation_id;
     }
 }

@@ -6,21 +6,21 @@ import com.bridgefy.sdk.client.Config.Antenna;
 import com.bridgefy.sdk.framework.exceptions.ConnectionException;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.ak */
-class C1900ak {
+class server_factory {
 
     /* renamed from: a */
-    private static C1924n f5908a;
+    private static bluetooth_server f5908a;
 
     /* renamed from: b */
-    private static C1921l f5909b;
+    private static bluetooth_le_server f5909b;
 
     /* renamed from: a */
-    static C1899aj m7841a(Antenna antenna, boolean z) {
+    static C1899aj get_server_instance(Antenna antenna, boolean z) {
         switch (antenna) {
             case BLUETOOTH:
                 if (f5908a == null && z) {
                     try {
-                        f5908a = new C1924n(Bridgefy.getInstance().getConfig(), false, Bridgefy.getInstance().getBridgefyCore().getContext());
+                        f5908a = new bluetooth_server(Bridgefy.getInstance().getConfig(), false, Bridgefy.getInstance().getBridgefyCore().getContext());
                     } catch (ConnectionException e) {
                         Log.e("ServerFactory", "getServerInstance: Cannot be possible create a instance of BluetoothServer", e);
                     }
@@ -34,7 +34,7 @@ class C1900ak {
                         sb.append("getServerInstance: creating new bluetooth le server with context ");
                         sb.append(Bridgefy.getInstance().getBridgefyCore().getContext());
                         Log.w(str, sb.toString());
-                        f5909b = new C1921l(Bridgefy.getInstance().getConfig(), Bridgefy.getInstance().getBridgefyCore().getContext());
+                        f5909b = new bluetooth_le_server(Bridgefy.getInstance().getConfig(), Bridgefy.getInstance().getBridgefyCore().getContext());
                     } catch (ConnectionException e2) {
                         e2.printStackTrace();
                     }
@@ -46,12 +46,12 @@ class C1900ak {
     }
 
     /* renamed from: a */
-    static void m7843a(C1924n nVar) {
+    static void m7843a(bluetooth_server nVar) {
         f5908a = nVar;
     }
 
     /* renamed from: a */
-    static void m7842a(C1921l lVar) {
+    static void m7842a(bluetooth_le_server lVar) {
         f5909b = lVar;
     }
 }

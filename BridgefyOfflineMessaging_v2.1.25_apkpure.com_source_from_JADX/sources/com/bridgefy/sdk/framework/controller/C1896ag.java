@@ -10,7 +10,7 @@ abstract class C1896ag {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public abstract void mo7453a();
+    public abstract void stop_advertising();
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
@@ -18,7 +18,7 @@ abstract class C1896ag {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: c */
-    public abstract void mo7455c(Context context);
+    public abstract void stop_discovery(Context context);
 
     C1896ag() {
     }

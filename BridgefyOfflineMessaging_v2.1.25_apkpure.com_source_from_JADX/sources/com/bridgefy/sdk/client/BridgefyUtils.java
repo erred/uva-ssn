@@ -93,7 +93,7 @@ public class BridgefyUtils {
     }
 
     /* renamed from: a */
-    private static boolean m7667a(Context context) {
+    private static boolean has_bluetooth_le(Context context) {
         return context.getPackageManager().hasSystemFeature("android.hardware.bluetooth_le");
     }
 
@@ -120,12 +120,12 @@ public class BridgefyUtils {
     }
 
     /* renamed from: a */
-    static void m7666a(Context context, Config config) throws BridgefyException {
+    static void verify_has_bluetooth_le(Context context, Config config) throws BridgefyException {
         switch (config.getAntennaType()) {
             case BLUETOOTH:
             case BLUETOOTH_LE:
-                m7668b(context);
-                if (config.getAntennaType() == Antenna.BLUETOOTH || (config.getAntennaType() == Antenna.BLUETOOTH_LE && !m7667a(context))) {
+                verify_has_location_services(context);
+                if (config.getAntennaType() == Antenna.BLUETOOTH || (config.getAntennaType() == Antenna.BLUETOOTH_LE && !has_bluetooth_le(context))) {
                     throw new BridgefyException(-10, StateListener.BLE_NOT_SUPPORTED_STRING);
                 }
                 return;
@@ -143,7 +143,7 @@ public class BridgefyUtils {
     }
 
     /* renamed from: b */
-    private static void m7668b(Context context) throws BridgefyException {
+    private static void verify_has_location_services(Context context) throws BridgefyException {
         if (VERSION.SDK_INT >= 23) {
             if (!checkLocationPermissions(context)) {
                 throw new BridgefyException(-20, StateListener.INSUFFICIENT_LOCATION_PERMISSIONS_STRING);

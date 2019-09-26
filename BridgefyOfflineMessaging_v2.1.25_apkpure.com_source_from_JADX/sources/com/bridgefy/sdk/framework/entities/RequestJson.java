@@ -10,14 +10,14 @@ public class RequestJson {
     @JsonProperty("type")
 
     /* renamed from: a */
-    int f6057a;
+    int type;
     @JsonProperty("crc")
 
     /* renamed from: b */
-    String f6058b;
+    String crc;
 
     public RequestJson(int i) {
-        this.f6057a = i;
+        this.type = i;
     }
 
     public RequestJson() {
@@ -25,20 +25,20 @@ public class RequestJson {
 
     @JsonProperty("type")
     public int getType() {
-        return this.f6057a;
+        return this.type;
     }
 
     public void setType(int i) {
-        this.f6057a = i;
+        this.type = i;
     }
 
     @JsonProperty("crc")
     public String getCrc() {
-        return this.f6058b;
+        return this.crc;
     }
 
     public void setCrc(String str) {
-        this.f6058b = str;
+        this.crc = str;
     }
 
     public String toString() {

@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class DeviceManager {
 
     /* renamed from: a */
-    private static ConcurrentHashMap<String, Device> f5856a = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, Device> devices_map = new ConcurrentHashMap<>();
 
     /* renamed from: b */
     private static ConcurrentHashMap<String, ScheduledFuture> f5857b = new ConcurrentHashMap<>();
@@ -37,15 +37,15 @@ public class DeviceManager {
     }
 
     /* renamed from: a */
-    static void m7715a(Device device) {
-        m7717a(device, (Session) null);
+    static void add_device_null_session(Device device) {
+        add_device(device, (Session) null);
     }
 
     /* renamed from: a */
-    static void m7717a(Device device, Session session) {
-        m7716a(device, getDevice(device.getDeviceAddress()));
-        if (f5856a.put(device.getDeviceAddress(), device) == null) {
-            // Logger.log(LogFactory.build(device, String.valueOf(f5856a.size()), CommunicationEvent.BFCommunicationTypePeerDetected));
+    static void add_device(Device device, Session session) {
+        sync_device_ids(device, getDevice(device.getDeviceAddress()));
+        if (devices_map.put(device.getDeviceAddress(), device) == null) {
+            // Logger.log(LogFactory.build(device, String.valueOf(devices_map.size()), CommunicationEvent.BFCommunicationTypePeerDetected));
         }
         StringBuilder sb = new StringBuilder();
         sb.append("... Adding device: ");
@@ -53,7 +53,7 @@ public class DeviceManager {
         sb.append(MinimalPrettyPrinter.DEFAULT_ROOT_VALUE_SEPARATOR);
         sb.append(device.getAntennaType());
         sb.append(". DeviceList size: ");
-        sb.append(f5856a.size());
+        sb.append(devices_map.size());
         Log.v("DeviceManager", sb.toString());
         m7720b(device, session);
         m7721c(device);
@@ -83,7 +83,7 @@ public class DeviceManager {
     }
 
     /* renamed from: a */
-    private static void m7716a(Device device, Device device2) {
+    private static void sync_device_ids(Device device, Device device2) {
         if (device2 != null) {
             if (device.getSessionId() != null) {
                 device2.setSessionId(device.getSessionId());
@@ -129,12 +129,12 @@ public class DeviceManager {
             android.util.Log.w(r1, r7)     // Catch:{ all -> 0x010b }
             goto L_0x010e
         L_0x0032:
-            java.util.concurrent.ConcurrentHashMap<java.lang.String, com.bridgefy.sdk.client.Device> r1 = f5856a     // Catch:{ all -> 0x010b }
+            java.util.concurrent.ConcurrentHashMap<java.lang.String, com.bridgefy.sdk.client.Device> r1 = devices_map     // Catch:{ all -> 0x010b }
             java.lang.String r2 = r7.getDeviceAddress()     // Catch:{ all -> 0x010b }
             boolean r1 = r1.containsKey(r2)     // Catch:{ all -> 0x010b }
             if (r1 == 0) goto L_0x010e
             m7722d(r7)     // Catch:{ all -> 0x010b }
-            java.util.concurrent.ConcurrentHashMap<java.lang.String, com.bridgefy.sdk.client.Device> r1 = f5856a     // Catch:{ Exception -> 0x007b }
+            java.util.concurrent.ConcurrentHashMap<java.lang.String, com.bridgefy.sdk.client.Device> r1 = devices_map     // Catch:{ Exception -> 0x007b }
             java.lang.String r2 = r7.getDeviceAddress()     // Catch:{ Exception -> 0x007b }
             java.lang.Object r1 = r1.remove(r2)     // Catch:{ Exception -> 0x007b }
             com.bridgefy.sdk.client.Device r1 = (com.bridgefy.sdk.client.Device) r1     // Catch:{ Exception -> 0x007b }
@@ -149,7 +149,7 @@ public class DeviceManager {
             r2.append(r3)     // Catch:{ Exception -> 0x0079 }
             java.lang.String r2 = r2.toString()     // Catch:{ Exception -> 0x0079 }
             android.util.Log.i(r7, r2)     // Catch:{ Exception -> 0x0079 }
-            m7724f(r1)     // Catch:{ Exception -> 0x0079 }
+            on_device_lost(r1)     // Catch:{ Exception -> 0x0079 }
             goto L_0x0099
         L_0x0071:
             java.lang.String r7 = "DeviceManager"
@@ -192,7 +192,7 @@ public class DeviceManager {
             r2.append(r3)     // Catch:{ all -> 0x010b }
             java.lang.String r3 = ". DeviceList size: "
             r2.append(r3)     // Catch:{ all -> 0x010b }
-            java.util.concurrent.ConcurrentHashMap<java.lang.String, com.bridgefy.sdk.client.Device> r3 = f5856a     // Catch:{ all -> 0x010b }
+            java.util.concurrent.ConcurrentHashMap<java.lang.String, com.bridgefy.sdk.client.Device> r3 = devices_map     // Catch:{ all -> 0x010b }
             int r3 = r3.size()     // Catch:{ all -> 0x010b }
             r2.append(r3)     // Catch:{ all -> 0x010b }
             java.lang.String r2 = r2.toString()     // Catch:{ all -> 0x010b }
@@ -229,18 +229,18 @@ public class DeviceManager {
     }
 
     /* renamed from: f */
-    private static void m7724f(Device device) {
+    private static void on_device_lost(Device device) {
         Log.i("DeviceManager", "onDeviceLost: ");
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             public final void run() {
-                DeviceManager.m7726h(Device.this);
+                DeviceManager.on_device_lost_2(Device.this);
             }
         });
     }
 
     /* access modifiers changed from: private */
     /* renamed from: h */
-    public static /* synthetic */ void m7726h(Device device) {
+    public static /* synthetic */ void on_device_lost_2(Device device) {
         if (Bridgefy.getInstance().getBridgefyCore() != null && Bridgefy.getInstance().getBridgefyCore().get_state_listener() != null) {
             Log.i("DeviceManager", "onDeviceLost: ondevicelost");
             Bridgefy.getInstance().getBridgefyCore().get_state_listener().onDeviceLost(device);
@@ -249,18 +249,18 @@ public class DeviceManager {
 
     public static Device getDevice(String str) {
         Device device;
-        synchronized (f5856a) {
-            if (f5856a == null) {
-                f5856a = new ConcurrentHashMap<>();
+        synchronized (devices_map) {
+            if (devices_map == null) {
+                devices_map = new ConcurrentHashMap<>();
             }
-            device = (Device) f5856a.get(str);
+            device = (Device) devices_map.get(str);
         }
         return device;
     }
 
     public static synchronized Device getDeviceByUserId(String str) {
         synchronized (DeviceManager.class) {
-            for (Device device : f5856a.values()) {
+            for (Device device : devices_map.values()) {
                 if (device.getUserId() != null && device.getUserId().trim().equalsIgnoreCase(str)) {
                     return device;
                 }
@@ -273,7 +273,7 @@ public class DeviceManager {
         ArrayList<Device> arrayList;
         synchronized (DeviceManager.class) {
             arrayList = new ArrayList<>();
-            for (Device device : f5856a.values()) {
+            for (Device device : devices_map.values()) {
                 if (device.getUserId() != null) {
                     arrayList.add(device);
                 }
@@ -284,7 +284,7 @@ public class DeviceManager {
 
     /* renamed from: a */
     static void m7714a(Antenna antenna) {
-        for (Device device : f5856a.values()) {
+        for (Device device : devices_map.values()) {
             if (device.getAntennaType() == antenna) {
                 m7719b(device);
             }
@@ -315,7 +315,7 @@ public class DeviceManager {
             m7722d(device);
             schedule = f5858c.schedule(new Runnable() {
                 public final void run() {
-                    DeviceManager.m7725g(Device.this);
+                    DeviceManager.setup_long_timeout(Device.this);
                 }
             }, Constants.KEEP_ALIVE_INTERVAL, TimeUnit.MILLISECONDS);
         }
@@ -324,7 +324,7 @@ public class DeviceManager {
 
     /* access modifiers changed from: private */
     /* renamed from: g */
-    public static /* synthetic */ void m7725g(Device device) {
+    public static /* synthetic */ void setup_long_timeout(Device device) {
         synchronized (device) {
             Session session = SessionManager.getSession(device.getSessionId());
             if (session == null) {
@@ -343,7 +343,7 @@ public class DeviceManager {
 
     /* renamed from: a */
     static List<Device> get_devices() {
-        return new ArrayList(f5856a.values());
+        return new ArrayList(devices_map.values());
     }
 
     /* renamed from: a */

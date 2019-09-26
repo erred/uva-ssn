@@ -24,19 +24,19 @@ public class ForwardTransaction implements Parcelable {
     @JsonProperty("dump")
 
     /* renamed from: a */
-    Boolean f6053a = Boolean.valueOf(false);
+    Boolean dump = Boolean.valueOf(false);
     @JsonProperty("sender")
 
     /* renamed from: b */
-    String f6054b;
+    String sender;
     @JsonProperty("mesh_reach")
 
     /* renamed from: c */
-    String f6055c;
+    String mesh_reach;
     @JsonProperty("mesh")
 
     /* renamed from: d */
-    List<ForwardPacket> f6056d;
+    List<ForwardPacket> mesh;
 
     public int describeContents() {
         return 0;
@@ -46,9 +46,9 @@ public class ForwardTransaction implements Parcelable {
     }
 
     public ForwardTransaction(boolean z, String str, List<ForwardPacket> list) {
-        this.f6053a = Boolean.valueOf(z);
-        this.f6054b = str;
-        this.f6056d = list;
+        this.dump = Boolean.valueOf(z);
+        this.sender = str;
+        this.mesh = list;
     }
 
     protected ForwardTransaction(Parcel parcel) {
@@ -56,17 +56,17 @@ public class ForwardTransaction implements Parcelable {
         if (parcel.readByte() != 0) {
             z = true;
         }
-        this.f6053a = Boolean.valueOf(z);
-        this.f6054b = parcel.readString();
-        this.f6055c = parcel.readString();
-        this.f6056d = parcel.createTypedArrayList(ForwardPacket.CREATOR);
+        this.dump = Boolean.valueOf(z);
+        this.sender = parcel.readString();
+        this.mesh_reach = parcel.readString();
+        this.mesh = parcel.createTypedArrayList(ForwardPacket.CREATOR);
     }
 
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeByte(this.f6053a.booleanValue() ? (byte) 1 : 0);
-        parcel.writeString(this.f6054b);
-        parcel.writeString(this.f6055c);
-        parcel.writeTypedList(this.f6056d);
+        parcel.writeByte(this.dump.booleanValue() ? (byte) 1 : 0);
+        parcel.writeString(this.sender);
+        parcel.writeString(this.mesh_reach);
+        parcel.writeTypedList(this.mesh);
     }
 
     public String toString() {
@@ -75,37 +75,37 @@ public class ForwardTransaction implements Parcelable {
 
     @JsonProperty("dump")
     public Boolean isDump() {
-        return this.f6053a;
+        return this.dump;
     }
 
     public void setDump(Boolean bool) {
-        this.f6053a = bool;
+        this.dump = bool;
     }
 
     @JsonProperty("sender")
     public String getSender() {
-        return this.f6054b;
+        return this.sender;
     }
 
     public void setSender(String str) {
-        this.f6054b = str;
+        this.sender = str;
     }
 
     @JsonProperty("mesh")
     public List<ForwardPacket> getMesh() {
-        return this.f6056d;
+        return this.mesh;
     }
 
     public void setMesh(List<ForwardPacket> list) {
-        this.f6056d = list;
+        this.mesh = list;
     }
 
     @JsonProperty("mesh_reach")
     public String getMesh_reach() {
-        return this.f6055c;
+        return this.mesh_reach;
     }
 
     public void setMesh_reach(String str) {
-        this.f6055c = str;
+        this.mesh_reach = str;
     }
 }

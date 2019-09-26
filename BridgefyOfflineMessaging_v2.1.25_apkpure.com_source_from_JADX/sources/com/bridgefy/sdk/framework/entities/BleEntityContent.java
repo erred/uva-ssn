@@ -8,27 +8,27 @@ public class BleEntityContent {
     @JsonProperty("pld")
 
     /* renamed from: a */
-    private HashMap<String, Object> f6031a;
+    private HashMap<String, Object> pld;
     @JsonProperty("id")
 
     /* renamed from: b */
-    private String f6032b;
+    private String id;
 
     public BleEntityContent() {
     }
 
     public BleEntityContent(String str) {
-        this.f6032b = str;
+        this.id = str;
     }
 
     public BleEntityContent(HashMap<String, Object> hashMap, String str) {
-        this.f6031a = hashMap;
-        this.f6032b = str;
+        this.pld = hashMap;
+        this.id = str;
     }
 
     @JsonProperty("pld")
     public HashMap<String, Object> getPld() {
-        return this.f6031a;
+        return this.pld;
     }
 
     public String toString() {
@@ -37,10 +37,10 @@ public class BleEntityContent {
 
     @JsonProperty("id")
     public String getId() {
-        return this.f6032b;
+        return this.id;
     }
 
     public void setId(String str) {
-        this.f6032b = str;
+        this.id = str;
     }
 }

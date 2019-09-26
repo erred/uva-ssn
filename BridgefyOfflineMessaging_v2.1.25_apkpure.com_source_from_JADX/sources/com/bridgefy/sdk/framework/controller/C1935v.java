@@ -25,7 +25,7 @@ class C1935v extends gatt_operation {
     }
 
     /* renamed from: a */
-    public void mo7423a(BluetoothGatt bluetoothGatt) {
+    public void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt) {
         bluetoothGatt.readCharacteristic(bluetoothGatt.getService(this.f6012a).getCharacteristic(this.f6013b));
     }
 
@@ -35,7 +35,7 @@ class C1935v extends gatt_operation {
      */
     /* JADX WARNING: Code restructure failed: missing block: B:11:0x002c, code lost:
         r1.mo7503g().add(com.bridgefy.sdk.framework.controller.C1927q.m8002a(r4.getValue()));
-        r4 = com.bridgefy.sdk.framework.controller.C1927q.m7998a(r4);
+        r4 = com.bridgefy.sdk.framework.controller.C1927q.get_bluetooth_characteristics(r4);
      */
     /* JADX WARNING: Code restructure failed: missing block: B:12:0x003f, code lost:
         switch(r4) {
@@ -50,7 +50,7 @@ class C1935v extends gatt_operation {
         r5 = "GATT__READ_char";
      */
     /* JADX WARNING: Code restructure failed: missing block: B:15:?, code lost:
-        r1.mo7378a(com.bridgefy.sdk.framework.controller.C1927q.m7999a(r1.mo7503g(), true, com.bridgefy.sdk.client.Bridgefy.getInstance().getConfig().isEncryption()));
+        r1.mo7378a(com.bridgefy.sdk.framework.controller.C1927q.stitch_chunks_to_entity(r1.mo7503g(), true, com.bridgefy.sdk.client.Bridgefy.getInstance().getConfig().isEncryption()));
         r1.mo7503g().clear();
      */
     /* JADX WARNING: Code restructure failed: missing block: B:17:?, code lost:
@@ -121,7 +121,7 @@ class C1935v extends gatt_operation {
             byte[] r0 = com.bridgefy.sdk.framework.controller.C1927q.m8002a(r0)     // Catch:{ all -> 0x00d8 }
             java.util.ArrayList r2 = r1.mo7503g()     // Catch:{ all -> 0x00d8 }
             r2.add(r0)     // Catch:{ all -> 0x00d8 }
-            int r4 = com.bridgefy.sdk.framework.controller.C1927q.m7998a(r4)     // Catch:{ all -> 0x00d8 }
+            int r4 = com.bridgefy.sdk.framework.controller.C1927q.get_bluetooth_characteristics(r4)     // Catch:{ all -> 0x00d8 }
             switch(r4) {
                 case 1: goto L_0x0099;
                 case 2: goto L_0x0045;
@@ -138,7 +138,7 @@ class C1935v extends gatt_operation {
             com.bridgefy.sdk.client.Bridgefy r0 = com.bridgefy.sdk.client.Bridgefy.getInstance()     // Catch:{ Exception -> 0x006f }
             com.bridgefy.sdk.client.Config r0 = r0.getConfig()     // Catch:{ Exception -> 0x006f }
             boolean r0 = r0.isEncryption()     // Catch:{ Exception -> 0x006f }
-            com.bridgefy.sdk.framework.entities.BleEntity r4 = com.bridgefy.sdk.framework.controller.C1927q.m7999a(r4, r5, r0)     // Catch:{ Exception -> 0x006f }
+            com.bridgefy.sdk.framework.entities.BleEntity r4 = com.bridgefy.sdk.framework.controller.C1927q.stitch_chunks_to_entity(r4, r5, r0)     // Catch:{ Exception -> 0x006f }
             r1.mo7378a(r4)     // Catch:{ Exception -> 0x006f }
             java.util.ArrayList r4 = r1.mo7503g()     // Catch:{ Exception -> 0x006f }
             r4.clear()     // Catch:{ Exception -> 0x006f }

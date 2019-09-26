@@ -35,7 +35,7 @@ class C1936w extends gatt_operation {
     }
 
     /* renamed from: a */
-    public void mo7423a(BluetoothGatt bluetoothGatt) {
+    public void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt) {
         BluetoothGattService service = bluetoothGatt.getService(this.f6014a);
         if (service == null) {
             this.f6017d.mo7464a().remove(this.f6016c);
@@ -50,8 +50,8 @@ class C1936w extends gatt_operation {
         bluetoothGatt.writeCharacteristic(characteristic);
         if (this.f6017d != null) {
             this.f6017d.mo7464a().remove(this.f6016c);
-            if (this.f6017d.mo7469e().getData() != null && this.f6017d.mo7469e().getData().length > 0) {
-                Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(this.f6017d.mo7473h(), (long) (this.f6017d.mo7472g() - this.f6017d.mo7464a().size()), (long) this.f6017d.mo7472g());
+            if (this.f6017d.get_ble_entity().getData() != null && this.f6017d.get_ble_entity().getData().length > 0) {
+                Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(this.f6017d.get_ble_entity_uuid(), (long) (this.f6017d.mo7472g() - this.f6017d.mo7464a().size()), (long) this.f6017d.mo7472g());
             }
             if (this.f6017d.mo7464a().size() == 0) {
                 this.f6017d.mo7468d().mo7474a(this.f6017d);

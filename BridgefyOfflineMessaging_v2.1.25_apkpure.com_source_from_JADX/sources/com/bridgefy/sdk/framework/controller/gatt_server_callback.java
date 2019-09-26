@@ -16,8 +16,8 @@ import com.bridgefy.sdk.framework.utils.Utils;
 import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.p */
-class C1926p extends BluetoothGattServerCallback {
-    C1926p() {
+class gatt_server_callback extends BluetoothGattServerCallback {
+    gatt_server_callback() {
     }
 
     public void onPhyUpdate(BluetoothDevice bluetoothDevice, int i, int i2, int i3) {
@@ -59,7 +59,7 @@ class C1926p extends BluetoothGattServerCallback {
             DeviceManager.getDevice(bluetoothDevice.getAddress());
             Session session = SessionManager.getSession(bluetoothDevice.getAddress());
             if (session != null && session.mo7395l() != 1) {
-                if (C1928r.m8006a() == null || !C1928r.m8006a().mo7556b().getDeviceAddress().equals(bluetoothDevice.getAddress())) {
+                if (connection_manager.m8006a() == null || !connection_manager.m8006a().mo7556b().getDeviceAddress().equals(bluetoothDevice.getAddress())) {
                     StringBuilder sb3 = new StringBuilder();
                     sb3.append("BluetoothProfile.STATE_DISCONNECTED ");
                     sb3.append(bluetoothDevice.getAddress());
@@ -79,7 +79,7 @@ class C1926p extends BluetoothGattServerCallback {
             sb4.append("Client connecting to our server BluetoothProfile.STATE_CONNECTED ");
             sb4.append(bluetoothDevice.getAddress());
             Log.v("GattServer_Callback", sb4.toString());
-            if (SessionManager.f5869a.get(bluetoothDevice.getAddress()) != null || m7997a() == null || m7997a().mo7462e() == null || !m7997a().mo7461c()) {
+            if (SessionManager.sessions.get(bluetoothDevice.getAddress()) != null || m7997a() == null || m7997a().mo7462e() == null || !m7997a().mo7461c()) {
                 StringBuilder sb5 = new StringBuilder();
                 sb5.append("doInBackground: Bridgefy Server Callback device ");
                 sb5.append(bluetoothDevice);
@@ -116,11 +116,11 @@ class C1926p extends BluetoothGattServerCallback {
             ((BluetoothGattServer) m7997a().mo7462e()).sendResponse(bluetoothDevice, i, 0, i2, bArr);
             a.mo7464a().remove(0);
         }
-        if (a.mo7469e().getData() != null && a.mo7469e().getData().length > 0) {
-            Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(a.mo7473h(), (long) (a.mo7472g() - a.mo7464a().size()), (long) a.mo7472g());
+        if (a.get_ble_entity().getData() != null && a.get_ble_entity().getData().length > 0) {
+            Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(a.get_ble_entity_uuid(), (long) (a.mo7472g() - a.mo7464a().size()), (long) a.mo7472g());
         }
         if (a.mo7464a().isEmpty()) {
-            a.mo7471f();
+            a.clear_async_tasks();
             a.mo7468d().mo7474a(a);
         }
     }
@@ -132,7 +132,7 @@ class C1926p extends BluetoothGattServerCallback {
         if (session != null && session.getBluetoothDevice() != null && session.getBluetoothDevice().equals(bluetoothDevice)) {
             session.mo7503g().add(C1927q.m8002a(bArr));
             if (C1927q.m8004c(bArr) == 2) {
-                BleEntity a = C1927q.m7999a(session.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption());
+                BleEntity a = C1927q.stitch_chunks_to_entity(session.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption());
                 if (a != null) {
                     session.mo7378a(a);
                 }
@@ -147,7 +147,7 @@ class C1926p extends BluetoothGattServerCallback {
     }
 
     /* renamed from: a */
-    private C1921l m7997a() {
-        return (C1921l) C1900ak.m7841a(Antenna.BLUETOOTH_LE, true);
+    private bluetooth_le_server m7997a() {
+        return (bluetooth_le_server) server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true);
     }
 }

@@ -16,10 +16,10 @@ class C1902al implements Comparable {
     private C1903am f5911a;
 
     /* renamed from: b */
-    private BleEntity f5912b;
+    private BleEntity ble_entity;
 
     /* renamed from: c */
-    private String f5913c;
+    private String current_time_ms;
 
     /* renamed from: d */
     private ArrayList<byte[]> f5914d;
@@ -28,25 +28,25 @@ class C1902al implements Comparable {
     private int f5915e;
 
     /* renamed from: f */
-    private Session f5916f;
+    private Session session;
 
     /* renamed from: g */
-    private BluetoothDevice f5917g;
+    private BluetoothDevice bluetooth_device;
 
     /* renamed from: h */
-    private AsyncTask<Void, Void, Void> f5918h;
+    private AsyncTask<Void, Void, Void> async_tasks;
 
     /* renamed from: i */
     private int f5919i = 0;
 
     C1902al(Session session, BleEntity bleEntity, C1903am amVar) {
-        this.f5916f = session;
+        this.session = session;
         this.f5915e = session.mo7394k();
-        this.f5912b = bleEntity;
-        this.f5913c = String.valueOf(System.currentTimeMillis());
+        this.ble_entity = bleEntity;
+        this.current_time_ms = String.valueOf(System.currentTimeMillis());
         this.f5911a = amVar;
         if (session.getDevice() != null) {
-            this.f5917g = session.getDevice().getBluetoothDevice();
+            this.bluetooth_device = session.getDevice().getBluetoothDevice();
             return;
         }
         throw new IllegalArgumentException("BluetoothDevice is null.");
@@ -64,7 +64,7 @@ class C1902al implements Comparable {
     private ArrayList<byte[]> m7844i() {
         ArrayList<byte[]> arrayList = null;
         try {
-            ArrayList<byte[]> a = C1927q.m8001a(this.f5912b, this.f5915e, true, Bridgefy.getInstance().getConfig().isEncryption(), this.f5916f.getUserId());
+            ArrayList<byte[]> a = C1927q.generate_compressed_chunk(this.ble_entity, this.f5915e, true, Bridgefy.getInstance().getConfig().isEncryption(), this.session.getUserId());
             try {
                 this.f5919i = a.size();
                 return a;
@@ -83,18 +83,18 @@ class C1902al implements Comparable {
     }
 
     /* renamed from: b */
-    public BluetoothDevice mo7465b() {
-        return this.f5917g;
+    public BluetoothDevice get_bluetooth_device() {
+        return this.bluetooth_device;
     }
 
     /* renamed from: j */
     private String m7845j() {
-        return this.f5913c;
+        return this.current_time_ms;
     }
 
     /* renamed from: c */
-    public synchronized Session mo7466c() {
-        return this.f5916f;
+    public synchronized Session get_session() {
+        return this.session;
     }
 
     /* access modifiers changed from: 0000 */
@@ -104,29 +104,29 @@ class C1902al implements Comparable {
     }
 
     /* renamed from: e */
-    public BleEntity mo7469e() {
-        return this.f5912b;
+    public BleEntity get_ble_entity() {
+        return this.ble_entity;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: f */
-    public void mo7471f() {
-        if (this.f5918h != null) {
-            this.f5918h.cancel(true);
-            this.f5918h = null;
+    public void clear_async_tasks() {
+        if (this.async_tasks != null) {
+            this.async_tasks.cancel(true);
+            this.async_tasks = null;
         }
     }
 
     public boolean equals(Object obj) {
         if (obj instanceof C1902al) {
-            return this.f5913c.equalsIgnoreCase(((C1902al) obj).m7845j());
+            return this.current_time_ms.equalsIgnoreCase(((C1902al) obj).m7845j());
         }
         return false;
     }
 
     public int compareTo(Object obj) {
         if (obj instanceof C1902al) {
-            return this.f5913c.compareTo(((C1902al) obj).m7845j());
+            return this.current_time_ms.compareTo(((C1902al) obj).m7845j());
         }
         StringBuilder sb = new StringBuilder();
         sb.append(obj.getClass().getName());
@@ -143,7 +143,7 @@ class C1902al implements Comparable {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: h */
-    public UUID mo7473h() {
-        return UUID.fromString(this.f5912b.getId());
+    public UUID get_ble_entity_uuid() {
+        return UUID.fromString(this.ble_entity.getId());
     }
 }

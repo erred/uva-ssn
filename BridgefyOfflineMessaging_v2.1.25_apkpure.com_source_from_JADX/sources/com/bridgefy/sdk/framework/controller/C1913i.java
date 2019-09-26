@@ -153,7 +153,7 @@ class C1913i extends C1906c {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public void mo7520b(Context context) {
+    public void fetch_device_uuid_with_sdp(Context context) {
         Log.i(this.f5926a, "actionDiscoveryFinished: ");
         mo7481a(false);
         this.f5973i.clear();
@@ -178,7 +178,7 @@ class C1913i extends C1906c {
                     }
 
                     public final void run() {
-                        C1913i.this.m7948g(this.f$1);
+                        C1913i.this.timeout_remove_device(this.f$1);
                     }
                 }, Constants.KEEP_ALIVE_INTERVAL, TimeUnit.MILLISECONDS);
                 if (VERSION.SDK_INT < 23) {
@@ -203,8 +203,8 @@ class C1913i extends C1906c {
 
     /* access modifiers changed from: private */
     /* renamed from: g */
-    public /* synthetic */ void m7948g(BluetoothDevice bluetoothDevice) {
-        m7946e(bluetoothDevice);
+    public /* synthetic */ void timeout_remove_device(BluetoothDevice bluetoothDevice) {
+        remove_device(bluetoothDevice);
         String str = this.f5926a;
         StringBuilder sb = new StringBuilder();
         sb.append("... ... removed device due to fetch timeout: ");
@@ -215,7 +215,7 @@ class C1913i extends C1906c {
     /* access modifiers changed from: 0000 */
     @SuppressLint({"HardwareIds"})
     /* renamed from: a */
-    public void mo7518a(Intent intent) {
+    public void add_bluetooth_device(Intent intent) {
         BluetoothDevice bluetoothDevice = (BluetoothDevice) intent.getParcelableExtra("android.bluetooth.device.extra.DEVICE");
         if (bluetoothDevice != null && bluetoothDevice.getAddress() != null && bluetoothDevice.getName() != null && bluetoothDevice.getBluetoothClass() != null) {
             if (bluetoothDevice.getBluetoothClass().getDeviceClass() == 524 || bluetoothDevice.getBluetoothClass().getDeviceClass() == 272) {
@@ -271,7 +271,7 @@ class C1913i extends C1906c {
             Device device = new Device(bluetoothDevice, z2);
             this.f5973i.addIfAbsent(device);
             if (z) {
-                DeviceManager.m7715a(device);
+                DeviceManager.add_device_null_session(device);
                 mo7517a(bluetoothDevice);
                 this.f5975k.mo429a(device);
             } else if (!z && !z2) {
@@ -307,13 +307,13 @@ class C1913i extends C1906c {
     }
 
     /* renamed from: e */
-    private boolean m7946e(BluetoothDevice bluetoothDevice) {
+    private boolean remove_device(BluetoothDevice bluetoothDevice) {
         return this.f5974j.remove(bluetoothDevice);
     }
 
     /* renamed from: f */
     private void m7947f(BluetoothDevice bluetoothDevice) {
-        m7946e(bluetoothDevice);
+        remove_device(bluetoothDevice);
         if (this.f5974j.size() == 0) {
             mo7478a(this.f5970d, mo7483b());
         }

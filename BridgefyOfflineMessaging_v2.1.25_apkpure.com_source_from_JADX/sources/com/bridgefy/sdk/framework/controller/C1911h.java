@@ -44,7 +44,7 @@ class C1911h extends C1896ag {
     private C1899aj f5961g;
 
     /* renamed from: h */
-    private C1918k f5962h;
+    private bluetooth_le_discovery f5962h;
 
     /* renamed from: i */
     private C1899aj f5963i;
@@ -106,7 +106,7 @@ class C1911h extends C1896ag {
 
     /* access modifiers changed from: protected */
     /* renamed from: a */
-    public void mo7453a() {
+    public void stop_advertising() {
         f5955a = 0;
         try {
             if (this.f5966m != null && this.f5966m.getBluetoothLeAdvertiser() != null) {
@@ -197,8 +197,8 @@ class C1911h extends C1896ag {
             java.lang.String r3 = f5956e     // Catch:{ all -> 0x0033 }
             java.lang.String r0 = "BluetoothAdapter.STATE_TURNING_OFF"
             android.util.Log.d(r3, r0)     // Catch:{ all -> 0x0033 }
-            com.bridgefy.sdk.framework.controller.C1928r.m8011b()     // Catch:{ all -> 0x0033 }
-            r2.mo7455c(r4)     // Catch:{ Exception -> 0x0020 }
+            com.bridgefy.sdk.framework.controller.connection_manager.m8011b()     // Catch:{ all -> 0x0033 }
+            r2.stop_discovery(r4)     // Catch:{ Exception -> 0x0020 }
             r2.m7926h()     // Catch:{ Exception -> 0x0020 }
             r2.mo7512b()     // Catch:{ Exception -> 0x0020 }
             goto L_0x0031
@@ -238,7 +238,7 @@ class C1911h extends C1896ag {
     public void mo7510a(Context context) {
         switch (mo7514d().getAntennaType()) {
             case BLUETOOTH_LE:
-                m7923f(context);
+                start_bluetooth_le_discovery(context);
                 return;
             case BLUETOOTH:
                 mo7513b(context);
@@ -260,10 +260,10 @@ class C1911h extends C1896ag {
     }
 
     /* renamed from: f */
-    private void m7923f(Context context) {
+    private void start_bluetooth_le_discovery(Context context) {
         if (this.f5964j) {
             if (this.f5962h == null) {
-                this.f5962h = new C1918k(context);
+                this.f5962h = new bluetooth_le_discovery(context);
             } else {
                 Log.w(f5956e, "startBluetoothLeDiscovery: already exists");
             }
@@ -277,7 +277,7 @@ class C1911h extends C1896ag {
 
     /* access modifiers changed from: protected */
     /* renamed from: c */
-    public void mo7455c(Context context) {
+    public void stop_discovery(Context context) {
         Log.i(f5956e, "stopDiscovery: ");
         if (this.f5960f != null) {
             this.f5960f.mo7477a(context);
@@ -292,7 +292,7 @@ class C1911h extends C1896ag {
     public void mo7515d(Context context) throws ConnectionException {
         switch (mo7514d().getAntennaType()) {
             case BLUETOOTH_LE:
-                m7927h(context);
+                start_bluetooth_le_server(context);
                 return;
             case BLUETOOTH:
                 m7925g(context);
@@ -304,9 +304,9 @@ class C1911h extends C1896ag {
 
     /* renamed from: g */
     private void m7925g(Context context) throws ConnectionException {
-        this.f5961g = C1900ak.m7841a(Antenna.BLUETOOTH, true);
+        this.f5961g = server_factory.get_server_instance(Antenna.BLUETOOTH, true);
         if (this.f5961g != null) {
-            this.f5961g.mo7459b();
+            this.f5961g.start_server();
         }
         if (this.f5966m.getScanMode() != 23) {
             Intent intent = new Intent("android.bluetooth.adapter.action.REQUEST_DISCOVERABLE");
@@ -317,14 +317,14 @@ class C1911h extends C1896ag {
     }
 
     /* renamed from: h */
-    private void m7927h(Context context) {
+    private void start_bluetooth_le_server(Context context) {
         if (!this.f5964j || this.f5966m.getBluetoothLeAdvertiser() == null) {
             f5955a = 1;
             return;
         }
-        this.f5963i = C1900ak.m7841a(Antenna.BLUETOOTH_LE, true);
+        this.f5963i = server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true);
         try {
-            this.f5963i.mo7459b();
+            this.f5963i.start_server();
         } catch (ConnectionException e) {
             Log.e(f5956e, "startBluetoothLeServer: ", e);
         }
@@ -353,28 +353,28 @@ class C1911h extends C1896ag {
 
     /* renamed from: i */
     private void m7928i() throws ConnectionException {
-        this.f5961g = C1900ak.m7841a(Antenna.BLUETOOTH, false);
+        this.f5961g = server_factory.get_server_instance(Antenna.BLUETOOTH, false);
         if (this.f5961g != null) {
-            this.f5961g.mo7457a();
+            this.f5961g.stop_server();
             this.f5961g = null;
-            C1900ak.m7843a((C1924n) null);
+            server_factory.m7843a((bluetooth_server) null);
         }
     }
 
     /* renamed from: j */
     private void m7929j() {
-        this.f5963i = C1900ak.m7841a(Antenna.BLUETOOTH_LE, false);
+        this.f5963i = server_factory.get_server_instance(Antenna.BLUETOOTH_LE, false);
         if (this.f5963i != null) {
             try {
-                this.f5963i.mo7457a();
+                this.f5963i.stop_server();
             } catch (ConnectionException e) {
                 e.printStackTrace();
             }
             this.f5963i = null;
-            C1900ak.m7842a((C1921l) null);
+            server_factory.m7842a((bluetooth_le_server) null);
         }
         f5957k.mo7419d();
-        mo7453a();
+        stop_advertising();
     }
 
     /* access modifiers changed from: 0000 */
@@ -465,11 +465,11 @@ class C1911h extends C1896ag {
             goto L_0x0085
         L_0x0072:
             com.bridgefy.sdk.framework.controller.i r6 = r4.f5960f
-            r6.mo7518a(r5)
+            r6.add_bluetooth_device(r5)
             goto L_0x0085
         L_0x0078:
             com.bridgefy.sdk.framework.controller.i r5 = r4.f5960f
-            r5.mo7520b(r6)
+            r5.fetch_device_uuid_with_sdp(r6)
             goto L_0x0085
         L_0x007e:
             r4.m7921e(r6)

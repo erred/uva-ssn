@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.u */
-class C1933u {
+class forward_controller {
 
     /* renamed from: a */
     protected final String f6006a = getClass().getSimpleName();
@@ -50,7 +50,7 @@ class C1933u {
         /* access modifiers changed from: protected */
         /* renamed from: a */
         public Void doInBackground(Session... sessionArr) {
-            if (C1933u.this.f6007b.size() > 0 || this.f6011b) {
+            if (forward_controller.this.f6007b.size() > 0 || this.f6011b) {
                 ArrayList<Session> arrayList = new ArrayList<>();
                 for (Session session : sessionArr) {
                     if (!(session == null || session.getUserId() == null)) {
@@ -58,20 +58,20 @@ class C1933u {
                     }
                 }
                 for (Session a : arrayList) {
-                    m8040a(a);
+                    send_pack_to_session(a);
                 }
             }
             return null;
         }
 
         /* renamed from: a */
-        private void m8040a(Session session) {
-            List a = C1933u.this.m8032c(String.valueOf(session.getCrc()));
+        private void send_pack_to_session(Session session) {
+            List a = forward_controller.this.m8032c(String.valueOf(session.getCrc()));
             if (a.size() > 0 || this.f6011b) {
                 BleEntity meshMessage = BleEntity.meshMessage(this.f6011b, (ArrayList) a, Bridgefy.getInstance().getBridgefyClient().getUserUuid());
                 if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
                     try {
-                        String str = C1933u.this.f6006a;
+                        String str = forward_controller.this.f6006a;
                         StringBuilder sb = new StringBuilder();
                         sb.append("sendPackToSession: call writeValue ");
                         sb.append(this.f6011b);
@@ -81,17 +81,17 @@ class C1933u {
                         C1903am.m7858a(session, meshMessage);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        C1933u.m8023a(a, String.valueOf(session.getCrc()));
+                        forward_controller.un_resolve_forward_packets(a, String.valueOf(session.getCrc()));
                     }
                 } else {
                     try {
                         BridgefyCore.m7704a(session, meshMessage);
                     } catch (Exception e2) {
                         e2.printStackTrace();
-                        C1933u.m8023a(a, String.valueOf(session.getCrc()));
+                        forward_controller.un_resolve_forward_packets(a, String.valueOf(session.getCrc()));
                     }
                 }
-                String str2 = C1933u.this.f6006a;
+                String str2 = forward_controller.this.f6006a;
                 StringBuilder sb2 = new StringBuilder();
                 sb2.append("sendPackToSession [ ");
                 sb2.append(session.getDevice().getDeviceName());
@@ -105,7 +105,7 @@ class C1933u {
         }
     }
 
-    C1933u() {
+    forward_controller() {
     }
 
     /* access modifiers changed from: 0000 */
@@ -140,7 +140,7 @@ class C1933u {
             monitor-exit(r0)     // Catch:{ all -> 0x00d7 }
             return
         L_0x001f:
-            r9.m8025a()     // Catch:{ all -> 0x00d7 }
+            r9.discard_expired_packets()     // Catch:{ all -> 0x00d7 }
             java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r1 = r9.f6007b     // Catch:{ all -> 0x00d7 }
             int r1 = r1.size()     // Catch:{ all -> 0x00d7 }
             r2 = 80
@@ -229,11 +229,11 @@ class C1933u {
         L_0x00da:
             return
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.C1933u.mo7560a(com.bridgefy.sdk.framework.entities.ForwardPacket, boolean):void");
+        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.forward_controller.mo7560a(com.bridgefy.sdk.framework.entities.ForwardPacket, boolean):void");
     }
 
     /* renamed from: a */
-    private void m8025a() {
+    private void discard_expired_packets() {
         synchronized (this.f6007b) {
             ArrayList<ForwardPacket> arrayList = new ArrayList<>();
             for (ForwardPacket forwardPacket : this.f6007b.descendingKeySet()) {
@@ -299,7 +299,7 @@ class C1933u {
     }
 
     /* renamed from: a */
-    static List<ForwardPacket> m8023a(List<ForwardPacket> list, String str) {
+    static List<ForwardPacket> un_resolve_forward_packets(List<ForwardPacket> list, String str) {
         ArrayList arrayList = new ArrayList();
         long longValue = Long.valueOf(str).longValue();
         StringBuilder sb = new StringBuilder();
@@ -367,7 +367,7 @@ class C1933u {
 
     /* renamed from: a */
     static void m8028a(List<ForwardPacket> list, Session session) {
-        m8023a(list, String.valueOf(session.getCrc()));
+        un_resolve_forward_packets(list, String.valueOf(session.getCrc()));
         for (ForwardPacket forwardPacket : list) {
             if (Bridgefy.getInstance().getBridgefyClient().getUserUuid().equalsIgnoreCase(forwardPacket.getSender())) {
                 Message message = new Message(forwardPacket.getPayload(), null, null);
@@ -410,7 +410,7 @@ class C1933u {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public void mo7564b(ForwardPacket forwardPacket) {
+    public void send_mesh_reach(ForwardPacket forwardPacket) {
         BleEntity meshReach = BleEntity.meshReach(forwardPacket.getId());
         Iterator it = SessionManager.getSessions().iterator();
         while (it.hasNext()) {

@@ -71,7 +71,7 @@ class gatt_manager {
                         } else {
                             StringBuilder sb = new StringBuilder();
                             sb.append("Gatt manager Timeout ran to completion, time to cancel the operation. Abort ships! ");
-                            sb.append(gatt_manager.this.f5881c.mo7429e());
+                            sb.append(gatt_manager.this.f5881c.get_operation_id());
                             sb.append(" device ");
                             sb.append(gatt_manager.this.f5881c.mo7426b());
                             Log.e("GATT_MANAGER", sb.toString());
@@ -101,7 +101,7 @@ class gatt_manager {
     /* renamed from: a */
     public void mo7413a(BluetoothGatt bluetoothGatt, gatt_operation abVar) {
         if (abVar == this.f5881c) {
-            abVar.mo7423a(bluetoothGatt);
+            abVar.read_bluetooth_gatt_descriptor(bluetoothGatt);
             if (!abVar.mo7425a()) {
                 mo7417b((gatt_operation) null);
                 mo7411a();

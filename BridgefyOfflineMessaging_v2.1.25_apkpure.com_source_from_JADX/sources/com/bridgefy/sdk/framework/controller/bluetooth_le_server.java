@@ -15,7 +15,7 @@ import com.bridgefy.sdk.framework.entities.BleHandshake;
 import com.bridgefy.sdk.framework.exceptions.ConnectionException;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.l */
-class C1921l extends C1899aj<BluetoothDevice, BluetoothGattServer> {
+class bluetooth_le_server extends C1899aj<BluetoothDevice, BluetoothGattServer> {
 
     /* renamed from: d */
     private BluetoothManager f5990d;
@@ -29,7 +29,7 @@ class C1921l extends C1899aj<BluetoothDevice, BluetoothGattServer> {
     /* renamed from: g */
     private Object f5993g = new Object();
 
-    C1921l(Config config, Context context) throws ConnectionException {
+    bluetooth_le_server(Config config, Context context) throws ConnectionException {
         super(config, context);
         this.f5990d = (BluetoothManager) context.getSystemService("bluetooth");
         m7976a(context);
@@ -44,12 +44,12 @@ class C1921l extends C1899aj<BluetoothDevice, BluetoothGattServer> {
         Device device = new Device(bluetoothDevice, true);
         device.setSessionId(session.getSessionId());
         session.mo7490a(device);
-        session.mo7487a((BluetoothGattServer) C1900ak.m7841a(Antenna.BLUETOOTH_LE, true).mo7462e());
-        SessionManager.m7754a(session);
+        session.mo7487a((BluetoothGattServer) server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true).mo7462e());
+        SessionManager.queue_session(session);
     }
 
     /* renamed from: a */
-    public void mo7457a() {
+    public void stop_server() {
         if (mo7461c()) {
             try {
                 mo7460b(false);
@@ -72,7 +72,7 @@ class C1921l extends C1899aj<BluetoothDevice, BluetoothGattServer> {
     }
 
     /* renamed from: b */
-    public void mo7459b() {
+    public void start_server() {
         synchronized (this.f5993g) {
             if (mo7461c() || mo7540d()) {
                 Log.w("BluetoothLeServer", "startServer: trying started server fail, server was started.");
@@ -117,7 +117,7 @@ class C1921l extends C1899aj<BluetoothDevice, BluetoothGattServer> {
     /* renamed from: a */
     private void m7976a(Context context) {
         if (mo7462e() == null) {
-            mo7458a(this.f5990d.openGattServer(context, new C1926p()));
+            mo7458a(this.f5990d.openGattServer(context, new gatt_server_callback()));
         }
     }
 

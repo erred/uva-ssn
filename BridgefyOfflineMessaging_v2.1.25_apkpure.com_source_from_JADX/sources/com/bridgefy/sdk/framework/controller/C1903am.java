@@ -75,7 +75,7 @@ class C1903am {
             while (true) {
                 if (it.hasNext()) {
                     C1902al alVar = (C1902al) it.next();
-                    if (alVar.mo7465b().equals(bluetoothDevice)) {
+                    if (alVar.get_bluetooth_device().equals(bluetoothDevice)) {
                         return alVar;
                     }
                 }
@@ -89,7 +89,7 @@ class C1903am {
         ConcurrentNavigableMap concurrentNavigableMap = (ConcurrentNavigableMap) f5921b.remove(session);
         ArrayList arrayList = new ArrayList();
         for (C1902al alVar : f5922c.keySet()) {
-            if (alVar.mo7466c().equals(session)) {
+            if (alVar.get_session().equals(session)) {
                 arrayList.add(alVar);
             }
         }
@@ -98,7 +98,7 @@ class C1903am {
             f5922c.remove((C1902al) it.next());
         }
         for (C1902al alVar2 : f5923d.keySet()) {
-            if (alVar2.mo7466c().equals(session)) {
+            if (alVar2.get_session().equals(session)) {
                 f5923d.remove(alVar2);
             }
         }
@@ -107,7 +107,7 @@ class C1903am {
 
     /* renamed from: c */
     private synchronized boolean m7865c(C1902al alVar) {
-        m7866d(alVar.mo7466c()).remove(alVar);
+        m7866d(alVar.get_session()).remove(alVar);
         return false;
     }
 
@@ -173,7 +173,7 @@ class C1903am {
     /* renamed from: c */
     private static void m7863c() {
         C1902al alVar = (C1902al) f5922c.pollFirstEntry().getKey();
-        Session c = alVar.mo7466c();
+        Session c = alVar.get_session();
         C1892ac acVar = new C1892ac(alVar);
         for (int i = 0; i < alVar.mo7464a().size(); i++) {
             C1936w wVar = new C1936w(c.mo7501e().getDevice(), C1922m.m7989b(), C1922m.m7991c(), (byte[]) alVar.mo7464a().get(i));
@@ -191,7 +191,7 @@ class C1903am {
                 if (C1903am.f5923d.size() > 0) {
                     C1902al alVar = (C1902al) C1903am.f5923d.pollFirstEntry().getKey();
                     try {
-                        alVar.mo7466c().mo7380b(alVar.mo7469e());
+                        alVar.get_session().mo7380b(alVar.get_ble_entity());
                         alVar.mo7468d().m7868d(alVar);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -212,7 +212,7 @@ class C1903am {
     /* access modifiers changed from: private */
     /* renamed from: d */
     public void m7868d(C1902al alVar) {
-        int et = alVar.mo7469e().getEt();
+        int et = alVar.get_ble_entity().getEt();
         if (et == 1) {
             for (Message message : m7870f(alVar)) {
                 if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
@@ -225,8 +225,8 @@ class C1903am {
             }
         } else if (et == 3) {
             ForwardTransaction g = m7871g(alVar);
-            if (SessionManager.getSession(alVar.mo7465b().getAddress()) != null && g.getMesh() != null && g.getMesh().size() > 0) {
-                C1933u.m8027a(g.getMesh());
+            if (SessionManager.getSession(alVar.get_bluetooth_device().getAddress()) != null && g.getMesh() != null && g.getMesh().size() > 0) {
+                forward_controller.m8027a(g.getMesh());
             }
         }
     }
@@ -241,7 +241,7 @@ class C1903am {
     /* access modifiers changed from: private */
     /* renamed from: e */
     public void m7869e(C1902al alVar) {
-        int et = alVar.mo7469e().getEt();
+        int et = alVar.get_ble_entity().getEt();
         if (et == 1) {
             for (Message message : m7870f(alVar)) {
                 if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
@@ -250,9 +250,9 @@ class C1903am {
             }
         } else if (et == 3) {
             ForwardTransaction g = m7871g(alVar);
-            Session session = SessionManager.getSession(alVar.mo7465b().getAddress());
+            Session session = SessionManager.getSession(alVar.get_bluetooth_device().getAddress());
             if (session != null) {
-                C1933u.m8028a(g.getMesh(), session);
+                forward_controller.m8028a(g.getMesh(), session);
             }
         }
     }
@@ -260,8 +260,8 @@ class C1903am {
     /* renamed from: f */
     private List<Message> m7870f(C1902al alVar) {
         ArrayList arrayList = new ArrayList();
-        if (alVar.mo7469e().getEt() == 1) {
-            BleEntityContent bleEntityContent = (BleEntityContent) alVar.mo7469e().getCt();
+        if (alVar.get_ble_entity().getEt() == 1) {
+            BleEntityContent bleEntityContent = (BleEntityContent) alVar.get_ble_entity().getCt();
             Builder builder = new Builder();
             builder.setContent(bleEntityContent.getPld());
             builder.setReceiverId(null);
@@ -274,16 +274,16 @@ class C1903am {
 
     /* renamed from: g */
     private ForwardTransaction m7871g(C1902al alVar) {
-        if (alVar.mo7469e().getEt() != 3) {
+        if (alVar.get_ble_entity().getEt() != 3) {
             return null;
         }
-        return (ForwardTransaction) alVar.mo7469e().getCt();
+        return (ForwardTransaction) alVar.get_ble_entity().getCt();
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
     public void mo7474a(C1902al alVar) {
-        alVar.mo7466c();
+        alVar.get_session();
         m7868d(alVar);
         m7865c(alVar);
     }
@@ -291,7 +291,7 @@ class C1903am {
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
     public void mo7475b(C1902al alVar) {
-        alVar.mo7466c();
+        alVar.get_session();
         m7869e(alVar);
         m7865c(alVar);
     }

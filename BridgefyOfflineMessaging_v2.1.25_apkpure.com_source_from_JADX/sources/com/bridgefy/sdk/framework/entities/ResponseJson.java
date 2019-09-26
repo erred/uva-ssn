@@ -10,37 +10,37 @@ public class ResponseJson {
     @JsonProperty("type")
 
     /* renamed from: a */
-    private int f6059a;
+    private int type;
     @JsonProperty("dt")
 
     /* renamed from: b */
-    private int f6060b;
+    private int dt;
     @JsonProperty("crckey")
 
     /* renamed from: c */
-    private long f6061c;
+    private long crckey;
     @JsonProperty("v")
 
     /* renamed from: d */
-    private String f6062d;
+    private String v;
     @JsonProperty("lcv")
 
     /* renamed from: e */
-    private String f6063e;
+    private String lcv;
     @JsonProperty("key")
 
     /* renamed from: f */
-    private String f6064f;
+    private String key;
     @JsonProperty("uuid")
 
     /* renamed from: g */
-    private String f6065g;
+    private String uuid;
 
     public ResponseJson() {
     }
 
     public ResponseJson(int i) {
-        this.f6059a = i;
+        this.type = i;
     }
 
     public static ResponseJson ResponseTypeGeneral(String str, long j, String str2, String str3) {
@@ -55,12 +55,12 @@ public class ResponseJson {
     }
 
     public ResponseJson(int i, long j, String str, String str2, String str3, String str4) {
-        this.f6059a = i;
-        this.f6061c = j;
-        this.f6062d = str;
-        this.f6063e = str2;
-        this.f6064f = str3;
-        this.f6065g = str4;
+        this.type = i;
+        this.crckey = j;
+        this.v = str;
+        this.lcv = str2;
+        this.key = str3;
+        this.uuid = str4;
     }
 
     public static ResponseJson ResponseTypeKey(String str) {
@@ -73,56 +73,56 @@ public class ResponseJson {
 
     @JsonProperty("crckey")
     public long getCrckey() {
-        return this.f6061c;
+        return this.crckey;
     }
 
     public void setCrckey(long j) {
-        this.f6061c = j;
+        this.crckey = j;
     }
 
     @JsonProperty("v")
     public String getV() {
-        return this.f6062d;
+        return this.v;
     }
 
     public void setV(String str) {
-        this.f6062d = str;
+        this.v = str;
     }
 
     @JsonProperty("lcv")
     public String getLcv() {
-        return this.f6063e;
+        return this.lcv;
     }
 
     public void setLcv(String str) {
-        this.f6063e = str;
+        this.lcv = str;
     }
 
     @JsonProperty("type")
     public int getType() {
-        return this.f6059a;
+        return this.type;
     }
 
     public void setType(int i) {
-        this.f6059a = i;
+        this.type = i;
     }
 
     @JsonProperty("key")
     public String getKey() {
-        return this.f6064f;
+        return this.key;
     }
 
     public void setKey(String str) {
-        this.f6064f = str;
+        this.key = str;
     }
 
     @JsonProperty("uuid")
     public String getUuid() {
-        return this.f6065g;
+        return this.uuid;
     }
 
     public void setUuid(String str) {
-        this.f6065g = str;
+        this.uuid = str;
     }
 
     public String toString() {
@@ -130,10 +130,10 @@ public class ResponseJson {
     }
 
     public int getDt() {
-        return this.f6060b;
+        return this.dt;
     }
 
     public void setDt(int i) {
-        this.f6060b = i;
+        this.dt = i;
     }
 }

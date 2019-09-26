@@ -39,15 +39,15 @@ public class BleEntity<T> implements Parcelable {
     @JsonProperty("id")
 
     /* renamed from: a */
-    private String f6026a;
+    private String id;
     @JsonProperty("et")
 
     /* renamed from: b */
-    private int f6027b;
+    private int et;
     @JsonProperty("ct")
 
     /* renamed from: c */
-    private T f6028c;
+    private T ct;
     @JsonIgnore
 
     /* renamed from: d */
@@ -65,43 +65,43 @@ public class BleEntity<T> implements Parcelable {
     }
 
     public BleEntity(int i) {
-        this.f6027b = i;
+        this.et = i;
     }
 
     public BleEntity(int i, T t) {
-        this.f6027b = i;
-        this.f6028c = t;
-        this.f6026a = UUID.randomUUID().toString();
+        this.et = i;
+        this.ct = t;
+        this.id = UUID.randomUUID().toString();
     }
 
     public BleEntity(int i, T t, byte[] bArr, String str) {
-        this.f6027b = i;
-        this.f6028c = t;
-        this.f6026a = str;
+        this.et = i;
+        this.ct = t;
+        this.id = str;
         this.f6030e = bArr;
     }
 
     protected BleEntity(Parcel parcel) {
-        this.f6026a = parcel.readString();
-        this.f6027b = parcel.readInt();
+        this.id = parcel.readString();
+        this.et = parcel.readInt();
         this.f6029d = new byte[parcel.readInt()];
         parcel.readByteArray(this.f6029d);
         this.f6030e = new byte[parcel.readInt()];
         parcel.readByteArray(this.f6030e);
         if (parcel.dataPosition() < parcel.dataSize()) {
-            this.f6028c = parcel.readParcelable(ForwardTransaction.class.getClassLoader());
+            this.ct = parcel.readParcelable(ForwardTransaction.class.getClassLoader());
         }
     }
 
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(this.f6026a);
-        parcel.writeInt(this.f6027b);
+        parcel.writeString(this.id);
+        parcel.writeInt(this.et);
         parcel.writeInt(this.f6029d.length);
         parcel.writeByteArray(this.f6029d);
         parcel.writeInt(this.f6030e.length);
         parcel.writeByteArray(this.f6030e);
-        if (this.f6028c instanceof ForwardTransaction) {
-            parcel.writeParcelable((ForwardTransaction) this.f6028c, i);
+        if (this.ct instanceof ForwardTransaction) {
+            parcel.writeParcelable((ForwardTransaction) this.ct, i);
         }
     }
 
@@ -138,29 +138,29 @@ public class BleEntity<T> implements Parcelable {
 
     @JsonProperty("et")
     public int getEt() {
-        return this.f6027b;
+        return this.et;
     }
 
     public void setEt(int i) {
-        this.f6027b = i;
+        this.et = i;
     }
 
     @JsonProperty("id")
     public String getId() {
-        return this.f6026a;
+        return this.id;
     }
 
     public void setId(String str) {
-        this.f6026a = str;
+        this.id = str;
     }
 
     @JsonProperty("ct")
     public T getCt() {
-        return this.f6028c;
+        return this.ct;
     }
 
     public void setCt(T t) {
-        this.f6028c = t;
+        this.ct = t;
     }
 
     public void setBinaryPart(byte[] bArr) {

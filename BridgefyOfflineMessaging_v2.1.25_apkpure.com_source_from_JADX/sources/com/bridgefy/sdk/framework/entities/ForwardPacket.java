@@ -49,136 +49,136 @@ public class ForwardPacket implements Parcelable, Comparable {
     @JsonProperty("id")
 
     /* renamed from: a */
-    String f6039a;
+    String id;
     @JsonProperty("payload")
 
     /* renamed from: b */
-    HashMap<String, Object> f6040b;
+    HashMap<String, Object> payload;
     @JsonProperty("enc_payload")
 
     /* renamed from: c */
-    int f6041c;
+    int enc_payload;
     @JsonProperty("sender")
 
     /* renamed from: d */
-    String f6042d;
+    String sender;
     @JsonProperty("receiver")
 
     /* renamed from: e */
-    String f6043e;
+    String receiver;
     @JsonProperty("creation")
 
     /* renamed from: f */
-    long f6044f;
+    long creation;
     @JsonProperty("expiration")
 
     /* renamed from: g */
-    long f6045g;
+    long expiration;
     @JsonProperty("receiver_type")
 
     /* renamed from: h */
-    int f6046h;
+    int receiver_type;
     @JsonProperty("hops")
 
     /* renamed from: i */
-    int f6047i;
+    int remaining_hops;
     @JsonProperty("profile")
 
     /* renamed from: j */
-    int f6048j;
+    int profile;
     @JsonProperty("track")
 
     /* renamed from: k */
-    ArrayList<Long> f6049k;
+    ArrayList<Long> track;
     @JsonIgnore
 
     /* renamed from: l */
-    int f6050l;
+    int propagation;
     @JsonIgnore
 
     /* renamed from: m */
-    Date f6051m;
+    Date added;
     @JsonIgnore
 
     /* renamed from: r */
-    private byte[] f6052r;
+    private byte[] forwarded_payload;
 
     public int describeContents() {
         return 0;
     }
 
     public ForwardPacket() {
-        this.f6041c = -1;
-        this.f6049k = new ArrayList<>();
+        this.enc_payload = -1;
+        this.track = new ArrayList<>();
     }
 
     public ForwardPacket(Message message, int i) {
-        this.f6041c = -1;
-        this.f6049k = new ArrayList<>();
-        this.f6048j = BFEngineProfile.BFConfigProfileDefault.ordinal();
-        this.f6044f = message.getDateSent();
-        this.f6039a = message.getUuid() == null ? UUID.randomUUID().toString() : message.getUuid();
-        this.f6042d = message.getSenderId();
-        this.f6043e = message.getReceiverId();
-        this.f6046h = i;
-        this.f6051m = new Date(System.currentTimeMillis());
-        this.f6045g = (long) mo7600a();
-        this.f6050l = mo7603c();
-        this.f6047i = getHopsLimitForEngineProfile();
-        this.f6040b = message.getContent();
+        this.enc_payload = -1;
+        this.track = new ArrayList<>();
+        this.profile = BFEngineProfile.BFConfigProfileDefault.ordinal();
+        this.creation = message.getDateSent();
+        this.id = message.getUuid() == null ? UUID.randomUUID().toString() : message.getUuid();
+        this.sender = message.getSenderId();
+        this.receiver = message.getReceiverId();
+        this.receiver_type = i;
+        this.added = new Date(System.currentTimeMillis());
+        this.expiration = (long) mo7600a();
+        this.propagation = mo7603c();
+        this.remaining_hops = getHopsLimitForEngineProfile();
+        this.payload = message.getContent();
         addTrackingCRC(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid()));
     }
 
     public ForwardPacket(Message message, int i, BFEngineProfile bFEngineProfile) {
-        this.f6041c = -1;
-        this.f6049k = new ArrayList<>();
-        this.f6048j = bFEngineProfile.ordinal();
-        this.f6044f = message.getDateSent();
-        this.f6039a = message.getUuid() == null ? UUID.randomUUID().toString() : message.getUuid();
-        this.f6042d = message.getSenderId();
-        this.f6043e = message.getReceiverId();
-        this.f6046h = i;
-        this.f6051m = new Date(System.currentTimeMillis());
-        this.f6045g = (long) mo7600a();
-        this.f6050l = mo7603c();
-        this.f6047i = getHopsLimitForEngineProfile();
-        this.f6040b = message.getContent();
+        this.enc_payload = -1;
+        this.track = new ArrayList<>();
+        this.profile = bFEngineProfile.ordinal();
+        this.creation = message.getDateSent();
+        this.id = message.getUuid() == null ? UUID.randomUUID().toString() : message.getUuid();
+        this.sender = message.getSenderId();
+        this.receiver = message.getReceiverId();
+        this.receiver_type = i;
+        this.added = new Date(System.currentTimeMillis());
+        this.expiration = (long) mo7600a();
+        this.propagation = mo7603c();
+        this.remaining_hops = getHopsLimitForEngineProfile();
+        this.payload = message.getContent();
         addTrackingCRC(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid()));
     }
 
     protected ForwardPacket(Parcel parcel) {
-        this.f6041c = -1;
-        this.f6049k = new ArrayList<>();
-        this.f6047i = parcel.readInt();
-        this.f6044f = parcel.readLong();
-        this.f6039a = parcel.readString();
-        this.f6045g = parcel.readLong();
-        this.f6040b = (HashMap) new Gson().fromJson(parcel.readString(), Constants.TYPE);
-        this.f6041c = parcel.readInt();
-        this.f6049k = (ArrayList) parcel.readSerializable();
-        this.f6042d = parcel.readString();
-        this.f6046h = parcel.readInt();
-        this.f6043e = parcel.readString();
-        this.f6048j = parcel.readInt();
-        this.f6051m = new Date(parcel.readLong());
+        this.enc_payload = -1;
+        this.track = new ArrayList<>();
+        this.remaining_hops = parcel.readInt();
+        this.creation = parcel.readLong();
+        this.id = parcel.readString();
+        this.expiration = parcel.readLong();
+        this.payload = (HashMap) new Gson().fromJson(parcel.readString(), Constants.TYPE);
+        this.enc_payload = parcel.readInt();
+        this.track = (ArrayList) parcel.readSerializable();
+        this.sender = parcel.readString();
+        this.receiver_type = parcel.readInt();
+        this.receiver = parcel.readString();
+        this.profile = parcel.readInt();
+        this.added = new Date(parcel.readLong());
     }
 
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(this.f6047i);
-        parcel.writeLong(this.f6044f);
-        parcel.writeString(this.f6039a);
-        parcel.writeLong(this.f6045g);
-        parcel.writeString(new Gson().toJson((Object) this.f6040b));
-        parcel.writeInt(this.f6041c);
-        parcel.writeSerializable(this.f6049k);
-        parcel.writeString(this.f6042d);
-        parcel.writeInt(this.f6046h);
-        parcel.writeString(this.f6043e);
-        parcel.writeInt(this.f6048j);
-        if (this.f6051m == null) {
-            this.f6051m = new Date(System.currentTimeMillis());
+        parcel.writeInt(this.remaining_hops);
+        parcel.writeLong(this.creation);
+        parcel.writeString(this.id);
+        parcel.writeLong(this.expiration);
+        parcel.writeString(new Gson().toJson((Object) this.payload));
+        parcel.writeInt(this.enc_payload);
+        parcel.writeSerializable(this.track);
+        parcel.writeString(this.sender);
+        parcel.writeInt(this.receiver_type);
+        parcel.writeString(this.receiver);
+        parcel.writeInt(this.profile);
+        if (this.added == null) {
+            this.added = new Date(System.currentTimeMillis());
         }
-        parcel.writeLong(this.f6051m.getTime());
+        parcel.writeLong(this.added.getTime());
     }
 
     public boolean containsCRC(long j) {
@@ -218,128 +218,128 @@ public class ForwardPacket implements Parcelable, Comparable {
 
     @JsonProperty("hops")
     public int getHops() {
-        return this.f6047i;
+        return this.remaining_hops;
     }
 
     public void setHops(int i) {
-        this.f6047i = i;
+        this.remaining_hops = i;
     }
 
     @JsonProperty("creation")
     public long getCreation() {
-        return this.f6044f;
+        return this.creation;
     }
 
     public void setCreation(long j) {
-        this.f6044f = j;
+        this.creation = j;
     }
 
     @JsonProperty("id")
     public String getId() {
-        return this.f6039a;
+        return this.id;
     }
 
     public void setId(String str) {
-        this.f6039a = str;
+        this.id = str;
     }
 
     @JsonProperty("expiration")
     public long getExpiration() {
-        return this.f6045g;
+        return this.expiration;
     }
 
     public void setExpiration(long j) {
-        this.f6045g = j;
+        this.expiration = j;
     }
 
     @JsonProperty("track")
     public ArrayList<Long> getTrack() {
-        return this.f6049k;
+        return this.track;
     }
 
     public void setTrack(ArrayList<Long> arrayList) {
-        this.f6049k = arrayList;
+        this.track = arrayList;
     }
 
     @JsonProperty("payload")
     public HashMap<String, Object> getPayload() {
-        return this.f6040b;
+        return this.payload;
     }
 
     public void setPayload(HashMap<String, Object> hashMap) {
-        this.f6040b = hashMap;
+        this.payload = hashMap;
     }
 
     @JsonProperty("enc_payload")
     public int getEnc_payload() {
-        return this.f6041c;
+        return this.enc_payload;
     }
 
     public void setEnc_payload(int i) {
-        this.f6041c = i;
+        this.enc_payload = i;
     }
 
     @JsonProperty("sender")
     public String getSender() {
-        return this.f6042d;
+        return this.sender;
     }
 
     public void setSender(String str) {
-        this.f6042d = str;
+        this.sender = str;
     }
 
     @JsonProperty("receiver_type")
     public int getReceiver_type() {
-        return this.f6046h;
+        return this.receiver_type;
     }
 
     @JsonProperty("receiver")
     public String getReceiver() {
-        return this.f6043e;
+        return this.receiver;
     }
 
     public void setReceiver(String str) {
-        this.f6043e = str;
+        this.receiver = str;
     }
 
     public int getPropagation() {
-        return this.f6050l;
+        return this.propagation;
     }
 
     @JsonIgnore
     public void setPropagation(int i) {
-        this.f6050l = i;
+        this.propagation = i;
     }
 
     public int decreaseRemainingHops() {
-        int i = this.f6047i - 1;
-        this.f6047i = i;
+        int i = this.remaining_hops - 1;
+        this.remaining_hops = i;
         return i;
     }
 
     public void setForwardedPayload(byte[] bArr) {
-        this.f6052r = bArr;
+        this.forwarded_payload = bArr;
     }
 
     public byte[] getForwardedPayload() {
-        return this.f6052r;
+        return this.forwarded_payload;
     }
 
     @JsonProperty("profile")
     public int getProfile() {
-        return this.f6048j;
+        return this.profile;
     }
 
     public void setProfile(int i) {
-        this.f6048j = i;
+        this.profile = i;
     }
 
     public void setAdded(Date date) {
-        this.f6051m = date;
+        this.added = date;
     }
 
     public Date getAdded() {
-        return this.f6051m;
+        return this.added;
     }
 
     public boolean expired() {
@@ -364,7 +364,7 @@ public class ForwardPacket implements Parcelable, Comparable {
             Log.i("ForwardPacket", sb2.toString());
             return true;
         }
-        long time = new Date(System.currentTimeMillis()).getTime() - this.f6051m.getTime();
+        long time = new Date(System.currentTimeMillis()).getTime() - this.added.getTime();
         if (time > ((long) mo7602b())) {
             StringBuilder sb3 = new StringBuilder();
             sb3.append("expired because: ");
@@ -405,28 +405,28 @@ public class ForwardPacket implements Parcelable, Comparable {
 
     @JsonIgnore
     public int getHopsLimitForEngineProfile() {
-        return f6035n[this.f6048j];
+        return f6035n[this.profile];
     }
 
     /* access modifiers changed from: 0000 */
     @JsonIgnore
     /* renamed from: a */
     public int mo7600a() {
-        return f6036o[this.f6048j];
+        return f6036o[this.profile];
     }
 
     /* access modifiers changed from: 0000 */
     @JsonIgnore
     /* renamed from: b */
     public int mo7602b() {
-        return f6037p[this.f6048j] * 1000;
+        return f6037p[this.profile] * 1000;
     }
 
     /* access modifiers changed from: 0000 */
     @JsonIgnore
     /* renamed from: c */
     public int mo7603c() {
-        return f6038q[this.f6048j];
+        return f6038q[this.profile];
     }
 
     public int compareTo(Object obj) {

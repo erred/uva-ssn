@@ -31,7 +31,7 @@ class C1930s extends C0341a<Device> {
             }
 
             public void onComplete() {
-                C1928r.m8009a((C1932t) null);
+                connection_manager.m8009a((C1932t) null);
                 C1930s.this.request(1);
             }
 
@@ -40,17 +40,17 @@ class C1930s extends C0341a<Device> {
                 sb.append("onError: ");
                 sb.append(th.getMessage());
                 Log.e("Connection_Subscriber", sb.toString());
-                C1932t a = C1928r.m8006a();
+                C1932t a = connection_manager.m8006a();
                 if (a != null && a.mo7556b().equals(device)) {
                     if (a instanceof C1910g) {
                         C1930s.this.m8017b(a.mo7556b());
                     }
-                    C1928r.m8009a((C1932t) null);
+                    connection_manager.m8009a((C1932t) null);
                     C1930s.this.request(1);
                 }
             }
         };
-        C1932t a = C1928r.m8007a(device);
+        C1932t a = connection_manager.get_connectivity(device);
         if (a == null) {
             request(1);
         } else if (device.getAntennaType() == Antenna.BLUETOOTH_LE) {
@@ -69,9 +69,9 @@ class C1930s extends C0341a<Device> {
     /* access modifiers changed from: private */
     /* renamed from: b */
     public void m8017b(Device device) {
-        C1928r.m8012b(DeviceManager.getDevice(device.getDeviceAddress()));
+        connection_manager.m8012b(DeviceManager.getDevice(device.getDeviceAddress()));
         Log.e("Connection_Subscriber", "accept: Connection failed adding to blacklist");
-        SessionManager.m7755a(device.getDeviceAddress());
+        SessionManager.get_session(device.getDeviceAddress());
         BluetoothAdapter bluetoothAdapter = BridgefyUtils.getBluetoothAdapter(Bridgefy.getInstance().getBridgefyCore().getContext());
         if (bluetoothAdapter != null) {
             bluetoothAdapter.startDiscovery();

@@ -8,36 +8,36 @@ public class BleHandshake {
     @JsonProperty("rq")
 
     /* renamed from: a */
-    private Integer f6033a;
+    private Integer rq;
     @JsonProperty("rp")
 
     /* renamed from: b */
-    private ResponseJson f6034b;
+    private ResponseJson rp;
 
     public BleHandshake() {
     }
 
     public BleHandshake(Integer num, ResponseJson responseJson) {
-        this.f6033a = num;
-        this.f6034b = responseJson;
+        this.rq = num;
+        this.rp = responseJson;
     }
 
     @JsonProperty("rq")
     public Integer getRq() {
-        return this.f6033a;
+        return this.rq;
     }
 
     public void setRq(Integer num) {
-        this.f6033a = num;
+        this.rq = num;
     }
 
     @JsonProperty("rp")
     public ResponseJson getRp() {
-        return this.f6034b;
+        return this.rp;
     }
 
     public void setRp(ResponseJson responseJson) {
-        this.f6034b = responseJson;
+        this.rp = responseJson;
     }
 
     public String toString() {

@@ -15,33 +15,33 @@ import java.util.concurrent.TimeUnit;
 public class SessionManager {
 
     /* renamed from: a */
-    static ConcurrentSkipListMap<String, Session> f5869a = new ConcurrentSkipListMap<>();
+    static ConcurrentSkipListMap<String, Session> sessions = new ConcurrentSkipListMap<>();
 
     /* renamed from: b */
-    private static final int f5870b = Runtime.getRuntime().availableProcessors();
+    private static final int available_processors = Runtime.getRuntime().availableProcessors();
 
     /* renamed from: c */
-    private static final int f5871c;
+    private static final int threads_in_use;
 
     /* renamed from: d */
-    private static final ThreadPoolExecutor f5872d;
+    private static final ThreadPoolExecutor thread_pool_executor;
 
     static {
         int i = 3;
-        if (f5870b + 1 > 3) {
-            i = f5870b;
+        if (available_processors + 1 > 3) {
+            i = available_processors;
         }
-        f5871c = i;
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(f5871c, 9, 3, TimeUnit.SECONDS, new LinkedBlockingQueue());
-        f5872d = threadPoolExecutor;
+        threads_in_use = i;
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(threads_in_use, 9, 3, TimeUnit.SECONDS, new LinkedBlockingQueue());
+        thread_pool_executor = threadPoolExecutor;
     }
 
     private SessionManager() {
     }
 
     /* renamed from: a */
-    static void m7754a(Session session) {
-        if (!f5869a.containsKey(session.getSessionId())) {
+    static void queue_session(Session session) {
+        if (!sessions.containsKey(session.getSessionId())) {
             StringBuilder sb = new StringBuilder();
             sb.append("queueSession: ");
             sb.append(session.getSessionId());
@@ -51,7 +51,7 @@ public class SessionManager {
             if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
                 session.mo7390h();
             }
-            f5869a.put(session.getSessionId(), session);
+            sessions.put(session.getSessionId(), session);
         }
     }
 
@@ -68,14 +68,14 @@ public class SessionManager {
             monitor-exit(r0)
             return r5
         L_0x0008:
-            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r1 = f5869a     // Catch:{ all -> 0x0052 }
+            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r1 = sessions     // Catch:{ all -> 0x0052 }
             java.lang.Object r1 = r1.get(r5)     // Catch:{ all -> 0x0052 }
             com.bridgefy.sdk.framework.controller.Session r1 = (com.bridgefy.sdk.framework.controller.Session) r1     // Catch:{ all -> 0x0052 }
             if (r1 == 0) goto L_0x0014
             monitor-exit(r0)
             return r1
         L_0x0014:
-            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r2 = f5869a     // Catch:{ all -> 0x0052 }
+            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r2 = sessions     // Catch:{ all -> 0x0052 }
             java.util.Collection r2 = r2.values()     // Catch:{ all -> 0x0052 }
             java.util.Iterator r2 = r2.iterator()     // Catch:{ all -> 0x0052 }
         L_0x001e:
@@ -109,12 +109,12 @@ public class SessionManager {
     }
 
     public static ArrayList<Session> getSessions() {
-        return new ArrayList<>(f5869a.values());
+        return new ArrayList<>(sessions.values());
     }
 
     public static List<Session> getSessionsByType(Antenna antenna) {
         ArrayList arrayList = new ArrayList();
-        for (Session session : f5869a.values()) {
+        for (Session session : sessions.values()) {
             if (antenna == session.getAntennaType()) {
                 arrayList.add(session);
             }
@@ -124,7 +124,7 @@ public class SessionManager {
 
     /* renamed from: a */
     static void m7753a(Antenna antenna) {
-        for (Session session : f5869a.values()) {
+        for (Session session : sessions.values()) {
             if (antenna == session.getAntennaType()) {
                 session.mo7391i();
             }
@@ -132,7 +132,7 @@ public class SessionManager {
     }
 
     /* renamed from: b */
-    static void m7756b(Session session) {
+    static void remove_session(Session session) {
         StringBuilder sb = new StringBuilder();
         sb.append("remove Session: id - ");
         sb.append(session.getSessionId());
@@ -146,23 +146,23 @@ public class SessionManager {
                 session.getEmitter().mo364b(new Exception("Connection closed"));
             }
         }
-        f5869a.remove(session.getSessionId());
+        sessions.remove(session.getSessionId());
         DeviceManager.m7719b(device);
     }
 
     /* renamed from: a */
-    static void m7755a(String str) {
+    static void get_session(String str) {
         C1897ah.m7831a(str, "Session Id can't be null.");
         Session session = getSession(str);
         if (session != null && session.mo7395l() != 1) {
-            m7756b(session);
+            remove_session(session);
         }
     }
 
     /* renamed from: b */
     static synchronized void m7757b(String str) {
         synchronized (SessionManager.class) {
-            Session session = (Session) f5869a.get(str);
+            Session session = (Session) sessions.get(str);
             if (session != null) {
                 if (session.getAntennaType() == Antenna.BLUETOOTH_LE) {
                     if (session.mo7501e() != null) {
@@ -170,7 +170,7 @@ public class SessionManager {
                         session.mo7501e().close();
                     }
                     try {
-                        BluetoothGattServer bluetoothGattServer = (BluetoothGattServer) C1900ak.m7841a(Antenna.BLUETOOTH_LE, true).mo7462e();
+                        BluetoothGattServer bluetoothGattServer = (BluetoothGattServer) server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true).mo7462e();
                         if (!(session.getBluetoothDevice() == null || bluetoothGattServer == null)) {
                             BluetoothGattCharacteristic characteristic = bluetoothGattServer.getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c());
                             characteristic.setValue(new byte[]{5});
@@ -197,7 +197,7 @@ public class SessionManager {
     /* renamed from: a */
     static int m7752a(int i) {
         int i2 = 0;
-        for (Session l : f5869a.values()) {
+        for (Session l : sessions.values()) {
             if (l.mo7395l() == i) {
                 i2++;
             }

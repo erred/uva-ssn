@@ -36,7 +36,7 @@ class C1939z extends gatt_operation {
     }
 
     /* renamed from: a */
-    public void mo7423a(BluetoothGatt bluetoothGatt) {
+    public void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt) {
         BluetoothGattService service = bluetoothGatt.getService(this.f6022a);
         if (service != null) {
             BluetoothGattCharacteristic characteristic = service.getCharacteristic(this.f6023b);

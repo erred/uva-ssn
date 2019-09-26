@@ -14,11 +14,11 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.n */
-class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
-    C1924n(Config config, boolean z, Context context) throws ConnectionException {
+class bluetooth_server extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
+    bluetooth_server(Config config, boolean z, Context context) throws ConnectionException {
         super(config, context);
         BluetoothAdapter bluetoothAdapter = BridgefyUtils.getBluetoothAdapter(context);
-        C1928r.f5998a = Utils.getCrcFromKey(bluetoothAdapter.getName());
+        connection_manager.f5998a = Utils.getCrcFromKey(bluetoothAdapter.getName());
         if (z) {
             try {
                 mo7458a(bluetoothAdapter.listenUsingRfcommWithServiceRecord(bluetoothAdapter.getName(), C1922m.m7989b()));
@@ -31,7 +31,7 @@ class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
     }
 
     /* renamed from: b */
-    public void mo7459b() throws ConnectionException {
+    public void start_server() throws ConnectionException {
         String str = this.f5905c;
         StringBuilder sb = new StringBuilder();
         sb.append("startServer: is connected: ");
@@ -44,7 +44,7 @@ class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
     }
 
     /* renamed from: a */
-    public void mo7457a() throws ConnectionException {
+    public void stop_server() throws ConnectionException {
         if (mo7461c()) {
             try {
                 mo7460b(false);
@@ -61,7 +61,7 @@ class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7542a(BluetoothSocket bluetoothSocket) {
+    public void accept_connection(BluetoothSocket bluetoothSocket) {
         String str = this.f5905c;
         StringBuilder sb = new StringBuilder();
         sb.append("acceptConnection: device ");
@@ -75,8 +75,8 @@ class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
         session.mo7381c(device.getDeviceAddress());
         device.setSessionId(session.getSessionId());
         session.mo7490a(device);
-        SessionManager.m7754a(session);
-        DeviceManager.m7715a(device);
+        SessionManager.queue_session(session);
+        DeviceManager.add_device_null_session(device);
         StringBuilder sb2 = new StringBuilder();
         sb2.append(SessionManager.m7752a(2));
         sb2.append(" Connected with device: ");
@@ -106,7 +106,7 @@ class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
             java.lang.String r0 = r3.f5905c     // Catch:{ all -> 0x0030 }
             java.lang.String r1 = "run: not server instance, finalize server."
             android.util.Log.e(r0, r1)     // Catch:{ all -> 0x0030 }
-            r3.mo7457a()     // Catch:{ ConnectionException -> 0x0018 }
+            r3.stop_server()     // Catch:{ ConnectionException -> 0x0018 }
             goto L_0x0020
         L_0x0018:
             r0 = move-exception
@@ -117,7 +117,7 @@ class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
             java.lang.Object r0 = r3.mo7462e()     // Catch:{ IOException -> 0x0001 }
             android.bluetooth.BluetoothServerSocket r0 = (android.bluetooth.BluetoothServerSocket) r0     // Catch:{ IOException -> 0x0001 }
             android.bluetooth.BluetoothSocket r0 = r0.accept()     // Catch:{ IOException -> 0x0001 }
-            r3.mo7542a(r0)     // Catch:{ IOException -> 0x0001 }
+            r3.accept_connection(r0)     // Catch:{ IOException -> 0x0001 }
             goto L_0x0001
         L_0x002e:
             monitor-exit(r3)
@@ -127,6 +127,6 @@ class C1924n extends C1899aj<BluetoothSocket, BluetoothServerSocket> {
             monitor-exit(r3)
             throw r0
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.C1924n.run():void");
+        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.bluetooth_server.run():void");
     }
 }

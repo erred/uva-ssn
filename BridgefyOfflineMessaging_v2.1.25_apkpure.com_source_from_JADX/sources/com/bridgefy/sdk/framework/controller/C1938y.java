@@ -8,13 +8,13 @@ import java.util.UUID;
 class C1938y extends gatt_operation {
 
     /* renamed from: a */
-    private final UUID f6018a;
+    private final UUID service_uuid;
 
     /* renamed from: b */
-    private final UUID f6019b;
+    private final UUID characteristic_uuid;
 
     /* renamed from: c */
-    private final UUID f6020c;
+    private final UUID descriptor_uuid;
 
     /* renamed from: d */
     private final C1937x f6021d;
@@ -25,8 +25,8 @@ class C1938y extends gatt_operation {
     }
 
     /* renamed from: a */
-    public void mo7423a(BluetoothGatt bluetoothGatt) {
-        bluetoothGatt.readDescriptor(bluetoothGatt.getService(this.f6018a).getCharacteristic(this.f6019b).getDescriptor(this.f6020c));
+    public void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt) {
+        bluetoothGatt.readDescriptor(bluetoothGatt.getService(this.service_uuid).getCharacteristic(this.characteristic_uuid).getDescriptor(this.descriptor_uuid));
     }
 
     /* access modifiers changed from: 0000 */

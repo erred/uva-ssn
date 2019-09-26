@@ -32,7 +32,7 @@ import p000a.p013b.p019d.C0177a;
 import p000a.p013b.p019d.C0180d;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.k */
-class C1918k extends C1906c {
+class bluetooth_le_discovery extends C1906c {
     /* access modifiers changed from: private */
 
     /* renamed from: d */
@@ -48,7 +48,7 @@ class C1918k extends C1906c {
     /* renamed from: g */
     public ScanCallback f5986g;
 
-    C1918k(Context context) {
+    bluetooth_le_discovery(Context context) {
         this.f5983d = ((BluetoothManager) context.getSystemService("bluetooth")).getAdapter();
         if (this.f5983d == null) {
             Log.e("Bluetooth_LE_Discovery", "BluetoothAdapter was null!");
@@ -97,8 +97,8 @@ class C1918k extends C1906c {
     public void mo7478a(Context context, Config config) {
         this.f5928c = C0330h.m914a((C0343j<T>) new C0343j<Device>() {
             public void subscribe(final C0340i<Device> iVar) throws Exception {
-                if (C1918k.this.f5983d != null && C1918k.this.f5983d.isEnabled()) {
-                    if (C1918k.this.f5983d.getBluetoothLeScanner() == null) {
+                if (bluetooth_le_discovery.this.f5983d != null && bluetooth_le_discovery.this.f5983d.isEnabled()) {
+                    if (bluetooth_le_discovery.this.f5983d.getBluetoothLeScanner() == null) {
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -106,15 +106,15 @@ class C1918k extends C1906c {
                         }
                     }
                     try {
-                        C1918k.this.f5983d.getBluetoothLeScanner().startScan(C1922m.m7988b(C1922m.m7989b()), C1922m.m7992d(), C1918k.this.f5986g = new ScanCallback() {
+                        bluetooth_le_discovery.this.f5983d.getBluetoothLeScanner().startScan(C1922m.m7988b(C1922m.m7989b()), C1922m.m7992d(), bluetooth_le_discovery.this.f5986g = new ScanCallback() {
                             public void onScanResult(int i, ScanResult scanResult) {
                                 super.onScanResult(i, scanResult);
-                                C1918k.this.m7965a(scanResult, iVar);
+                                bluetooth_le_discovery.this.m7965a(scanResult, iVar);
                             }
 
                             public void onScanFailed(int i) {
                                 super.onScanFailed(i);
-                                C1918k.this.m7964a(i);
+                                bluetooth_le_discovery.this.m7964a(i);
                             }
 
                             public void onBatchScanResults(List<ScanResult> list) {
@@ -122,9 +122,9 @@ class C1918k extends C1906c {
                                 ArrayList arrayList = new ArrayList();
                                 Log.d("Bluetooth_LE_Discovery", "onBatchScanResults: beginnning of batch");
                                 for (ScanResult scanResult : list) {
-                                    long a = C1918k.this.mo7533a(scanResult);
+                                    long a = bluetooth_le_discovery.this.mo7533a(scanResult);
                                     if (a > -1) {
-                                        Device a2 = C1918k.this.mo7534a(a, scanResult.getDevice());
+                                        Device a2 = bluetooth_le_discovery.this.mo7534a(a, scanResult.getDevice());
                                         if (a2 != null) {
                                             StringBuilder sb = new StringBuilder();
                                             sb.append("onBatchScanResults: adding to batch ");
@@ -140,7 +140,7 @@ class C1918k extends C1906c {
                                 }
                             }
                         });
-                        C1918k.this.mo7481a(true);
+                        bluetooth_le_discovery.this.mo7481a(true);
                     } catch (IllegalStateException e2) {
                         StringBuilder sb = new StringBuilder();
                         sb.append("run: ");
@@ -155,7 +155,7 @@ class C1918k extends C1906c {
         mo7480a(config);
         C0159b.m540a(60, TimeUnit.SECONDS).mo340a((C0177a) new C0177a() {
             public final void run() {
-                C1918k.this.m7970c();
+                bluetooth_le_discovery.this.m7970c();
             }
         }, (C0180d<? super Throwable>) $$Lambda$k$I6tE8IQSJJIJ2kNUdCkNYXsiaA.INSTANCE);
     }
@@ -163,7 +163,7 @@ class C1918k extends C1906c {
     /* access modifiers changed from: private */
     /* renamed from: c */
     public /* synthetic */ void m7970c() throws Exception {
-        if (SessionManager.f5869a.isEmpty()) {
+        if (SessionManager.sessions.isEmpty()) {
             Log.i("Bluetooth_LE_Discovery", "startDiscovery: resetting");
             mo7477a((Context) null);
             mo7478a((Context) null, mo7483b());
@@ -172,7 +172,7 @@ class C1918k extends C1906c {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m7968a(Throwable th) throws Exception {
+    public static /* synthetic */ void accept(Throwable th) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("accept: error");
         sb.append(th.getMessage());
@@ -263,7 +263,7 @@ class C1918k extends C1906c {
             if (r0 == 0) goto L_0x00f4
             if (r14 == 0) goto L_0x00f4
             java.lang.String r0 = r14.getAddress()     // Catch:{ all -> 0x00fd }
-            boolean r0 = com.bridgefy.sdk.framework.controller.C1928r.m8010a(r0)     // Catch:{ all -> 0x00fd }
+            boolean r0 = com.bridgefy.sdk.framework.controller.connection_manager.m8010a(r0)     // Catch:{ all -> 0x00fd }
             if (r0 == 0) goto L_0x001f
             java.lang.String r12 = "Bluetooth_LE_Discovery"
             java.lang.String r13 = "Device is blacklisted, won't connect"
@@ -271,7 +271,7 @@ class C1918k extends C1906c {
             monitor-exit(r11)
             return r1
         L_0x001f:
-            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r0 = com.bridgefy.sdk.framework.controller.SessionManager.f5869a     // Catch:{ all -> 0x00fd }
+            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r0 = com.bridgefy.sdk.framework.controller.SessionManager.sessions     // Catch:{ all -> 0x00fd }
             java.lang.String r2 = r14.getAddress()     // Catch:{ all -> 0x00fd }
             java.lang.Object r0 = r0.get(r2)     // Catch:{ all -> 0x00fd }
             if (r0 == 0) goto L_0x002d
@@ -282,7 +282,7 @@ class C1918k extends C1906c {
             com.bridgefy.sdk.client.BridgefyClient r0 = r0.getBridgefyClient()     // Catch:{ all -> 0x00fd }
             java.lang.String r0 = r0.getUserUuid()     // Catch:{ all -> 0x00fd }
             long r3 = com.bridgefy.sdk.framework.utils.Utils.getCrcFromKey(r0)     // Catch:{ all -> 0x00fd }
-            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r0 = com.bridgefy.sdk.framework.controller.SessionManager.f5869a     // Catch:{ all -> 0x00fd }
+            java.util.concurrent.ConcurrentSkipListMap<java.lang.String, com.bridgefy.sdk.framework.controller.Session> r0 = com.bridgefy.sdk.framework.controller.SessionManager.sessions     // Catch:{ all -> 0x00fd }
             java.util.Collection r0 = r0.values()     // Catch:{ all -> 0x00fd }
             java.util.Iterator r0 = r0.iterator()     // Catch:{ all -> 0x00fd }
             r2 = 0
@@ -376,7 +376,7 @@ class C1918k extends C1906c {
             monitor-exit(r11)
             throw r12
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.C1918k.mo7534a(long, android.bluetooth.BluetoothDevice):com.bridgefy.sdk.client.Device");
+        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.bluetooth_le_discovery.mo7534a(long, android.bluetooth.BluetoothDevice):com.bridgefy.sdk.client.Device");
     }
 
     /* renamed from: a */

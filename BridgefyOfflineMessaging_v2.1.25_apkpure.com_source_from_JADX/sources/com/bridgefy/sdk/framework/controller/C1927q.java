@@ -28,7 +28,7 @@ import org.apache.commons.p156b.C3689a;
 /* renamed from: com.bridgefy.sdk.framework.controller.q */
 class C1927q {
     /* renamed from: a */
-    static ArrayList<byte[]> m8001a(BleEntity bleEntity, int i, boolean z, boolean z2, String str) throws IOException, MessageException {
+    static ArrayList<byte[]> generate_compressed_chunk(BleEntity bleEntity, int i, boolean z, boolean z2, String str) throws IOException, MessageException {
         int i2;
         BleEntity bleEntity2 = bleEntity;
         int i3 = i;
@@ -53,7 +53,7 @@ class C1927q {
                                     if (payload == null || payload.size() <= 0) {
                                         arrayList3.add(forwardPacket);
                                     } else {
-                                        arrayList2.add(CryptoRSA.encrypt(m8000a(forwardPacket.getReceiver()), m8003b(Utils.fromEntityToMessagePack(payload))));
+                                        arrayList2.add(CryptoRSA.encrypt(get_corresponding_key(forwardPacket.getReceiver()), gzip_byte_stream(Utils.fromEntityToMessagePack(payload))));
                                         forwardPacket.setPayload(null);
                                         forwardPacket.setEnc_payload(arrayList2.size() - 1);
                                     }
@@ -81,9 +81,9 @@ class C1927q {
             try {
                 Log.v("ChunkUtils", "generateCompressedChunk: sending entity type packages");
                 BleEntityContent bleEntityContent = (BleEntityContent) bleEntity.getCt();
-                byte[] b = m8003b(Utils.fromEntityToMessagePack(bleEntityContent.getPld()));
+                byte[] b = gzip_byte_stream(Utils.fromEntityToMessagePack(bleEntityContent.getPld()));
                 ArrayList arrayList4 = new ArrayList();
-                arrayList4.add(CryptoRSA.encrypt(m8000a(str), b));
+                arrayList4.add(CryptoRSA.encrypt(get_corresponding_key(str), b));
                 if (bleEntity.getData() != null && bleEntity.getData().length > 0) {
                     ContentInfo findMatch = new ContentInfoUtil().findMatch(bleEntity.getData());
                     StringBuilder sb2 = new StringBuilder();
@@ -103,7 +103,7 @@ class C1927q {
                         arrayList4.add(bleEntity.getData());
                     } else {
                         Log.i("ChunkUtils", "generateCompressedChunk: compressing");
-                        arrayList4.add(m8003b(bleEntity.getData()));
+                        arrayList4.add(gzip_byte_stream(bleEntity.getData()));
                     }
                 }
                 bArr = C1905b.m7875a(arrayList4);
@@ -113,7 +113,7 @@ class C1927q {
                 throw new MessageException(e2.getMessage(), e2);
             }
         }
-        byte[] b2 = m8003b(z ? Utils.fromEntityToMessagePack(bleEntity) : new Gson().toJson((Object) bleEntity2, (Type) BleEntity.class).getBytes());
+        byte[] b2 = gzip_byte_stream(z ? Utils.fromEntityToMessagePack(bleEntity) : new Gson().toJson((Object) bleEntity2, (Type) BleEntity.class).getBytes());
         int length = b2.length + 2;
         if (i2 > 0) {
             length += i2 + 1;
@@ -177,7 +177,7 @@ class C1927q {
     }
 
     /* renamed from: a */
-    static BleEntity m7999a(ArrayList<byte[]> arrayList, boolean z, boolean z2) {
+    static BleEntity stitch_chunks_to_entity(ArrayList<byte[]> arrayList, boolean z, boolean z2) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
         Iterator it = arrayList.iterator();
@@ -203,14 +203,14 @@ class C1927q {
         }
         BleEntity bleEntity = null;
         try {
-            byte[] d = m8005d(byteArrayOutputStream.toByteArray());
+            byte[] d = setup_gzip_byte_stream(byteArrayOutputStream.toByteArray());
             byte[] byteArray = byteArrayOutputStream2.toByteArray();
             bleEntity = (BleEntity) (z ? Utils.fromMessagePacktoEntity(d, BleEntity.class) : new Gson().fromJson(new String(d), BleEntity.class));
             if (bleEntity.getEt() != 1) {
                 bleEntity.setBinaryPart(byteArray);
             } else if (byteArray != null && byteArray.length > 0) {
                 ArrayList a = C1905b.m7874a(byteArray);
-                bleEntity.setCt(new BleEntityContent((HashMap) Utils.fromMessagePacktoEntity(m8005d(CryptoRSA.decrypt(Bridgefy.getInstance().getBridgefyClient().getSecretKey(), (byte[]) a.get(0))), HashMap.class), ((BleEntityContent) bleEntity.getCt()).getId()));
+                bleEntity.setCt(new BleEntityContent((HashMap) Utils.fromMessagePacktoEntity(setup_gzip_byte_stream(CryptoRSA.decrypt(Bridgefy.getInstance().getBridgefyClient().getSecretKey(), (byte[]) a.get(0))), HashMap.class), ((BleEntityContent) bleEntity.getCt()).getId()));
                 if (a.size() > 1) {
                     ContentInfo findMatch = new ContentInfoUtil().findMatch((byte[]) a.get(1));
                     StringBuilder sb2 = new StringBuilder();
@@ -230,7 +230,7 @@ class C1927q {
                         bleEntity.setData((byte[]) a.get(1));
                     } else {
                         Log.i("ChunkUtils", "stitchChunksToEntity: decompressing data");
-                        bleEntity.setData(m8005d((byte[]) a.get(1)));
+                        bleEntity.setData(setup_gzip_byte_stream((byte[]) a.get(1)));
                     }
                 }
             }
@@ -268,12 +268,12 @@ class C1927q {
     }
 
     /* renamed from: a */
-    static String m8000a(String str) {
+    static String get_corresponding_key(String str) {
         return (String) Session.get_key_pairs().get(str);
     }
 
     /* renamed from: b */
-    public static byte[] m8003b(byte[] bArr) throws IOException {
+    public static byte[] gzip_byte_stream(byte[] bArr) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(bArr.length);
         GZIPOutputStream gZIPOutputStream = new GZIPOutputStream(byteArrayOutputStream);
         gZIPOutputStream.write(bArr);
@@ -284,7 +284,7 @@ class C1927q {
     }
 
     /* renamed from: a */
-    static int m7998a(BluetoothGattCharacteristic bluetoothGattCharacteristic) {
+    static int get_bluetooth_characteristics(BluetoothGattCharacteristic bluetoothGattCharacteristic) {
         try {
             return bluetoothGattCharacteristic.getValue()[0];
         } catch (Exception unused) {
@@ -302,7 +302,7 @@ class C1927q {
     }
 
     /* renamed from: d */
-    public static byte[] m8005d(byte[] bArr) throws IOException {
+    public static byte[] setup_gzip_byte_stream(byte[] bArr) throws IOException {
         GZIPInputStream gZIPInputStream;
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bArr);
         if (bArr.length <= 512) {

@@ -47,12 +47,12 @@ class C1895af {
     private C1894ae f5897d;
 
     /* renamed from: e */
-    private C1933u f5898e;
+    private forward_controller f5898e;
 
     C1895af(Context context, Config config) {
         this.config = (Config) C1897ah.m7831a(config, "Missing Config.");
         this.f5897d = new C1894ae(config);
-        this.f5898e = new C1933u();
+        this.f5898e = new forward_controller();
         this.f5897d.set_context(context);
     }
 
@@ -95,7 +95,7 @@ class C1895af {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7449a(Session session, BleEntity bleEntity) {
+    public void on_mesh_message_incoming_action(Session session, BleEntity bleEntity) {
         List<ForwardPacket> mesh = ((ForwardTransaction) bleEntity.getCt()).getMesh();
         ArrayList a = C1905b.m7874a(bleEntity.getBinaryPart());
         if (mesh != null) {
@@ -134,7 +134,7 @@ class C1895af {
                         } else {
                             this.f5897d.mo7442a(forwardPacket.getSender(), new MessageException("Unable to decrypt message."));
                         }
-                        this.f5898e.mo7564b(forwardPacket);
+                        this.f5898e.send_mesh_reach(forwardPacket);
                     }
                 } else if (forwardPacket.getReceiver_type() == 1) {
                     // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedBroadcast));
@@ -192,7 +192,7 @@ class C1895af {
         if (forwardPacket.getEnc_payload() >= 0) {
             byte[] bArr = (byte[]) arrayList.get(forwardPacket.getEnc_payload());
             new String(bArr, "ISO-8859-1");
-            forwardPacket.setPayload((HashMap) Utils.fromMessagePacktoEntity(C1927q.m8005d(CryptoRSA.decrypt(Bridgefy.getInstance().getBridgefyClient().getSecretKey(), bArr)), HashMap.class));
+            forwardPacket.setPayload((HashMap) Utils.fromMessagePacktoEntity(C1927q.setup_gzip_byte_stream(CryptoRSA.decrypt(Bridgefy.getInstance().getBridgefyClient().getSecretKey(), bArr)), HashMap.class));
             forwardPacket.setEnc_payload(-1);
         }
         return forwardPacket;

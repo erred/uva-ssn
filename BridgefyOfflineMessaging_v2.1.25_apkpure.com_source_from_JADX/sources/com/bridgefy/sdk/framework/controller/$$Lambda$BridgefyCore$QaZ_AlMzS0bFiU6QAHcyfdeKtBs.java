@@ -11,6 +11,6 @@ public final /* synthetic */ class $$Lambda$BridgefyCore$QaZ_AlMzS0bFiU6QAHcyfde
     }
 
     public final void accept(Object obj) {
-        BridgefyCore.m7705a((Throwable) obj);
+        BridgefyCore.accept((Throwable) obj);
     }
 }

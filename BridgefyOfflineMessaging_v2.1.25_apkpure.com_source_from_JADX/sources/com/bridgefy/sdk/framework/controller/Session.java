@@ -54,7 +54,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     private int f5860e = 0;
 
     /* renamed from: f */
-    private Timer f5861f;
+    private Timer timer;
 
     /* renamed from: g */
     private int f5862g = 150;
@@ -66,10 +66,10 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     private boolean f5864i = false;
 
     /* renamed from: j */
-    private long f5865j;
+    private long crc;
 
     /* renamed from: k */
-    private String f5866k;
+    private String session_id;
 
     public /* bridge */ /* synthetic */ Antenna getAntennaType() {
         return super.getAntennaType();
@@ -185,7 +185,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                     return;
                 }
                 try {
-                    Session.this.mo7378a(C1927q.m7999a(Session.this.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption()));
+                    Session.this.mo7378a(C1927q.stitch_chunks_to_entity(Session.this.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption()));
                     session = Session.this;
                     arrayList = new ArrayList();
                 } catch (Exception e) {
@@ -255,12 +255,12 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                     break;
                 }
             case BLUETOOTH_LE:
-                m7737o();
+                cancel_ble_connectivity();
                 break;
         }
-        if (this.f5861f != null) {
-            this.f5861f.cancel();
-            this.f5861f = null;
+        if (this.timer != null) {
+            this.timer.cancel();
+            this.timer = null;
         }
         mo7379a(false);
         // Logger.log(LogFactory.build((com.bridgefy.sdk.client.Session) this, CommunicationErrorEvent.BFCommunicationErrorTypePeerDisconnected, new ConnectionException("Session was interrupted.")));
@@ -268,11 +268,11 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
         if (device != null) {
             device.setSessionId(null);
         }
-        SessionManager.m7756b(this);
+        SessionManager.remove_session(this);
     }
 
     /* renamed from: o */
-    private void m7737o() {
+    private void cancel_ble_connectivity() {
         try {
             if (!(mo7502f() == null || getBluetoothDevice() == null)) {
                 BluetoothGattCharacteristic characteristic = mo7502f().getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c());
@@ -282,7 +282,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
             }
             if (mo7501e() != null) {
                 mo7501e().disconnect();
-                m7740r();
+                remove_current_session();
             }
         } catch (NullPointerException e) {
             String str = this.f5931a;
@@ -307,7 +307,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     }
 
     /* renamed from: a */
-    private BleHandshake m7727a(BleHandshake bleHandshake) {
+    private BleHandshake process_handshake(BleHandshake bleHandshake) {
         ResponseJson responseJson;
         Integer num = null;
         if (bleHandshake.getRq() != null) {
@@ -333,7 +333,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                     }
                     getDevice().setUserId(bleHandshake.getRp().getUuid());
                     getDevice().setCrc(getCrc());
-                    DeviceManager.m7715a(getDevice());
+                    DeviceManager.add_device_null_session(getDevice());
                     if (bleHandshake.getRp().getV() != null && !"1.0.6".equalsIgnoreCase("1.0.6") && m7883a("1.0.6", bleHandshake.getRp().getV()) >= 0 && m7883a("1.0.6", bleHandshake.getRp().getV()) <= 0) {
                         String str = this.f5931a;
                         StringBuilder sb = new StringBuilder();
@@ -344,7 +344,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                         break;
                     } else {
                         if (Bridgefy.getInstance().getConfig().isEncryption()) {
-                            String a = C1927q.m8000a(getUserId());
+                            String a = C1927q.get_corresponding_key(getUserId());
                             if (a == null) {
                                 num = Integer.valueOf(1);
                             } else if (Utils.getCrcFromKey(a) != bleHandshake.getRp().getCrckey()) {
@@ -373,7 +373,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     }
 
     /* renamed from: q */
-    private static Editor m7739q() {
+    private static Editor get_editor() {
         return Bridgefy.getInstance().getBridgefyCore().get_editor();
     }
 
@@ -390,7 +390,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     public static void saveKey(String str, String str2) {
         HashMap j = get_key_pairs();
         j.put(str, str2);
-        m7739q().putString("com.bridgefy.sdk.key.pairs", new Gson().toJson((Object) j)).commit();
+        get_editor().putString("com.bridgefy.sdk.key.pairs", new Gson().toJson((Object) j)).commit();
     }
 
     /* access modifiers changed from: 0000 */
@@ -400,7 +400,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
             switch (bleEntity.getEt()) {
                 case 0:
                     mo7379a(true);
-                    BleHandshake a = m7727a((BleHandshake) bleEntity.getCt());
+                    BleHandshake a = process_handshake((BleHandshake) bleEntity.getCt());
                     if (!(a.getRq() == null && a.getRp() == null)) {
                         try {
                             BridgefyCore.m7704a(this, BleEntity.generateHandShake(a));
@@ -415,7 +415,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                         if (isClient()) {
                             m7732a(this, true);
                         }
-                        DeviceManager.m7717a(getDevice(), this);
+                        DeviceManager.add_device(getDevice(), this);
                         if (isClient() && getEmitter() != null) {
                             getEmitter().mo361a();
                             return;
@@ -457,7 +457,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
             if (forwardTransaction.isDump() != null && forwardTransaction.isDump().booleanValue()) {
                 m7732a(this, false);
             }
-            Bridgefy.getInstance().getBridgefyCore().mo7366e().mo7449a(this, bleEntity);
+            Bridgefy.getInstance().getBridgefyCore().mo7366e().on_mesh_message_incoming_action(this, bleEntity);
             return;
         }
         Bridgefy.getInstance().getBridgefyCore().mo7366e().mo7452a(forwardTransaction.getMesh_reach());
@@ -467,7 +467,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     /* renamed from: b */
     public void mo7380b(BleEntity bleEntity) throws IOException, MessageException, InterruptedException {
         try {
-            Iterator it = C1927q.m8001a(bleEntity, 1000000, true, Bridgefy.getInstance().getConfig().isEncryption(), getUserId()).iterator();
+            Iterator it = C1927q.generate_compressed_chunk(bleEntity, 1000000, true, Bridgefy.getInstance().getConfig().isEncryption(), getUserId()).iterator();
             while (it.hasNext()) {
                 byte[] bArr = (byte[]) it.next();
                 mo7499c().writeInt(bArr.length);
@@ -511,8 +511,8 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     }
 
     /* renamed from: r */
-    private void m7740r() {
-        SessionManager.m7756b(this);
+    private void remove_current_session() {
+        SessionManager.remove_session(this);
     }
 
     /* access modifiers changed from: 0000 */
@@ -533,11 +533,11 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     }
 
     public void setCrc(long j) {
-        this.f5865j = j;
+        this.crc = j;
     }
 
     public long getCrc() {
-        return this.f5865j;
+        return this.crc;
     }
 
     public boolean equals(Object obj) {
@@ -552,19 +552,19 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     }
 
     public String getSessionId() {
-        return this.f5866k;
+        return this.session_id;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: c */
     public void mo7381c(String str) {
-        this.f5866k = str;
+        this.session_id = str;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Session: ");
-        sb.append(this.f5866k);
+        sb.append(this.session_id);
         sb.append("\nConfig.Antenna: ");
         sb.append(getAntennaType());
         sb.append("\nuserId: ");

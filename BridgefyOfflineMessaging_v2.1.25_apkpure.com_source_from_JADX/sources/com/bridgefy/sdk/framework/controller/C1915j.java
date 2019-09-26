@@ -134,8 +134,8 @@ class C1915j extends C1932t {
                 device.setSessionId(session.getSessionId());
                 session.mo7498b(true);
                 session.mo7490a(device);
-                SessionManager.m7754a(session);
-                DeviceManager.m7715a(device);
+                SessionManager.queue_session(session);
+                DeviceManager.add_device_null_session(device);
                 C1911h.m7920c().mo7416b().put(bluetoothGatt.getDevice().getAddress(), bluetoothGatt);
                 if (VERSION.SDK_INT >= 21) {
                     bluetoothGatt.requestMtu(DeviceProfile.getMtuForDevice());
@@ -209,8 +209,8 @@ class C1915j extends C1932t {
             sb2.append("clearFailedConnection: queued device ");
             sb2.append(device);
             Log.e(str2, sb2.toString());
-            C1928r.m8012b(device);
-            SessionManager.m7755a(bluetoothGatt.getDevice().getAddress());
+            connection_manager.m8012b(device);
+            SessionManager.get_session(bluetoothGatt.getDevice().getAddress());
         }
 
         public void onServicesDiscovered(BluetoothGatt bluetoothGatt, int i) {
@@ -232,7 +232,7 @@ class C1915j extends C1932t {
                 }
                 try {
                     if (bluetoothGatt.setCharacteristicNotification(bluetoothGatt.getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c()), true)) {
-                        C1915j.this.m7957a(C1915j.this.mo7556b());
+                        C1915j.this.send_initial_handshake(C1915j.this.mo7556b());
                         C1911h.m7920c().mo7413a(bluetoothGatt, C1911h.m7920c().mo7418c());
                         return;
                     }
@@ -283,7 +283,7 @@ class C1915j extends C1932t {
 
         public void onCharacteristicChanged(BluetoothGatt bluetoothGatt, BluetoothGattCharacteristic bluetoothGattCharacteristic) {
             super.onCharacteristicChanged(bluetoothGatt, bluetoothGattCharacteristic);
-            int a = C1927q.m7998a(bluetoothGattCharacteristic);
+            int a = C1927q.get_bluetooth_characteristics(bluetoothGattCharacteristic);
             if (a == 5) {
                 Session session = SessionManager.getSession(bluetoothGatt.getDevice().getAddress());
                 bluetoothGatt.disconnect();
@@ -302,14 +302,14 @@ class C1915j extends C1932t {
     public C0159b mo7509a() {
         return C0159b.m542a((C0184e) new C0184e() {
             public final void subscribe(C0165c cVar) {
-                C1915j.this.m7956a(cVar);
+                C1915j.this.connect(cVar);
             }
         });
     }
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public /* synthetic */ void m7956a(C0165c cVar) throws Exception {
+    public /* synthetic */ void connect(C0165c cVar) throws Exception {
         this.f5978a = cVar;
         BluetoothDevice bluetoothDevice = mo7556b().getBluetoothDevice();
         if (Bridgefy.getInstance().getBridgefyCore() != null) {
@@ -327,14 +327,14 @@ class C1915j extends C1932t {
             session.mo7381c(mo7556b().getDeviceAddress());
             mo7556b().setSessionId(session.getSessionId());
             session.mo7490a(mo7556b());
-            SessionManager.m7754a(session);
-            DeviceManager.m7715a(session.getDevice());
+            SessionManager.queue_session(session);
+            DeviceManager.add_device_null_session(session.getDevice());
         }
     }
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public void m7957a(Device device) {
+    public void send_initial_handshake(Device device) {
         String str = this.f5979b;
         StringBuilder sb = new StringBuilder();
         sb.append("sendInitialHandShake: ");
@@ -345,7 +345,7 @@ class C1915j extends C1932t {
         try {
             BleEntity generateHandShake = BleEntity.generateHandShake();
             // Logger.log(LogFactory.build(device, (BleHandshake) generateHandShake.getCt(), CommunicationEvent.BFCommunicationTypeSentHandshakePacket));
-            Iterator it = C1927q.m8001a(generateHandShake, 150, true, Bridgefy.getInstance().getConfig().isEncryption(), null).iterator();
+            Iterator it = C1927q.generate_compressed_chunk(generateHandShake, 150, true, Bridgefy.getInstance().getConfig().isEncryption(), null).iterator();
             while (it.hasNext()) {
                 C1911h.m7920c().mo7414a((gatt_operation) new C1936w(device.getBluetoothDevice(), C1922m.m7989b(), C1922m.m7991c(), (byte[]) it.next()));
             }

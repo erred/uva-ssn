@@ -11,6 +11,6 @@ public final /* synthetic */ class $$Lambda$k$I6tE8IQSJJIJ2kNUdCkNYXsiaA impleme
     }
 
     public final void accept(Object obj) {
-        C1918k.m7968a((Throwable) obj);
+        bluetooth_le_discovery.accept((Throwable) obj);
     }
 }

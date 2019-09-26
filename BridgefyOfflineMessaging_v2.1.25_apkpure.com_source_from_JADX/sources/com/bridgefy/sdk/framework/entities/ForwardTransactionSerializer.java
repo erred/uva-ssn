@@ -9,12 +9,12 @@ import p140me.bridgefy.ormlite.entities.MessageDTO;
 public class ForwardTransactionSerializer extends JsonSerializer<ForwardTransaction> {
     public void serialize(ForwardTransaction forwardTransaction, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeBooleanField("dump", forwardTransaction.f6053a.booleanValue());
-        if (forwardTransaction.f6054b != null) {
-            jsonGenerator.writeStringField(MessageDTO.SENDER, forwardTransaction.f6054b);
+        jsonGenerator.writeBooleanField("dump", forwardTransaction.dump.booleanValue());
+        if (forwardTransaction.sender != null) {
+            jsonGenerator.writeStringField(MessageDTO.SENDER, forwardTransaction.sender);
         }
-        if (forwardTransaction.f6055c != null) {
-            jsonGenerator.writeStringField("mesh_reach", forwardTransaction.f6055c);
+        if (forwardTransaction.mesh_reach != null) {
+            jsonGenerator.writeStringField("mesh_reach", forwardTransaction.mesh_reach);
         }
         if (forwardTransaction.getMesh() != null) {
             if (forwardTransaction.getMesh().size() == 1) {

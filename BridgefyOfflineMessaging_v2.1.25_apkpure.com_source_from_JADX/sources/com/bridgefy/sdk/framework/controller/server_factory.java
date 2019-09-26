@@ -15,7 +15,7 @@ class server_factory {
     private static bluetooth_le_server f5909b;
 
     /* renamed from: a */
-    static C1899aj get_server_instance(Antenna antenna, boolean z) {
+    static bluetooth_server get_server_instance(Antenna antenna, boolean z) {
         switch (antenna) {
             case BLUETOOTH:
                 if (f5908a == null && z) {

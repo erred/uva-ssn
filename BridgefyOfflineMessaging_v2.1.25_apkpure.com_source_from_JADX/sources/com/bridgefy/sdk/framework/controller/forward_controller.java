@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 class forward_controller {
 
     /* renamed from: a */
-    protected final String f6006a = getClass().getSimpleName();
+    protected final String simple_name = getClass().getSimpleName();
     /* access modifiers changed from: private */
 
     /* renamed from: b */
@@ -71,14 +71,14 @@ class forward_controller {
                 BleEntity meshMessage = BleEntity.meshMessage(this.f6011b, (ArrayList) a, Bridgefy.getInstance().getBridgefyClient().getUserUuid());
                 if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
                     try {
-                        String str = forward_controller.this.f6006a;
+                        String str = forward_controller.this.simple_name;
                         StringBuilder sb = new StringBuilder();
                         sb.append("sendPackToSession: call writeValue ");
                         sb.append(this.f6011b);
                         sb.append(": ");
                         sb.append(meshMessage);
                         Log.m8078w(str, sb.toString());
-                        C1903am.m7858a(session, meshMessage);
+                        transaction_manager.send_entity(session, meshMessage);
                     } catch (Exception e) {
                         e.printStackTrace();
                         forward_controller.un_resolve_forward_packets(a, String.valueOf(session.getCrc()));
@@ -91,7 +91,7 @@ class forward_controller {
                         forward_controller.un_resolve_forward_packets(a, String.valueOf(session.getCrc()));
                     }
                 }
-                String str2 = forward_controller.this.f6006a;
+                String str2 = forward_controller.this.simple_name;
                 StringBuilder sb2 = new StringBuilder();
                 sb2.append("sendPackToSession [ ");
                 sb2.append(session.getDevice().getDeviceName());
@@ -185,7 +185,7 @@ class forward_controller {
             com.bridgefy.sdk.logging.entities.MeshLog$MeshErrorEvent r1 = com.bridgefy.sdk.logging.entities.MeshLog.MeshErrorEvent.BFErrorMeshTypeDiscardInvalidMessages     // Catch:{ all -> 0x00d7 }
             com.bridgefy.sdk.logging.entities.LogEntity r1 = com.bridgefy.sdk.logging.LogFactory.build(r2, r1)     // Catch:{ all -> 0x00d7 }
             com.bridgefy.sdk.logging.Logger.log(r1)     // Catch:{ all -> 0x00d7 }
-            java.lang.String r1 = r9.f6006a     // Catch:{ all -> 0x00d7 }
+            java.lang.String r1 = r9.simple_name     // Catch:{ all -> 0x00d7 }
             java.lang.String r3 = "addForwardPacketToList: notify meshDidNotForwardMeshIDs forward id"
             com.bridgefy.sdk.logging.Log.m8074e(r1, r3)     // Catch:{ all -> 0x00d7 }
         L_0x0094:
@@ -211,7 +211,7 @@ class forward_controller {
             com.bridgefy.sdk.logging.entities.MeshLog$MeshErrorEvent r1 = com.bridgefy.sdk.logging.entities.MeshLog.MeshErrorEvent.BFErrorMeshTypeDiscardInvalidMessages     // Catch:{ all -> 0x00d7 }
             com.bridgefy.sdk.logging.entities.LogEntity r10 = com.bridgefy.sdk.logging.LogFactory.build(r10, r1)     // Catch:{ all -> 0x00d7 }
             com.bridgefy.sdk.logging.Logger.log(r10)     // Catch:{ all -> 0x00d7 }
-            java.lang.String r10 = r9.f6006a     // Catch:{ all -> 0x00d7 }
+            java.lang.String r10 = r9.simple_name     // Catch:{ all -> 0x00d7 }
             java.lang.String r1 = "addForwardPacketToList: notify meshDidNotForwardMeshIDs"
             com.bridgefy.sdk.logging.Log.m8074e(r10, r1)     // Catch:{ all -> 0x00d7 }
         L_0x00cb:
@@ -243,7 +243,7 @@ class forward_controller {
             }
             if (arrayList.size() > 0) {
                 // Logger.log(LogFactory.build(arrayList));
-                String str = this.f6006a;
+                String str = this.simple_name;
                 StringBuilder sb = new StringBuilder();
                 sb.append("discardExpiredPackets: implements log for remove forwardPackets: ");
                 sb.append(arrayList.size());
@@ -257,7 +257,7 @@ class forward_controller {
             }
             for (String str2 : arrayList2) {
                 this.f6008c.put(str2, Boolean.TRUE);
-                String str3 = this.f6006a;
+                String str3 = this.simple_name;
                 StringBuilder sb2 = new StringBuilder();
                 sb2.append("discardExpiredPackets: implements log for discard id ");
                 sb2.append(str2);
@@ -417,7 +417,7 @@ class forward_controller {
             try {
                 BridgefyCore.m7704a((Session) it.next(), meshReach);
             } catch (Exception e) {
-                Log.m8075e(this.f6006a, "sendMeshReach: error sending mesh reach!!", e);
+                Log.m8075e(this.simple_name, "sendMeshReach: error sending mesh reach!!", e);
             }
         }
     }

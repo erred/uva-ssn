@@ -10,10 +10,10 @@ import java.net.MulticastSocket;
 public class Transmitter {
 
     /* renamed from: a */
-    private String f6073a;
+    private String multicast_address;
 
     /* renamed from: b */
-    private int f6074b;
+    private int multicast_port;
 
     public Transmitter() {
         this("225.4.5.6", 5775);
@@ -24,8 +24,8 @@ public class Transmitter {
     }
 
     public Transmitter(String str, int i) {
-        this.f6073a = str;
-        this.f6074b = i;
+        this.multicast_address = str;
+        this.multicast_port = i;
     }
 
     /* JADX WARNING: Removed duplicated region for block: B:27:0x0039  */
@@ -34,8 +34,8 @@ public class Transmitter {
         /*
             r3 = this;
             r0 = 0
-            java.net.MulticastSocket r1 = r3.mo7693a()     // Catch:{ UnknownHostException -> 0x002e, SocketException -> 0x0025, IOException -> 0x001c }
-            r3.m8066a(r1, r4)     // Catch:{ UnknownHostException -> 0x0017, SocketException -> 0x0014, IOException -> 0x0011, all -> 0x000e }
+            java.net.MulticastSocket r1 = r3.new_multicast_socket()     // Catch:{ UnknownHostException -> 0x002e, SocketException -> 0x0025, IOException -> 0x001c }
+            r3.send_intent_multicast(r1, r4)     // Catch:{ UnknownHostException -> 0x0017, SocketException -> 0x0014, IOException -> 0x0011, all -> 0x000e }
             if (r1 == 0) goto L_0x000d
             r1.close()
         L_0x000d:
@@ -95,8 +95,8 @@ public class Transmitter {
         /*
             r3 = this;
             r0 = 0
-            java.net.MulticastSocket r1 = r3.mo7693a()     // Catch:{ UnknownHostException -> 0x002e, SocketException -> 0x0025, IOException -> 0x001c }
-            r3.m8067a(r1, r4)     // Catch:{ UnknownHostException -> 0x0017, SocketException -> 0x0014, IOException -> 0x0011, all -> 0x000e }
+            java.net.MulticastSocket r1 = r3.new_multicast_socket()     // Catch:{ UnknownHostException -> 0x002e, SocketException -> 0x0025, IOException -> 0x001c }
+            r3.send_result_multicast(r1, r4)     // Catch:{ UnknownHostException -> 0x0017, SocketException -> 0x0014, IOException -> 0x0011, all -> 0x000e }
             if (r1 == 0) goto L_0x000d
             r1.close()
         L_0x000d:
@@ -152,19 +152,19 @@ public class Transmitter {
 
     /* access modifiers changed from: protected */
     /* renamed from: a */
-    public MulticastSocket mo7693a() throws IOException {
+    public MulticastSocket new_multicast_socket() throws IOException {
         return new MulticastSocket();
     }
 
     /* renamed from: a */
-    private void m8066a(MulticastSocket multicastSocket, Intent intent) throws IOException {
+    private void send_intent_multicast(MulticastSocket multicastSocket, Intent intent) throws IOException {
         byte[] bytes = intent.toUri(0).getBytes();
-        multicastSocket.send(new DatagramPacket(bytes, bytes.length, InetAddress.getByName(this.f6073a), this.f6074b));
+        multicastSocket.send(new DatagramPacket(bytes, bytes.length, InetAddress.getByName(this.multicast_address), this.multicast_port));
     }
 
     /* renamed from: a */
-    private void m8067a(MulticastSocket multicastSocket, Result result) throws IOException {
+    private void send_result_multicast(MulticastSocket multicastSocket, Result result) throws IOException {
         byte[] bytes = new Gson().toJson((Object) result).getBytes();
-        multicastSocket.send(new DatagramPacket(bytes, bytes.length, InetAddress.getByName(this.f6073a), this.f6074b));
+        multicastSocket.send(new DatagramPacket(bytes, bytes.length, InetAddress.getByName(this.multicast_address), this.multicast_port));
     }
 }

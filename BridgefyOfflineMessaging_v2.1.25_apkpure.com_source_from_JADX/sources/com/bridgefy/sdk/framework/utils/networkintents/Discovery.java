@@ -3,16 +3,16 @@ package com.bridgefy.sdk.framework.utils.networkintents;
 public class Discovery {
 
     /* renamed from: a */
-    private String f6067a;
+    private String address;
 
     /* renamed from: b */
-    private int f6068b;
+    private int port;
 
     /* renamed from: c */
-    private DiscoveryListener f6069c;
+    private DiscoveryListener discovery_listener;
 
     /* renamed from: d */
-    private C1943a f6070d;
+    private multicast_discoverer multicast_discoverer;
 
     public Discovery() {
         this("225.4.5.6", 5775);
@@ -23,43 +23,43 @@ public class Discovery {
     }
 
     public Discovery(String str, int i) {
-        this.f6067a = str;
-        this.f6068b = i;
+        this.address = str;
+        this.port = i;
     }
 
     /* renamed from: a */
-    private void m8064a(DiscoveryListener discoveryListener) {
-        this.f6069c = discoveryListener;
+    private void set_discovery_listener(DiscoveryListener discoveryListener) {
+        this.discovery_listener = discoveryListener;
     }
 
     public void enable(DiscoveryListener discoveryListener) throws DiscoveryException {
-        m8064a(discoveryListener);
-        m8063a();
+        set_discovery_listener(discoveryListener);
+        start_multicast_discoverer();
     }
 
     /* renamed from: a */
-    private void m8063a() throws DiscoveryException {
-        if (this.f6069c == null) {
+    private void start_multicast_discoverer() throws DiscoveryException {
+        if (this.discovery_listener == null) {
             throw new IllegalStateException("No listener set");
-        } else if (this.f6070d == null) {
-            this.f6070d = m8065b();
-            this.f6070d.start();
+        } else if (this.multicast_discoverer == null) {
+            this.multicast_discoverer = new_multicast_discoverer();
+            this.multicast_discoverer.start();
         }
     }
 
     public boolean isEnabled() {
-        return this.f6070d != null;
+        return this.multicast_discoverer != null;
     }
 
     /* renamed from: b */
-    private C1943a m8065b() {
-        return new C1943a(this.f6067a, this.f6068b, this.f6069c);
+    private multicast_discoverer new_multicast_discoverer() {
+        return new multicast_discoverer(this.address, this.port, this.discovery_listener);
     }
 
     public void disable() {
-        if (this.f6070d != null) {
-            this.f6070d.mo7697b();
-            this.f6070d = null;
+        if (this.multicast_discoverer != null) {
+            this.multicast_discoverer.stop();
+            this.multicast_discoverer = null;
         }
     }
 }

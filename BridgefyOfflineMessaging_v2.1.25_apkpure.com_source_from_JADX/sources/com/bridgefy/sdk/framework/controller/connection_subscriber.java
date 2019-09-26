@@ -12,11 +12,11 @@ import p000a.p013b.p038h.C0331a;
 import p000a.p013b.p039i.C0341a;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.s */
-class C1930s extends C0341a<Device> {
+class connection_subscriber extends C0341a<Device> {
     public void onError(Throwable th) {
     }
 
-    C1930s() {
+    connection_subscriber() {
     }
 
     /* access modifiers changed from: protected */
@@ -31,8 +31,8 @@ class C1930s extends C0341a<Device> {
             }
 
             public void onComplete() {
-                connection_manager.m8009a((C1932t) null);
-                C1930s.this.request(1);
+                connection_manager.m8009a((comparable_device) null);
+                connection_subscriber.this.request(1);
             }
 
             public void onError(Throwable th) {
@@ -40,17 +40,17 @@ class C1930s extends C0341a<Device> {
                 sb.append("onError: ");
                 sb.append(th.getMessage());
                 Log.e("Connection_Subscriber", sb.toString());
-                C1932t a = connection_manager.m8006a();
-                if (a != null && a.mo7556b().equals(device)) {
+                comparable_device a = connection_manager.m8006a();
+                if (a != null && a.get_device().equals(device)) {
                     if (a instanceof C1910g) {
-                        C1930s.this.m8017b(a.mo7556b());
+                        connection_subscriber.this.m8017b(a.get_device());
                     }
-                    connection_manager.m8009a((C1932t) null);
-                    C1930s.this.request(1);
+                    connection_manager.m8009a((comparable_device) null);
+                    connection_subscriber.this.request(1);
                 }
             }
         };
-        C1932t a = connection_manager.get_connectivity(device);
+        comparable_device a = connection_manager.get_connectivity(device);
         if (a == null) {
             request(1);
         } else if (device.getAntennaType() == Antenna.BLUETOOTH_LE) {

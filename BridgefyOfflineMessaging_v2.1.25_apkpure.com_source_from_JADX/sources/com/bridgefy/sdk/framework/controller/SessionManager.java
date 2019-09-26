@@ -137,7 +137,7 @@ public class SessionManager {
         sb.append("remove Session: id - ");
         sb.append(session.getSessionId());
         Log.w("SessionManager", sb.toString());
-        C1903am.m7857a(session);
+        transaction_manager.m7857a(session);
         C1897ah.m7830a(session);
         Device device = session.getDevice();
         if (session.getEmitter() != null) {

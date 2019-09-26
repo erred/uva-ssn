@@ -11,83 +11,83 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 
 /* renamed from: com.bridgefy.sdk.framework.utils.networkintents.a */
-class C1943a extends Thread {
+class multicast_discoverer extends Thread {
 
     /* renamed from: a */
-    private String f6075a;
+    private String multicast_address;
 
     /* renamed from: b */
-    private int f6076b;
+    private int multicast_port;
 
     /* renamed from: c */
-    private MulticastSocket f6077c;
+    private MulticastSocket multicast_socket;
 
     /* renamed from: d */
-    private DiscoveryListener f6078d;
+    private DiscoveryListener discovery_listener;
 
     /* renamed from: e */
-    private volatile boolean f6079e;
+    private volatile boolean is_running;
 
-    C1943a(String str, int i, DiscoveryListener discoveryListener) {
-        this.f6075a = str;
-        this.f6076b = i;
-        this.f6078d = discoveryListener;
+    multicast_discoverer(String str, int i, DiscoveryListener discoveryListener) {
+        this.multicast_address = str;
+        this.multicast_port = i;
+        this.discovery_listener = discoveryListener;
     }
 
     public void run() {
-        this.f6079e = true;
-        this.f6078d.onDiscoveryStarted();
+        this.is_running = true;
+        this.discovery_listener.onDiscoveryStarted();
         try {
-            this.f6077c = mo7696a();
-            mo7698c();
+            this.multicast_socket = create_multicast_socket();
+            run_discovery();
         } catch (IOException e) {
-            if (this.f6079e) {
-                this.f6078d.onDiscoveryError(e);
+            if (this.is_running) {
+                this.discovery_listener.onDiscoveryError(e);
             }
         } catch (Throwable th) {
-            m8069d();
+            close_socket();
             throw th;
         }
-        m8069d();
-        this.f6078d.onDiscoveryStopped();
+        close_socket();
+        this.discovery_listener.onDiscoveryStopped();
     }
 
     /* access modifiers changed from: protected */
     /* renamed from: a */
-    public MulticastSocket mo7696a() throws IOException {
-        InetAddress byName = InetAddress.getByName(this.f6075a);
-        MulticastSocket multicastSocket = new MulticastSocket(this.f6076b);
+    public MulticastSocket create_multicast_socket() throws IOException {
+        InetAddress byName = InetAddress.getByName(this.multicast_address);
+        MulticastSocket multicastSocket = new MulticastSocket(this.multicast_port);
         multicastSocket.joinGroup(byName);
         return multicastSocket;
     }
 
     /* renamed from: d */
-    private void m8069d() {
-        if (this.f6077c != null) {
-            this.f6077c.close();
+    private void close_socket() {
+        if (this.multicast_socket != null) {
+            this.multicast_socket.close();
         }
     }
 
     /* renamed from: b */
-    public void mo7697b() {
-        this.f6079e = false;
-        m8069d();
+    public void stop() {
+        this.is_running = false;
+        close_socket();
     }
 
     /* access modifiers changed from: protected */
     /* renamed from: c */
-    public void mo7698c() throws IOException {
-        while (this.f6079e) {
+    public void run_discovery() throws IOException {
+        while (this.is_running) {
             DatagramPacket datagramPacket = new DatagramPacket(new byte[102400], 102400);
             try {
-                this.f6077c.receive(datagramPacket);
+                this.multicast_socket.receive(datagramPacket);
                 try {
                     Result result = (Result) new Gson().fromJson(new String(datagramPacket.getData(), 0, datagramPacket.getLength()), Result.class);
                     if (result != null) {
                         Bundle bundle = new Bundle();
                         bundle.putString(JavaHelper.PROP_SERVICE_NAME, result.getSn());
                         bundle.putString(JavaHelper.PROP_USER_ID, result.getUi());
-                        this.f6078d.onIntentDiscovered(datagramPacket.getAddress(), new Intent().putExtras(bundle));
+                        this.discovery_listener.onIntentDiscovered(datagramPacket.getAddress(), new Intent().putExtras(bundle));
                     }
                 } catch (JsonSyntaxException e) {
                     e.printStackTrace();

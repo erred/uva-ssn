@@ -13,7 +13,7 @@ import java.util.UUID;
 class C1902al implements Comparable {
 
     /* renamed from: a */
-    private C1903am f5911a;
+    private transaction_manager f5911a;
 
     /* renamed from: b */
     private BleEntity ble_entity;
@@ -39,7 +39,7 @@ class C1902al implements Comparable {
     /* renamed from: i */
     private int f5919i = 0;
 
-    C1902al(Session session, BleEntity bleEntity, C1903am amVar) {
+    C1902al(Session session, BleEntity bleEntity, transaction_manager amVar) {
         this.session = session;
         this.f5915e = session.mo7394k();
         this.ble_entity = bleEntity;
@@ -64,7 +64,7 @@ class C1902al implements Comparable {
     private ArrayList<byte[]> m7844i() {
         ArrayList<byte[]> arrayList = null;
         try {
-            ArrayList<byte[]> a = C1927q.generate_compressed_chunk(this.ble_entity, this.f5915e, true, Bridgefy.getInstance().getConfig().isEncryption(), this.session.getUserId());
+            ArrayList<byte[]> a = chunk_utils.generate_compressed_chunk(this.ble_entity, this.f5915e, true, Bridgefy.getInstance().getConfig().isEncryption(), this.session.getUserId());
             try {
                 this.f5919i = a.size();
                 return a;
@@ -99,7 +99,7 @@ class C1902al implements Comparable {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: d */
-    public C1903am mo7468d() {
+    public transaction_manager mo7468d() {
         return this.f5911a;
     }
 

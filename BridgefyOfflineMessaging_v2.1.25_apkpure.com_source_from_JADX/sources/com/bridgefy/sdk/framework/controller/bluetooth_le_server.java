@@ -15,7 +15,7 @@ import com.bridgefy.sdk.framework.entities.BleHandshake;
 import com.bridgefy.sdk.framework.exceptions.ConnectionException;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.l */
-class bluetooth_le_server extends C1899aj<BluetoothDevice, BluetoothGattServer> {
+class bluetooth_le_server extends bluetooth_server<BluetoothDevice, BluetoothGattServer> {
 
     /* renamed from: d */
     private BluetoothManager f5990d;

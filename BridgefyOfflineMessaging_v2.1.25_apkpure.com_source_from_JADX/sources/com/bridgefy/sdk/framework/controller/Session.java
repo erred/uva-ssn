@@ -174,8 +174,8 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
             public void onNext(byte[] bArr) {
                 Session session;
                 ArrayList arrayList;
-                Session.this.mo7503g().add(C1927q.m8002a(bArr));
-                int c = C1927q.m8004c(bArr);
+                Session.this.mo7503g().add(chunk_utils.m8002a(bArr));
+                int c = chunk_utils.m8004c(bArr);
                 if (c != 2) {
                     String str = Session.this.f5931a;
                     StringBuilder sb = new StringBuilder();
@@ -185,7 +185,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                     return;
                 }
                 try {
-                    Session.this.mo7378a(C1927q.stitch_chunks_to_entity(Session.this.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption()));
+                    Session.this.mo7378a(chunk_utils.stitch_chunks_to_entity(Session.this.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption()));
                     session = Session.this;
                     arrayList = new ArrayList();
                 } catch (Exception e) {
@@ -344,7 +344,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
                         break;
                     } else {
                         if (Bridgefy.getInstance().getConfig().isEncryption()) {
-                            String a = C1927q.get_corresponding_key(getUserId());
+                            String a = chunk_utils.get_corresponding_key(getUserId());
                             if (a == null) {
                                 num = Integer.valueOf(1);
                             } else if (Utils.getCrcFromKey(a) != bleHandshake.getRp().getCrckey()) {
@@ -467,7 +467,7 @@ public class Session extends C1907d implements com.bridgefy.sdk.client.Session, 
     /* renamed from: b */
     public void mo7380b(BleEntity bleEntity) throws IOException, MessageException, InterruptedException {
         try {
-            Iterator it = C1927q.generate_compressed_chunk(bleEntity, 1000000, true, Bridgefy.getInstance().getConfig().isEncryption(), getUserId()).iterator();
+            Iterator it = chunk_utils.generate_compressed_chunk(bleEntity, 1000000, true, Bridgefy.getInstance().getConfig().isEncryption(), getUserId()).iterator();
             while (it.hasNext()) {
                 byte[] bArr = (byte[]) it.next();
                 mo7499c().writeInt(bArr.length);

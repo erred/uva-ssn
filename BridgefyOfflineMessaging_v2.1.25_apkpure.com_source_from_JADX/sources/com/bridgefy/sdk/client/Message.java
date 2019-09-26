@@ -44,7 +44,7 @@ public class Message implements Parcelable {
 
     /* renamed from: g */
     // isMesh
-    private boolean f5822g;
+    private boolean is_mesh;
 
     /* renamed from: h */
     // hop (current)
@@ -52,7 +52,7 @@ public class Message implements Parcelable {
 
     /* renamed from: i */
     // hops
-    private int f5824i = 0;
+    private int hops = 0;
 
     public static class Builder {
 
@@ -103,7 +103,7 @@ public class Message implements Parcelable {
         this.f5818c = str2;
         this.f5820e = System.currentTimeMillis();
         this.f5819d = UUID.randomUUID().toString();
-        this.f5822g = z;
+        this.is_mesh = z;
         this.f5823h = i;
     }
 
@@ -126,7 +126,7 @@ public class Message implements Parcelable {
         if (parcel.readByte() != 0) {
             z = true;
         }
-        this.f5822g = z;
+        this.is_mesh = z;
         this.f5823h = parcel.readInt();
     }
 
@@ -136,7 +136,7 @@ public class Message implements Parcelable {
         parcel.writeString(this.f5819d);
         parcel.writeLong(this.f5820e);
         parcel.writeByteArray(this.f5821f);
-        parcel.writeByte(this.f5822g ? (byte) 1 : 0);
+        parcel.writeByte(this.is_mesh ? (byte) 1 : 0);
         parcel.writeInt(this.f5823h);
     }
 
@@ -193,15 +193,15 @@ public class Message implements Parcelable {
     }
 
     public boolean isMesh() {
-        return this.f5822g;
+        return this.is_mesh;
     }
 
     public void setMesh(boolean z) {
-        this.f5822g = z;
+        this.is_mesh = z;
     }
 
     public int getHops() {
-        return this.f5824i;
+        return this.hops;
     }
 
     public boolean equals(Object obj) {

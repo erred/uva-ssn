@@ -20,25 +20,25 @@ class connection_manager {
     private static HashMap<String, C1908e> f5999b = new HashMap<>();
 
     /* renamed from: c */
-    private static C1932t f6000c;
+    private static comparable_device f6000c;
 
     /* renamed from: a */
-    static C1932t m8006a() {
+    static comparable_device m8006a() {
         return f6000c;
     }
 
     /* renamed from: a */
-    static void m8009a(C1932t tVar) {
+    static void m8009a(comparable_device tVar) {
         f6000c = tVar;
     }
 
     /* renamed from: a */
-    static synchronized C1932t get_connectivity(Device device) {
+    static synchronized comparable_device get_connectivity(Device device) {
         synchronized (connection_manager.class) {
             if (SessionManager.getSession(device.getDeviceAddress()) != null) {
                 Log.d("ConnectionManager", "getConnectivity: devices is already in session");
                 return null;
-            } else if (m8006a() != null && m8006a().mo7556b().equals(device)) {
+            } else if (m8006a() != null && m8006a().get_device().equals(device)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("getConnectivity: already connecting to ");
                 sb.append(device.getDeviceAddress());
@@ -50,13 +50,13 @@ class connection_manager {
             } else {
                 switch (device.getAntennaType()) {
                     case BLUETOOTH:
-                        m8009a((C1932t) new C1910g(device, false));
+                        m8009a((comparable_device) new C1910g(device, false));
                         break;
                     case BLUETOOTH_LE:
-                        m8009a((C1932t) new C1915j(device));
+                        m8009a((comparable_device) new C1915j(device));
                         break;
                 }
-                C1932t tVar = f6000c;
+                comparable_device tVar = f6000c;
                 return tVar;
             }
         }

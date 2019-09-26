@@ -20,7 +20,7 @@ import com.bridgefy.sdk.logging.entities.OperatorStatusLog.StatusEvent;
 import net.sqlcipher.database.SQLiteDatabase;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.h */
-class C1911h extends C1896ag {
+class C1911h extends operation_controller_interface {
 
     /* renamed from: a */
     static int f5955a = 0;
@@ -29,39 +29,39 @@ class C1911h extends C1896ag {
     private static String f5956e = "BluetoothController";
 
     /* renamed from: k */
-    private static gatt_manager f5957k;
+    private static gatt_manager gatt_manager;
 
     /* renamed from: c */
-    private Config f5958c;
+    private Config config;
 
     /* renamed from: d */
-    private Context f5959d;
+    private Context context;
 
     /* renamed from: f */
     private C1913i f5960f;
 
     /* renamed from: g */
-    private C1899aj f5961g;
+    private bluetooth_server bluetooth_server;
 
     /* renamed from: h */
     private bluetooth_le_discovery f5962h;
 
     /* renamed from: i */
-    private C1899aj f5963i;
+    private bluetooth_server server;
 
     /* renamed from: j */
     private boolean f5964j = true;
 
     /* renamed from: l */
-    private C1925o f5965l;
+    private advertise_callback f5965l;
 
     /* renamed from: m */
     private BluetoothAdapter f5966m;
 
     C1911h(Context context, Config config) throws BridgefyException {
-        this.f5959d = context;
-        this.f5958c = config;
-        switch (mo7514d().getAntennaType()) {
+        this.context = context;
+        this.config = config;
+        switch (get_config().getAntennaType()) {
             case BLUETOOTH_LE:
                 m7922f();
                 break;
@@ -75,32 +75,32 @@ class C1911h extends C1896ag {
 
     /* renamed from: f */
     private void m7922f() throws BridgefyException {
-        if (!mo7516e().getPackageManager().hasSystemFeature("android.hardware.bluetooth_le")) {
+        if (!get_context().getPackageManager().hasSystemFeature("android.hardware.bluetooth_le")) {
             this.f5964j = false;
-            switch (mo7514d().getAntennaType()) {
+            switch (get_config().getAntennaType()) {
                 case BLUETOOTH_LE:
                     Log.e(f5956e, "BLE not supported.");
-                    mo7514d().setAntennaType(Antenna.UNREACHABLE);
+                    get_config().setAntennaType(Antenna.UNREACHABLE);
                     throw new BridgefyException(0, "Bluetooth Low Energy not supported.");
                 case BLUETOOTH:
-                    mo7514d().setAntennaType(Antenna.BLUETOOTH);
+                    get_config().setAntennaType(Antenna.BLUETOOTH);
                     return;
                 default:
                     return;
             }
         } else {
-            f5957k = new gatt_manager();
+            gatt_manager = new gatt_manager();
         }
     }
 
     /* renamed from: g */
     private void m7924g() {
-        this.f5966m = BridgefyUtils.getBluetoothAdapter(mo7516e());
+        this.f5966m = BridgefyUtils.getBluetoothAdapter(get_context());
         if (this.f5966m.getScanMode() != 23 && Bridgefy.getInstance().getConfig().getAntennaType() == Antenna.BLUETOOTH) {
             Intent intent = new Intent("android.bluetooth.adapter.action.REQUEST_DISCOVERABLE");
             intent.setFlags(SQLiteDatabase.CREATE_IF_NECESSARY);
             intent.putExtra("android.bluetooth.adapter.extra.DISCOVERABLE_DURATION", 0);
-            mo7516e().startActivity(intent);
+            get_context().startActivity(intent);
         }
     }
 
@@ -127,7 +127,7 @@ class C1911h extends C1896ag {
 
     /* access modifiers changed from: protected */
     /* renamed from: a */
-    public boolean mo7454a(String str) throws IllegalStateException {
+    public boolean start_advertising(String str) throws IllegalStateException {
         if (f5955a != 3) {
             try {
                 Thread.sleep(200);
@@ -135,7 +135,7 @@ class C1911h extends C1896ag {
                 e.printStackTrace();
             }
             try {
-                if (this.f5966m == null || this.f5966m.getBluetoothLeAdvertiser() == null || this.f5963i == null || this.f5963i.mo7462e() == null) {
+                if (this.f5966m == null || this.f5966m.getBluetoothLeAdvertiser() == null || this.server == null || this.server.mo7462e() == null) {
                     f5955a = 1;
                     return false;
                 }
@@ -143,7 +143,7 @@ class C1911h extends C1896ag {
                 AdvertiseData a2 = C1922m.m7984a(str, C1922m.m7989b());
                 BluetoothLeAdvertiser bluetoothLeAdvertiser = this.f5966m.getBluetoothLeAdvertiser();
                 if (bluetoothLeAdvertiser != null) {
-                    this.f5965l = new C1925o();
+                    this.f5965l = new advertise_callback();
                     Log.i(f5956e, "startAdvertising: ");
                     bluetoothLeAdvertiser.startAdvertising(a, a2, this.f5965l);
                 }
@@ -163,7 +163,7 @@ class C1911h extends C1896ag {
     /* renamed from: h */
     private void m7926h() {
         Log.i(f5956e, "disconnectDevices: ");
-        switch (mo7514d().getAntennaType()) {
+        switch (get_config().getAntennaType()) {
             case BLUETOOTH_LE:
                 SessionManager.m7753a(Antenna.BLUETOOTH_LE);
                 return;
@@ -231,12 +231,12 @@ class C1911h extends C1896ag {
         this.f5966m.cancelDiscovery();
         this.f5960f = new C1913i(context);
         this.f5960f.mo7477a(context);
-        this.f5960f.mo7478a(context, mo7514d());
+        this.f5960f.mo7478a(context, get_config());
     }
 
     /* renamed from: a */
     public void mo7510a(Context context) {
-        switch (mo7514d().getAntennaType()) {
+        switch (get_config().getAntennaType()) {
             case BLUETOOTH_LE:
                 start_bluetooth_le_discovery(context);
                 return;
@@ -255,7 +255,7 @@ class C1911h extends C1896ag {
             this.f5960f = new C1913i(context);
         }
         if (!this.f5960f.mo7482a()) {
-            this.f5960f.mo7478a(context, mo7514d());
+            this.f5960f.mo7478a(context, get_config());
         }
     }
 
@@ -268,7 +268,7 @@ class C1911h extends C1896ag {
                 Log.w(f5956e, "startBluetoothLeDiscovery: already exists");
             }
             if (!this.f5962h.mo7482a()) {
-                this.f5962h.mo7478a(context, mo7514d());
+                this.f5962h.mo7478a(context, get_config());
             } else {
                 Log.e(f5956e, "startBluetoothLeDiscovery: discovery already running");
             }
@@ -282,7 +282,7 @@ class C1911h extends C1896ag {
         if (this.f5960f != null) {
             this.f5960f.mo7477a(context);
         }
-        if (this.f5962h != null && mo7514d().getAntennaType() != Antenna.BLUETOOTH) {
+        if (this.f5962h != null && get_config().getAntennaType() != Antenna.BLUETOOTH) {
             this.f5962h.mo7477a(context);
         }
     }
@@ -290,7 +290,7 @@ class C1911h extends C1896ag {
     /* access modifiers changed from: 0000 */
     /* renamed from: d */
     public void mo7515d(Context context) throws ConnectionException {
-        switch (mo7514d().getAntennaType()) {
+        switch (get_config().getAntennaType()) {
             case BLUETOOTH_LE:
                 start_bluetooth_le_server(context);
                 return;
@@ -304,15 +304,15 @@ class C1911h extends C1896ag {
 
     /* renamed from: g */
     private void m7925g(Context context) throws ConnectionException {
-        this.f5961g = server_factory.get_server_instance(Antenna.BLUETOOTH, true);
-        if (this.f5961g != null) {
-            this.f5961g.start_server();
+        this.bluetooth_server = server_factory.get_server_instance(Antenna.BLUETOOTH, true);
+        if (this.bluetooth_server != null) {
+            this.bluetooth_server.start_server();
         }
         if (this.f5966m.getScanMode() != 23) {
             Intent intent = new Intent("android.bluetooth.adapter.action.REQUEST_DISCOVERABLE");
             intent.setFlags(SQLiteDatabase.CREATE_IF_NECESSARY);
             intent.putExtra("android.bluetooth.adapter.extra.DISCOVERABLE_DURATION", 0);
-            mo7516e().startActivity(intent);
+            get_context().startActivity(intent);
         }
     }
 
@@ -322,9 +322,9 @@ class C1911h extends C1896ag {
             f5955a = 1;
             return;
         }
-        this.f5963i = server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true);
+        this.server = server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true);
         try {
-            this.f5963i.start_server();
+            this.server.start_server();
         } catch (ConnectionException e) {
             Log.e(f5956e, "startBluetoothLeServer: ", e);
         }
@@ -333,13 +333,13 @@ class C1911h extends C1896ag {
         } catch (InterruptedException e2) {
             e2.printStackTrace();
         }
-        mo7454a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
+        start_advertising(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
     public void mo7512b() throws ConnectionException {
-        switch (mo7514d().getAntennaType()) {
+        switch (get_config().getAntennaType()) {
             case BLUETOOTH_LE:
                 m7929j();
                 return;
@@ -353,27 +353,27 @@ class C1911h extends C1896ag {
 
     /* renamed from: i */
     private void m7928i() throws ConnectionException {
-        this.f5961g = server_factory.get_server_instance(Antenna.BLUETOOTH, false);
-        if (this.f5961g != null) {
-            this.f5961g.stop_server();
-            this.f5961g = null;
+        this.bluetooth_server = server_factory.get_server_instance(Antenna.BLUETOOTH, false);
+        if (this.bluetooth_server != null) {
+            this.bluetooth_server.stop_server();
+            this.bluetooth_server = null;
             server_factory.m7843a((bluetooth_server) null);
         }
     }
 
     /* renamed from: j */
     private void m7929j() {
-        this.f5963i = server_factory.get_server_instance(Antenna.BLUETOOTH_LE, false);
-        if (this.f5963i != null) {
+        this.server = server_factory.get_server_instance(Antenna.BLUETOOTH_LE, false);
+        if (this.server != null) {
             try {
-                this.f5963i.stop_server();
+                this.server.stop_server();
             } catch (ConnectionException e) {
                 e.printStackTrace();
             }
-            this.f5963i = null;
+            this.server = null;
             server_factory.m7842a((bluetooth_le_server) null);
         }
-        f5957k.mo7419d();
+        gatt_manager.mo7419d();
         stop_advertising();
     }
 
@@ -483,17 +483,17 @@ class C1911h extends C1896ag {
     }
 
     /* renamed from: c */
-    static gatt_manager m7920c() {
-        return f5957k;
+    static gatt_manager get_gatt_manager() {
+        return gatt_manager;
     }
 
     /* renamed from: d */
-    public Config mo7514d() {
-        return this.f5958c;
+    public Config get_config() {
+        return this.config;
     }
 
     /* renamed from: e */
-    public Context mo7516e() {
-        return this.f5959d;
+    public Context get_context() {
+        return this.context;
     }
 }

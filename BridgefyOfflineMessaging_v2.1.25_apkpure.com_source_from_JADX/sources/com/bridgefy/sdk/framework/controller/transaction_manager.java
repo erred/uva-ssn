@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.am */
-class C1903am {
+class transaction_manager {
     /* access modifiers changed from: private */
 
     /* renamed from: a */
@@ -42,13 +42,13 @@ class C1903am {
     private static boolean f5924e = false;
 
     /* renamed from: f */
-    private static C1903am f5925f = new C1903am();
+    private static transaction_manager f5925f = new transaction_manager();
 
-    private C1903am() {
+    private transaction_manager() {
     }
 
     /* renamed from: a */
-    static void m7858a(Session session, BleEntity bleEntity) {
+    static void send_entity(Session session, BleEntity bleEntity) {
         synchronized (session) {
             C1902al alVar = new C1902al(session, bleEntity, f5925f);
             if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
@@ -118,7 +118,7 @@ class C1903am {
     /* Code decompiled incorrectly, please refer to instructions dump. */
     private static synchronized void m7861b(com.bridgefy.sdk.framework.controller.Session r4) {
         /*
-            java.lang.Class<com.bridgefy.sdk.framework.controller.am> r0 = com.bridgefy.sdk.framework.controller.C1903am.class
+            java.lang.Class<com.bridgefy.sdk.framework.controller.am> r0 = com.bridgefy.sdk.framework.controller.transaction_manager.class
             monitor-enter(r0)
             boolean r1 = r4.mo7396m()     // Catch:{ all -> 0x004c }
             if (r1 == 0) goto L_0x001b
@@ -156,7 +156,7 @@ class C1903am {
             monitor-exit(r0)
             throw r4
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.C1903am.m7861b(com.bridgefy.sdk.framework.controller.Session):void");
+        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.transaction_manager.m7861b(com.bridgefy.sdk.framework.controller.Session):void");
     }
 
     /* renamed from: c */
@@ -180,7 +180,7 @@ class C1903am {
             wVar.mo7569a(alVar);
             acVar.mo7434a(wVar);
         }
-        C1911h.m7920c().mo7415a(acVar);
+        C1911h.get_gatt_manager().mo7415a(acVar);
     }
 
     /* renamed from: d */
@@ -188,8 +188,8 @@ class C1903am {
         new AsyncTask() {
             /* access modifiers changed from: protected */
             public synchronized Object doInBackground(Object[] objArr) {
-                if (C1903am.f5923d.size() > 0) {
-                    C1902al alVar = (C1902al) C1903am.f5923d.pollFirstEntry().getKey();
+                if (transaction_manager.f5923d.size() > 0) {
+                    C1902al alVar = (C1902al) transaction_manager.f5923d.pollFirstEntry().getKey();
                     try {
                         alVar.get_session().mo7380b(alVar.get_ble_entity());
                         alVar.mo7468d().m7868d(alVar);
@@ -200,8 +200,8 @@ class C1903am {
                         e2.printStackTrace();
                         alVar.mo7468d().m7869e(alVar);
                     } catch (InterruptedException e3) {
-                        Log.e(C1903am.f5920a, "doInBackground: ", e3);
-                        C1903am.f5923d.put(alVar, Boolean.TRUE);
+                        Log.e(transaction_manager.f5920a, "doInBackground: ", e3);
+                        transaction_manager.f5923d.put(alVar, Boolean.TRUE);
                     }
                 }
                 return null;
@@ -218,7 +218,7 @@ class C1903am {
                 if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         public final void run() {
-                            C1903am.m7856a(Message.this);
+                            transaction_manager.m7856a(Message.this);
                         }
                     });
                 }

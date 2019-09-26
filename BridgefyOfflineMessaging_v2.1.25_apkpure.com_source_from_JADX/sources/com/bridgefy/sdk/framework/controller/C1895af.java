@@ -192,7 +192,7 @@ class C1895af {
         if (forwardPacket.getEnc_payload() >= 0) {
             byte[] bArr = (byte[]) arrayList.get(forwardPacket.getEnc_payload());
             new String(bArr, "ISO-8859-1");
-            forwardPacket.setPayload((HashMap) Utils.fromMessagePacktoEntity(C1927q.setup_gzip_byte_stream(CryptoRSA.decrypt(Bridgefy.getInstance().getBridgefyClient().getSecretKey(), bArr)), HashMap.class));
+            forwardPacket.setPayload((HashMap) Utils.fromMessagePacktoEntity(chunk_utils.setup_gzip_byte_stream(CryptoRSA.decrypt(Bridgefy.getInstance().getBridgefyClient().getSecretKey(), bArr)), HashMap.class));
             forwardPacket.setEnc_payload(-1);
         }
         return forwardPacket;

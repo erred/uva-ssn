@@ -15,10 +15,10 @@ import p000a.p013b.C0330h;
 import p000a.p013b.p019d.C0181e;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.g */
-class C1910g extends C1932t {
+class C1910g extends comparable_device {
 
     /* renamed from: a */
-    final String f5953a = getClass().getSimpleName();
+    final String simple_name = getClass().getSimpleName();
 
     /* renamed from: b */
     private boolean f5954b = false;
@@ -48,21 +48,21 @@ class C1910g extends C1932t {
                 bluetoothAdapter.cancelDiscovery();
             }
             if (this.f5954b) {
-                bluetoothSocket = mo7556b().getBluetoothDevice().createRfcommSocketToServiceRecord(C1922m.m7989b());
+                bluetoothSocket = get_device().getBluetoothDevice().createRfcommSocketToServiceRecord(C1922m.m7989b());
             } else {
-                bluetoothSocket = mo7556b().getBluetoothDevice().createInsecureRfcommSocketToServiceRecord(C1922m.m7989b());
+                bluetoothSocket = get_device().getBluetoothDevice().createInsecureRfcommSocketToServiceRecord(C1922m.m7989b());
             }
             bluetoothSocket.connect();
             Session session = new Session(bluetoothSocket);
-            session.mo7381c(mo7556b().getDeviceAddress());
+            session.mo7381c(get_device().getDeviceAddress());
             session.mo7498b(true);
-            mo7556b().setSessionId(session.getSessionId());
-            session.mo7490a(mo7556b());
+            get_device().setSessionId(session.getSessionId());
+            session.mo7490a(get_device());
             SessionManager.queue_session(session);
             DeviceManager.add_device_null_session(session.getDevice());
             cVar.mo361a();
         } catch (IOException e) {
-            String str = this.f5953a;
+            String str = this.simple_name;
             StringBuilder sb = new StringBuilder();
             sb.append("connect: fail [ ");
             sb.append(e.getMessage());

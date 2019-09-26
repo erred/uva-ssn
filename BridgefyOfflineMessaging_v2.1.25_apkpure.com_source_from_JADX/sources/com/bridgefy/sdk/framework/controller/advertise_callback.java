@@ -5,8 +5,8 @@ import android.bluetooth.le.AdvertiseSettings;
 import android.util.Log;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.o */
-class C1925o extends AdvertiseCallback {
-    C1925o() {
+class advertise_callback extends AdvertiseCallback {
+    advertise_callback() {
     }
 
     public void onStartSuccess(AdvertiseSettings advertiseSettings) {

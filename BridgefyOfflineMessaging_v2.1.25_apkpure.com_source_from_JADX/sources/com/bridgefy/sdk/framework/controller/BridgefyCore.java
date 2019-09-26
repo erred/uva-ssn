@@ -81,7 +81,7 @@ public class BridgefyCore {
 
     /* renamed from: a */
     static void m7704a(Session session, BleEntity bleEntity) throws IOException, MessageException {
-        C1903am.m7858a(session, bleEntity);
+        transaction_manager.send_entity(session, bleEntity);
     }
 
     public void initializeServices() {

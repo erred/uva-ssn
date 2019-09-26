@@ -12,12 +12,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.f */
-class C1909f {
+class bluetooth_gatt_context {
 
     /* renamed from: a */
     private final Context set_context;
 
-    C1909f(Context context) {
+    bluetooth_gatt_context(Context context) {
         this.set_context = context;
     }
 
@@ -31,7 +31,7 @@ class C1909f {
             return m7909a(bluetoothGattCallback, bluetoothDevice, false);
         }
         try {
-            Object a = m7912a(m7911a());
+            Object a = invoke_get_bluetooth_gatt(invoke_get_bluetooth_manager());
             if (a == null) {
                 return m7909a(bluetoothGattCallback, bluetoothDevice, true);
             }
@@ -75,24 +75,24 @@ class C1909f {
     }
 
     /* renamed from: a */
-    private Object m7912a(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Object invoke_get_bluetooth_gatt(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (obj == null) {
             return null;
         }
-        return m7913a(obj.getClass(), "getBluetoothGatt").invoke(obj, new Object[0]);
+        return set_method_accessible(obj.getClass(), "getBluetoothGatt").invoke(obj, new Object[0]);
     }
 
     /* renamed from: a */
-    private Object m7911a() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Object invoke_get_bluetooth_manager() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
         if (defaultAdapter == null) {
             return null;
         }
-        return m7913a(defaultAdapter.getClass(), "getBluetoothManager").invoke(defaultAdapter, new Object[0]);
+        return set_method_accessible(defaultAdapter.getClass(), "getBluetoothManager").invoke(defaultAdapter, new Object[0]);
     }
 
     /* renamed from: a */
-    private Method m7913a(Class<?> cls, String str) throws NoSuchMethodException {
+    private Method set_method_accessible(Class<?> cls, String str) throws NoSuchMethodException {
         Method declaredMethod = cls.getDeclaredMethod(str, new Class[0]);
         declaredMethod.setAccessible(true);
         return declaredMethod;

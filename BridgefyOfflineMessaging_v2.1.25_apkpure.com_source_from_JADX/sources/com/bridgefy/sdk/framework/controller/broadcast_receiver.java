@@ -226,7 +226,7 @@ class broadcast_receiver extends BroadcastReceiver {
     /* renamed from: g */
     public void mo7408g(Antenna antenna) {
         if (C18881.f5878a[antenna.ordinal()] == 2) {
-            this.f5877e.mo7454a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
+            this.f5877e.start_advertising(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
         }
     }
 
@@ -237,7 +237,7 @@ class broadcast_receiver extends BroadcastReceiver {
                 this.f5877e.stop_discovery(this.context);
                 this.f5877e.mo7510a(this.context);
                 this.f5877e.stop_advertising();
-                this.f5877e.mo7454a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
+                this.f5877e.start_advertising(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())));
             }
         }
     }

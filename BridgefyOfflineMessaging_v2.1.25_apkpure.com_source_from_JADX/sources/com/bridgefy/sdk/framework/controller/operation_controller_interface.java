@@ -3,7 +3,7 @@ package com.bridgefy.sdk.framework.controller;
 import android.content.Context;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.ag */
-abstract class C1896ag {
+abstract class operation_controller_interface {
 
     /* renamed from: b */
     public static String f5899b = "OperatorController";
@@ -14,12 +14,12 @@ abstract class C1896ag {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public abstract boolean mo7454a(String str);
+    public abstract boolean start_advertising(String str);
 
     /* access modifiers changed from: 0000 */
     /* renamed from: c */
     public abstract void stop_discovery(Context context);
 
-    C1896ag() {
+    operation_controller_interface() {
     }
 }

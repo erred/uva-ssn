@@ -59,7 +59,7 @@ class gatt_server_callback extends BluetoothGattServerCallback {
             DeviceManager.getDevice(bluetoothDevice.getAddress());
             Session session = SessionManager.getSession(bluetoothDevice.getAddress());
             if (session != null && session.mo7395l() != 1) {
-                if (connection_manager.m8006a() == null || !connection_manager.m8006a().mo7556b().getDeviceAddress().equals(bluetoothDevice.getAddress())) {
+                if (connection_manager.m8006a() == null || !connection_manager.m8006a().get_device().getDeviceAddress().equals(bluetoothDevice.getAddress())) {
                     StringBuilder sb3 = new StringBuilder();
                     sb3.append("BluetoothProfile.STATE_DISCONNECTED ");
                     sb3.append(bluetoothDevice.getAddress());
@@ -73,7 +73,7 @@ class gatt_server_callback extends BluetoothGattServerCallback {
         } else if (i2 == 2) {
             if (Build.MODEL != null && Build.MODEL.equals("iot_rpi3")) {
                 Log.w("GattServer_Callback", "onConnectionStateChange: restarting advertising for rpi3");
-                BridgefyUtils.getBluetoothAdapter(Bridgefy.getInstance().getBridgefyCore().getContext()).getBluetoothLeAdvertiser().startAdvertising(C1922m.m7985a(), C1922m.m7984a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())), C1922m.m7989b()), new C1925o());
+                BridgefyUtils.getBluetoothAdapter(Bridgefy.getInstance().getBridgefyCore().getContext()).getBluetoothLeAdvertiser().startAdvertising(C1922m.m7985a(), C1922m.m7984a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())), C1922m.m7989b()), new advertise_callback());
             }
             StringBuilder sb4 = new StringBuilder();
             sb4.append("Client connecting to our server BluetoothProfile.STATE_CONNECTED ");
@@ -105,7 +105,7 @@ class gatt_server_callback extends BluetoothGattServerCallback {
 
     public void onCharacteristicReadRequest(BluetoothDevice bluetoothDevice, int i, int i2, BluetoothGattCharacteristic bluetoothGattCharacteristic) {
         super.onCharacteristicReadRequest(bluetoothDevice, i, i2, bluetoothGattCharacteristic);
-        C1902al a = C1903am.m7854a(bluetoothDevice);
+        C1902al a = transaction_manager.m7854a(bluetoothDevice);
         if (a == null || a.mo7464a().size() <= 0) {
             Log.e("GattServer_Callback", "onCharacteristicReadRequest: requesting a read when there is no info!");
             ((BluetoothGattServer) m7997a().mo7462e()).sendResponse(bluetoothDevice, i, 0, i2, null);
@@ -130,9 +130,9 @@ class gatt_server_callback extends BluetoothGattServerCallback {
         ((BluetoothGattServer) m7997a().mo7462e()).sendResponse(bluetoothDevice, i, 0, i2, bArr);
         Session session = SessionManager.getSession(bluetoothDevice.getAddress());
         if (session != null && session.getBluetoothDevice() != null && session.getBluetoothDevice().equals(bluetoothDevice)) {
-            session.mo7503g().add(C1927q.m8002a(bArr));
-            if (C1927q.m8004c(bArr) == 2) {
-                BleEntity a = C1927q.stitch_chunks_to_entity(session.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption());
+            session.mo7503g().add(chunk_utils.m8002a(bArr));
+            if (chunk_utils.m8004c(bArr) == 2) {
+                BleEntity a = chunk_utils.stitch_chunks_to_entity(session.mo7503g(), true, Bridgefy.getInstance().getConfig().isEncryption());
                 if (a != null) {
                     session.mo7378a(a);
                 }

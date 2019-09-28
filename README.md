@@ -25,7 +25,9 @@ BridgefyCore.sendDirectMessage
       BridgefyCore.send_entity
         transaction_manager.send_entity
           !ble: put.queue_d
+
           gatt_server: put.queue_b
+
           else: put.queue_c
             ... encrypt
 

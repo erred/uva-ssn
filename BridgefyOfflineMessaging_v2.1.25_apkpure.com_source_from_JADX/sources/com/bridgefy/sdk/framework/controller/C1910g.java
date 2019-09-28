@@ -9,7 +9,7 @@ import com.bridgefy.sdk.client.Device;
 import java.io.IOException;
 import org.p153a.C3682b;
 import p000a.p013b.C0159b;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p000a.p013b.C0184e;
 import p000a.p013b.C0330h;
 import p000a.p013b.p019d.C0181e;
@@ -32,7 +32,7 @@ class C1910g extends comparable_device {
     /* renamed from: a */
     public C0159b mo7509a() {
         return C0159b.m542a((C0184e) new C0184e() {
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C1910g.this.connect(cVar);
             }
         }).mo341a((C0181e<? super C0330h<Throwable>, ? extends C3682b<?>>) new C1898ai<Object,Object>(3, 1000));
@@ -40,7 +40,7 @@ class C1910g extends comparable_device {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public /* synthetic */ void connect(C0165c cVar) throws Exception {
+    public /* synthetic */ void connect(emitter cVar) throws Exception {
         BluetoothSocket bluetoothSocket;
         try {
             BluetoothAdapter bluetoothAdapter = BridgefyUtils.getBluetoothAdapter(Bridgefy.getInstance().getBridgefyCore().getContext());
@@ -54,10 +54,10 @@ class C1910g extends comparable_device {
             }
             bluetoothSocket.connect();
             Session session = new Session(bluetoothSocket);
-            session.mo7381c(get_device().getDeviceAddress());
-            session.mo7498b(true);
+            session.set_session_id(get_device().getDeviceAddress());
+            session.set_is_client(true);
             get_device().setSessionId(session.getSessionId());
-            session.mo7490a(get_device());
+            session.set_device(get_device());
             SessionManager.queue_session(session);
             DeviceManager.add_device_null_session(session.getDevice());
             cVar.mo361a();

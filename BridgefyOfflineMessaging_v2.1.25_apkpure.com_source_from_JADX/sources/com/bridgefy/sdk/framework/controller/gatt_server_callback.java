@@ -67,7 +67,7 @@ class gatt_server_callback extends BluetoothGattServerCallback {
                     if (!(m7997a() == null || m7997a().mo7462e() == null)) {
                         ((BluetoothGattServer) m7997a().mo7462e()).cancelConnection(bluetoothDevice);
                     }
-                    session.mo7391i();
+                    session.disconnect();
                 }
             }
         } else if (i2 == 2) {
@@ -105,23 +105,23 @@ class gatt_server_callback extends BluetoothGattServerCallback {
 
     public void onCharacteristicReadRequest(BluetoothDevice bluetoothDevice, int i, int i2, BluetoothGattCharacteristic bluetoothGattCharacteristic) {
         super.onCharacteristicReadRequest(bluetoothDevice, i, i2, bluetoothGattCharacteristic);
-        C1902al a = transaction_manager.m7854a(bluetoothDevice);
-        if (a == null || a.mo7464a().size() <= 0) {
+        chunk_generator a = transaction_manager.match_bluetooth_device(bluetoothDevice);
+        if (a == null || a.get_generated_chunk().size() <= 0) {
             Log.e("GattServer_Callback", "onCharacteristicReadRequest: requesting a read when there is no info!");
             ((BluetoothGattServer) m7997a().mo7462e()).sendResponse(bluetoothDevice, i, 0, i2, null);
             return;
         }
-        byte[] bArr = (byte[]) a.mo7464a().get(0);
+        byte[] bArr = (byte[]) a.get_generated_chunk().get(0);
         if (bArr != null) {
             ((BluetoothGattServer) m7997a().mo7462e()).sendResponse(bluetoothDevice, i, 0, i2, bArr);
-            a.mo7464a().remove(0);
+            a.get_generated_chunk().remove(0);
         }
         if (a.get_ble_entity().getData() != null && a.get_ble_entity().getData().length > 0) {
-            Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(a.get_ble_entity_uuid(), (long) (a.mo7472g() - a.mo7464a().size()), (long) a.mo7472g());
+            Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(a.get_ble_entity_uuid(), (long) (a.get_compressed_size() - a.get_generated_chunk().size()), (long) a.get_compressed_size());
         }
-        if (a.mo7464a().isEmpty()) {
+        if (a.get_generated_chunk().isEmpty()) {
             a.clear_async_tasks();
-            a.mo7468d().mo7474a(a);
+            a.get_transaction_manager().mo7474a(a);
         }
     }
 

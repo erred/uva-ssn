@@ -2,7 +2,7 @@ package p000a.p013b.p020e.p025e.p026a;
 
 import java.util.concurrent.atomic.AtomicReference;
 import p000a.p013b.C0159b;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p000a.p013b.C0176d;
 import p000a.p013b.C0184e;
 import p000a.p013b.p017b.C0161b;
@@ -19,7 +19,7 @@ public final class C0219b extends C0159b {
 
     /* renamed from: a.b.e.e.a.b$a */
     /* compiled from: CompletableCreate */
-    static final class C0220a extends AtomicReference<C0161b> implements C0161b, C0165c {
+    static final class C0220a extends AtomicReference<C0161b> implements C0161b, emitter {
 
         /* renamed from: a */
         final C0176d f421a;

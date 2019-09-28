@@ -231,7 +231,7 @@ class broadcast_receiver extends BroadcastReceiver {
     }
 
     /* renamed from: h */
-    public void mo7409h(Antenna antenna) {
+    public void set_antenna(Antenna antenna) {
         if (C18881.f5878a[antenna.ordinal()] == 2) {
             if (DeviceProfile.deviceCanStopScan() || SessionManager.getSessionsByType(Antenna.BLUETOOTH_LE).isEmpty()) {
                 this.f5877e.stop_discovery(this.context);

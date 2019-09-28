@@ -21,14 +21,14 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import p000a.p013b.C0159b;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p000a.p013b.C0184e;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.j */
 class C1915j extends comparable_device {
 
     /* renamed from: a */
-    C0165c f5978a;
+    emitter f5978a;
 
     /* renamed from: b */
     final String simple_name = getClass().getSimpleName();
@@ -123,7 +123,7 @@ class C1915j extends comparable_device {
                 if (session == null) {
                     session = new Session(bluetoothGatt);
                 } else {
-                    session.mo7486a(bluetoothGatt);
+                    session.set_bluetooth_gatt(bluetoothGatt);
                     Log.d(C1915j.this.simple_name, "onConnectionStateChange: reusing previous empty session");
                 }
                 Device device = DeviceManager.getDevice(bluetoothGatt.getDevice().getAddress());
@@ -132,8 +132,8 @@ class C1915j extends comparable_device {
                 }
                 device.setAntennaType(Antenna.BLUETOOTH_LE);
                 device.setSessionId(session.getSessionId());
-                session.mo7498b(true);
-                session.mo7490a(device);
+                session.set_is_client(true);
+                session.set_device(device);
                 SessionManager.queue_session(session);
                 DeviceManager.add_device_null_session(device);
                 C1911h.get_gatt_manager().mo7416b().put(bluetoothGatt.getDevice().getAddress(), bluetoothGatt);
@@ -166,7 +166,7 @@ class C1915j extends comparable_device {
                             C1911h.get_gatt_manager().mo7417b((gatt_operation) null);
                         }
                         if (session2 != null) {
-                            session2.mo7391i();
+                            session2.disconnect();
                         }
                     }
                     C1911h.get_gatt_manager().mo7412a(bluetoothGatt.getDevice());
@@ -287,7 +287,7 @@ class C1915j extends comparable_device {
             if (a == 5) {
                 Session session = SessionManager.getSession(bluetoothGatt.getDevice().getAddress());
                 bluetoothGatt.disconnect();
-                session.mo7391i();
+                session.disconnect();
             } else if (a == 7) {
                 C1911h.get_gatt_manager().mo7414a((gatt_operation) new C1935v(bluetoothGatt.getDevice(), C1922m.m7989b(), C1922m.m7991c()));
             }
@@ -301,7 +301,7 @@ class C1915j extends comparable_device {
     /* renamed from: a */
     public C0159b mo7509a() {
         return C0159b.m542a((C0184e) new C0184e() {
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C1915j.this.connect(cVar);
             }
         });
@@ -309,7 +309,7 @@ class C1915j extends comparable_device {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public /* synthetic */ void connect(C0165c cVar) throws Exception {
+    public /* synthetic */ void connect(emitter cVar) throws Exception {
         this.f5978a = cVar;
         BluetoothDevice bluetoothDevice = get_device().getBluetoothDevice();
         if (Bridgefy.getInstance().getBridgefyCore() != null) {
@@ -324,9 +324,9 @@ class C1915j extends comparable_device {
                 session = new Session(bluetoothDevice, true, this.f5978a);
             }
             session.setCrc(get_device().getCrc());
-            session.mo7381c(get_device().getDeviceAddress());
+            session.set_session_id(get_device().getDeviceAddress());
             get_device().setSessionId(session.getSessionId());
-            session.mo7490a(get_device());
+            session.set_device(get_device());
             SessionManager.queue_session(session);
             DeviceManager.add_device_null_session(session.getDevice());
         }

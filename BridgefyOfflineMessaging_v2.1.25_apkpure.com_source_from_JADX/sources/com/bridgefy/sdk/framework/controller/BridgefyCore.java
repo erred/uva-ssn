@@ -18,7 +18,7 @@ import com.bridgefy.sdk.framework.exceptions.MessageException;
 import java.io.IOException;
 import org.p153a.C3682b;
 import p000a.p013b.C0159b;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p000a.p013b.C0184e;
 import p000a.p013b.C0330h;
 import p000a.p013b.p014a.p016b.C0153a;
@@ -124,7 +124,7 @@ public class BridgefyCore {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m7703a(C0165c cVar) throws Exception {
+    public static /* synthetic */ void check_sessions_cleaned_up(emitter cVar) throws Exception {
         if (SessionManager.getSessions().isEmpty()) {
             Log.w("BridgefyCore", "sessions are cleaned up:");
             cVar.mo361a();
@@ -190,11 +190,11 @@ public class BridgefyCore {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: e */
-    public core_listener_controller mo7366e() {
+    public core_listener_controller get_core_listener_controller() {
         return this.core_listener_controller;
     }
 
     public void changeEnergyProfile(Antenna antenna) {
-        this.broadcast_receiver.mo7409h(antenna);
+        this.broadcast_receiver.set_antenna(antenna);
     }
 }

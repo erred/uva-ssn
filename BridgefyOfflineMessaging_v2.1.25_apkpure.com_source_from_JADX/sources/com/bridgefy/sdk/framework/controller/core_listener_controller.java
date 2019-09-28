@@ -44,23 +44,23 @@ class core_listener_controller {
     private Config config;
 
     /* renamed from: d */
-    private message_listener_controller f5897d;
+    private message_listener_controller message_listener_controller;
 
     /* renamed from: e */
     private forward_controller forward_controller;
 
     core_listener_controller(Context context, Config config) {
         this.config = (Config) C1897ah.m7831a(config, "Missing Config.");
-        this.f5897d = new message_listener_controller(config);
+        this.message_listener_controller = new message_listener_controller(config);
         this.forward_controller = new forward_controller();
-        this.f5897d.set_context(context);
+        this.message_listener_controller.set_context(context);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
     public void mo7448a(Message message, Session session) {
         message.setMesh(false);
-        this.f5897d.mo7440a(message);
+        this.message_listener_controller.mo7440a(message);
         // Logger.log(LogFactory.build(message, (Session) session, MessageEvent.BFMessageTypeDirectMessageReceived));
         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectReceived);
     }
@@ -124,15 +124,15 @@ class core_listener_controller {
                         try {
                             forwardPacket = m7812b(forwardPacket, a);
                         } catch (Exception e) {
-                            this.f5897d.mo7442a(forwardPacket.getSender(), new MessageException("Can't be possible decrypt message.", e));
+                            this.message_listener_controller.mo7442a(forwardPacket.getSender(), new MessageException("Can't be possible decrypt message.", e));
                         }
                         // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedReached));
                         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshReceived);
                         Message b = m7811b(forwardPacket);
                         if (b == null || b.getContent() != null) {
-                            this.f5897d.mo7440a(b);
+                            this.message_listener_controller.mo7440a(b);
                         } else {
-                            this.f5897d.mo7442a(forwardPacket.getSender(), new MessageException("Unable to decrypt message."));
+                            this.message_listener_controller.mo7442a(forwardPacket.getSender(), new MessageException("Unable to decrypt message."));
                         }
                         this.forward_controller.send_mesh_reach(forwardPacket);
                     }
@@ -140,7 +140,7 @@ class core_listener_controller {
                     // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedBroadcast));
                     // Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastReceived);
                     Message b2 = m7811b(forwardPacket);
-                    if (!this.forward_controller.mo7563a(forwardPacket) && forwardPacket.getHops() >= 0 && !b2.getSenderId().trim().equalsIgnoreCase(Bridgefy.getInstance().getBridgefyClient().getUserUuid())) {
+                    if (!this.forward_controller.seen_packet(forwardPacket) && forwardPacket.getHops() >= 0 && !b2.getSenderId().trim().equalsIgnoreCase(Bridgefy.getInstance().getBridgefyClient().getUserUuid())) {
                         new Bundle().putParcelable("parcelable.forwardPacket", forwardPacket);
                         mo7451a(forwardPacket);
                         if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
@@ -154,7 +154,7 @@ class core_listener_controller {
                 }
             }
             if (!arrayList.isEmpty()) {
-                this.forward_controller.mo7561a(arrayList, session);
+                this.forward_controller.receive_list_add_or_drop(arrayList, session);
             }
         }
     }
@@ -162,9 +162,9 @@ class core_listener_controller {
     /* access modifiers changed from: protected */
     /* renamed from: a */
     public void mo7451a(ForwardPacket forwardPacket) {
-        if (!this.forward_controller.mo7563a(forwardPacket)) {
+        if (!this.forward_controller.seen_packet(forwardPacket)) {
             forwardPacket.setAdded(new Date(System.currentTimeMillis()));
-            this.forward_controller.mo7560a(forwardPacket, true);
+            this.forward_controller.add_forward_packet_to_list(forwardPacket, true);
         }
     }
 
@@ -205,10 +205,10 @@ class core_listener_controller {
     }
 
     /* renamed from: c */
-    private void m7816c(ForwardPacket forwardPacket) {
+    private void forward_to_list(ForwardPacket forwardPacket) {
         // Logger.log(LogFactory.build(forwardPacket));
         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshSent);
-        this.forward_controller.mo7560a(forwardPacket, true);
+        this.forward_controller.add_forward_packet_to_list(forwardPacket, true);
     }
 
     /* access modifiers changed from: 0000 */
@@ -225,9 +225,9 @@ class core_listener_controller {
         if (device != null) {
             send_direct_message(context, message, device);
         } else if (bFEngineProfile != BFEngineProfile.BFConfigProfileNoFowarding) {
-            m7816c(new ForwardPacket(message, 0, bFEngineProfile));
+            forward_to_list(new ForwardPacket(message, 0, bFEngineProfile));
             if (DeviceManager.get_devices().isEmpty()) {
-                this.f5897d.mo7441a(message, new MessageException("No nearby devices, message will be queued for later."));
+                this.message_listener_controller.mo7441a(message, new MessageException("No nearby devices, message will be queued for later."));
             }
         }
     }
@@ -265,11 +265,11 @@ class core_listener_controller {
                 // Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectSent);
             } catch (IOException e) {
                 // Logger.log(LogFactory.build(message, new MessageException((Exception) e)));
-                session.mo7391i();
-                this.f5897d.mo7441a(message, new MessageException((Exception) e));
+                session.disconnect();
+                this.message_listener_controller.mo7441a(message, new MessageException((Exception) e));
             } catch (MessageException e2) {
                 // Logger.log(LogFactory.build(message, new MessageException((Exception) e2)));
-                this.f5897d.mo7441a(message, new MessageException((Exception) e2));
+                this.message_listener_controller.mo7441a(message, new MessageException((Exception) e2));
             }
             return;
         }
@@ -280,7 +280,7 @@ class core_listener_controller {
 
     /* renamed from: b */
     private void send_broadcast_2(Message message, BFEngineProfile bFEngineProfile) {
-        this.forward_controller.mo7560a(new ForwardPacket(message, 1, bFEngineProfile), true);
+        this.forward_controller.add_forward_packet_to_list(new ForwardPacket(message, 1, bFEngineProfile), true);
         // Logger.log(LogFactory.build(message));
         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastSent);
     }
@@ -288,7 +288,7 @@ class core_listener_controller {
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
     public void set_context(Context context) {
-        this.f5897d.set_context(context);
+        this.message_listener_controller.set_context(context);
     }
 
     /* renamed from: a */

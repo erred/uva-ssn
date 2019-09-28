@@ -12,28 +12,28 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.d */
-abstract class C1907d {
+abstract class bluetooth_emitter_device {
 
     /* renamed from: a */
-    protected final String f5931a = getClass().getSimpleName();
+    protected final String simple_name = getClass().getSimpleName();
 
     /* renamed from: b */
-    Pattern f5932b = Pattern.compile("\\}");
+    Pattern pattern = Pattern.compile("\\}");
 
     /* renamed from: c */
-    C0165c f5933c;
+    emitter emitter;
 
     /* renamed from: d */
-    private BluetoothGattServer f5934d;
+    private BluetoothGattServer bluetooth_gatt_server;
 
     /* renamed from: e */
-    private BluetoothGatt f5935e;
+    private BluetoothGatt bluetooth_gatt;
 
     /* renamed from: f */
-    private BluetoothDevice f5936f;
+    private BluetoothDevice bluetooth_device;
 
     /* renamed from: g */
     private ArrayList<byte[]> f5937g = new ArrayList<>();
@@ -42,181 +42,181 @@ abstract class C1907d {
     private ArrayList<byte[]> f5938h = new ArrayList<>();
 
     /* renamed from: i */
-    private BluetoothSocket f5939i;
+    private BluetoothSocket bluetooth_socket;
 
     /* renamed from: j */
-    private Socket f5940j;
+    private Socket socket;
 
     /* renamed from: k */
-    private String f5941k;
+    private String uuid;
 
     /* renamed from: l */
-    private Device f5942l;
+    private Device device;
 
     /* renamed from: m */
-    private Antenna f5943m;
+    private Antenna antenna;
 
     /* renamed from: n */
-    private boolean f5944n = false;
+    private boolean is_connected = false;
 
     /* renamed from: o */
-    private DataOutputStream f5945o;
+    private DataOutputStream data_output_stream;
 
     /* renamed from: p */
-    private DataInputStream f5946p;
+    private DataInputStream data_input_stream;
 
     /* renamed from: q */
-    private String f5947q;
+    private String user_id;
 
     /* renamed from: r */
-    private String f5948r;
+    private String public_key;
 
     /* renamed from: s */
-    private boolean f5949s;
+    private boolean is_client;
 
-    public C0165c getEmitter() {
-        return this.f5933c;
+    public emitter getEmitter() {
+        return this.emitter;
     }
 
-    C1907d(BluetoothSocket bluetoothSocket) {
-        mo7488a(bluetoothSocket);
-        mo7489a(Antenna.BLUETOOTH);
-        this.f5941k = Utils.generateSessionId();
+    bluetooth_emitter_device(BluetoothSocket bluetoothSocket) {
+        set_bluetooth_socket(bluetoothSocket);
+        set_antenna(Antenna.BLUETOOTH);
+        this.uuid = Utils.generateSessionId();
     }
 
-    C1907d(Socket socket, Antenna antenna) {
-        mo7494a(socket);
-        mo7489a(antenna);
-        this.f5941k = Utils.generateSessionId();
+    bluetooth_emitter_device(Socket socket, Antenna antenna) {
+        set_socket(socket);
+        set_antenna(antenna);
+        this.uuid = Utils.generateSessionId();
     }
 
-    C1907d(Antenna antenna) {
-        mo7489a(antenna);
+    bluetooth_emitter_device(Antenna antenna) {
+        set_antenna(antenna);
     }
 
-    C1907d(BluetoothDevice bluetoothDevice, boolean z, C0165c cVar) {
-        this.f5933c = cVar;
-        mo7485a(bluetoothDevice);
+    bluetooth_emitter_device(BluetoothDevice bluetoothDevice, boolean z, emitter cVar) {
+        this.emitter = cVar;
+        set_bluetooth_device(bluetoothDevice);
         if (z) {
-            mo7489a(Antenna.BLUETOOTH_LE);
+            set_antenna(Antenna.BLUETOOTH_LE);
         } else {
-            mo7489a(Antenna.BLUETOOTH);
+            set_antenna(Antenna.BLUETOOTH);
         }
     }
 
-    C1907d() {
+    bluetooth_emitter_device() {
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public BluetoothSocket mo7484a() {
-        return this.f5939i;
+    public BluetoothSocket get_bluetooth_socket() {
+        return this.bluetooth_socket;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7488a(BluetoothSocket bluetoothSocket) {
-        this.f5939i = bluetoothSocket;
+    public void set_bluetooth_socket(BluetoothSocket bluetoothSocket) {
+        this.bluetooth_socket = bluetoothSocket;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public Socket mo7496b() {
-        return this.f5940j;
+    public Socket get_socket() {
+        return this.socket;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7494a(Socket socket) {
-        this.f5940j = socket;
+    public void set_socket(Socket socket) {
+        this.socket = socket;
     }
 
     public Device getDevice() {
-        return this.f5942l;
+        return this.device;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7490a(Device device) {
-        this.f5942l = device;
+    public void set_device(Device device) {
+        this.device = device;
     }
 
     public Antenna getAntennaType() {
-        return this.f5943m;
+        return this.antenna;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7489a(Antenna antenna) {
-        this.f5943m = antenna;
+    public void set_antenna(Antenna antenna) {
+        this.antenna = antenna;
     }
 
     public boolean isConnected() {
-        return this.f5944n;
+        return this.is_connected;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7379a(boolean z) {
-        this.f5944n = z;
+    public void set_is_connected(boolean z) {
+        this.is_connected = z;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: c */
-    public DataOutputStream mo7499c() {
-        return this.f5945o;
+    public DataOutputStream get_data_output_stream() {
+        return this.data_output_stream;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7492a(DataOutputStream dataOutputStream) {
-        this.f5945o = dataOutputStream;
+    public void set_data_output_stream(DataOutputStream dataOutputStream) {
+        this.data_output_stream = dataOutputStream;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: d */
-    public DataInputStream mo7500d() {
-        return this.f5946p;
+    public DataInputStream get_data_input_stream() {
+        return this.data_input_stream;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7491a(DataInputStream dataInputStream) {
-        this.f5946p = dataInputStream;
+    public void set_data_input_stream(DataInputStream dataInputStream) {
+        this.data_input_stream = dataInputStream;
     }
 
     public BluetoothDevice getBluetoothDevice() {
-        return this.f5936f;
+        return this.bluetooth_device;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7485a(BluetoothDevice bluetoothDevice) {
-        this.f5936f = bluetoothDevice;
+    public void set_bluetooth_device(BluetoothDevice bluetoothDevice) {
+        this.bluetooth_device = bluetoothDevice;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7486a(BluetoothGatt bluetoothGatt) {
-        this.f5935e = bluetoothGatt;
+    public void set_bluetooth_gatt(BluetoothGatt bluetoothGatt) {
+        this.bluetooth_gatt = bluetoothGatt;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: e */
-    public BluetoothGatt mo7501e() {
-        return this.f5935e;
+    public BluetoothGatt get_bluetooth_gatt() {
+        return this.bluetooth_gatt;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7487a(BluetoothGattServer bluetoothGattServer) {
-        this.f5934d = bluetoothGattServer;
+    public void set_bluetooth_gatt_server(BluetoothGattServer bluetoothGattServer) {
+        this.bluetooth_gatt_server = bluetoothGattServer;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: f */
-    public BluetoothGattServer mo7502f() {
-        return this.f5934d;
+    public BluetoothGattServer get_bluetooth_gatt_server() {
+        return this.bluetooth_gatt_server;
     }
 
     /* access modifiers changed from: 0000 */
@@ -232,37 +232,37 @@ abstract class C1907d {
     }
 
     public String getUuid() {
-        return this.f5941k;
+        return this.uuid;
     }
 
     public String getUserId() {
-        return this.f5947q;
+        return this.user_id;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7493a(String str) {
-        this.f5947q = str;
+    public void set_user_id(String str) {
+        this.user_id = str;
     }
 
     public boolean isClient() {
-        return this.f5949s;
+        return this.is_client;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public void mo7498b(boolean z) {
-        this.f5949s = z;
+    public void set_is_client(boolean z) {
+        this.is_client = z;
     }
 
     public String getPublicKey() {
-        return this.f5948r;
+        return this.public_key;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public void mo7497b(String str) {
-        this.f5948r = str;
+    public void set_public_key(String str) {
+        this.public_key = str;
     }
 
     /* renamed from: a */

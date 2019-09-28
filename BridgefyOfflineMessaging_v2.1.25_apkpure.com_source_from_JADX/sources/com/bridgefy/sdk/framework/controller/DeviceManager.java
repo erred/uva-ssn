@@ -107,7 +107,7 @@ public class DeviceManager {
     /* JADX WARNING: Removed duplicated region for block: B:28:0x00f9  */
     /* renamed from: b */
     /* Code decompiled incorrectly, please refer to instructions dump. */
-    static synchronized void m7719b(com.bridgefy.sdk.client.Device r7) {
+    static synchronized void remove_device(com.bridgefy.sdk.client.Device r7) {
         /*
             java.lang.Class<com.bridgefy.sdk.framework.controller.DeviceManager> r0 = com.bridgefy.sdk.framework.controller.DeviceManager.class
             monitor-enter(r0)
@@ -225,7 +225,7 @@ public class DeviceManager {
             monitor-exit(r0)
             return
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.DeviceManager.m7719b(com.bridgefy.sdk.client.Device):void");
+        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.DeviceManager.remove_device(com.bridgefy.sdk.client.Device):void");
     }
 
     /* renamed from: f */
@@ -286,7 +286,7 @@ public class DeviceManager {
     static void m7714a(Antenna antenna) {
         for (Device device : devices_map.values()) {
             if (device.getAntennaType() == antenna) {
-                m7719b(device);
+                remove_device(device);
             }
         }
     }
@@ -336,7 +336,7 @@ public class DeviceManager {
                 sb.append(device.getDeviceAddress());
                 Log.i("DeviceManager", sb.toString());
                 m7722d(device);
-                m7719b(device);
+                remove_device(device);
             }
         }
     }

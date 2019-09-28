@@ -20,7 +20,7 @@ class C1936w extends gatt_operation {
     private final byte[] f6016c;
 
     /* renamed from: d */
-    private C1902al f6017d;
+    private chunk_generator f6017d;
 
     /* renamed from: a */
     public boolean mo7425a() {
@@ -38,9 +38,9 @@ class C1936w extends gatt_operation {
     public void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt) {
         BluetoothGattService service = bluetoothGatt.getService(this.f6014a);
         if (service == null) {
-            this.f6017d.mo7464a().remove(this.f6016c);
-            if (this.f6017d.mo7464a().size() == 0) {
-                this.f6017d.mo7468d().mo7475b(this.f6017d);
+            this.f6017d.get_generated_chunk().remove(this.f6016c);
+            if (this.f6017d.get_generated_chunk().size() == 0) {
+                this.f6017d.get_transaction_manager().mo7475b(this.f6017d);
             }
             return;
         }
@@ -49,19 +49,19 @@ class C1936w extends gatt_operation {
         characteristic.setWriteType(2);
         bluetoothGatt.writeCharacteristic(characteristic);
         if (this.f6017d != null) {
-            this.f6017d.mo7464a().remove(this.f6016c);
+            this.f6017d.get_generated_chunk().remove(this.f6016c);
             if (this.f6017d.get_ble_entity().getData() != null && this.f6017d.get_ble_entity().getData().length > 0) {
-                Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(this.f6017d.get_ble_entity_uuid(), (long) (this.f6017d.mo7472g() - this.f6017d.mo7464a().size()), (long) this.f6017d.mo7472g());
+                Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(this.f6017d.get_ble_entity_uuid(), (long) (this.f6017d.get_compressed_size() - this.f6017d.get_generated_chunk().size()), (long) this.f6017d.get_compressed_size());
             }
-            if (this.f6017d.mo7464a().size() == 0) {
-                this.f6017d.mo7468d().mo7474a(this.f6017d);
+            if (this.f6017d.get_generated_chunk().size() == 0) {
+                this.f6017d.get_transaction_manager().mo7474a(this.f6017d);
             }
         }
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7569a(C1902al alVar) {
+    public void mo7569a(chunk_generator alVar) {
         this.f6017d = alVar;
     }
 }

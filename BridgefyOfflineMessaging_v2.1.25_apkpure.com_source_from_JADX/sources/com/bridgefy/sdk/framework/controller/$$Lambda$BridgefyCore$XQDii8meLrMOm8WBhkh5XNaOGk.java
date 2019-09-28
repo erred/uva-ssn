@@ -1,6 +1,6 @@
 package com.bridgefy.sdk.framework.controller;
 
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p000a.p013b.C0184e;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.-$$Lambda$BridgefyCore$XQDi-i8meLrMOm8WBhkh5XNaOGk reason: invalid class name */
@@ -11,7 +11,7 @@ public final /* synthetic */ class $$Lambda$BridgefyCore$XQDii8meLrMOm8WBhkh5XNa
     private /* synthetic */ $$Lambda$BridgefyCore$XQDii8meLrMOm8WBhkh5XNaOGk() {
     }
 
-    public final void subscribe(C0165c cVar) {
-        BridgefyCore.m7703a(cVar);
+    public final void subscribe(emitter cVar) {
+        BridgefyCore.check_sessions_cleaned_up(cVar);
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import p000a.p013b.C0159b;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p000a.p013b.C0176d;
 import p000a.p013b.C0184e;
 import p000a.p013b.C0323f;
@@ -106,7 +106,7 @@ public class C3519c {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m10295a(C0165c cVar) throws Exception {
+    public static /* synthetic */ void m10295a(emitter cVar) throws Exception {
         if (C3517a.m10256a().mo29201h()) {
             cVar.mo361a();
         } else {
@@ -120,7 +120,7 @@ public class C3519c {
             aVar = new C3521a();
         }
         m10294a(C0159b.m542a((C0184e) new C0184e() {
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C3519c.m10317b(BgfyUser.this, cVar);
             }
         }), aVar);
@@ -128,7 +128,7 @@ public class C3519c {
 
     /* access modifiers changed from: private */
     /* renamed from: b */
-    public static /* synthetic */ void m10317b(BgfyUser bgfyUser, C0165c cVar) throws Exception {
+    public static /* synthetic */ void m10317b(BgfyUser bgfyUser, emitter cVar) throws Exception {
         bgfyUser.setDevice(BleHandshake.DEVICE_TYPE);
         if (bgfyUser.getDigitsId() != null) {
             C3517a.m10256a().mo29192b(bgfyUser);
@@ -149,7 +149,7 @@ public class C3519c {
             aVar = new C3521a();
         }
         m10294a(C0159b.m542a((C0184e) new C0184e() {
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C3519c.m10311a(BgfyUser.this, cVar);
             }
         }), aVar);
@@ -157,7 +157,7 @@ public class C3519c {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m10311a(BgfyUser bgfyUser, C0165c cVar) throws Exception {
+    public static /* synthetic */ void m10311a(BgfyUser bgfyUser, emitter cVar) throws Exception {
         bgfyUser.setDevice(BleHandshake.DEVICE_TYPE);
         if (bgfyUser.getDigitsId() != null) {
             C3517a.m10256a().mo29189a(bgfyUser);
@@ -192,7 +192,7 @@ public class C3519c {
                 this.f$0 = r1;
             }
 
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C3519c.m10315b(this.f$0, cVar);
             }
         }), aVar);
@@ -200,7 +200,7 @@ public class C3519c {
 
     /* access modifiers changed from: private */
     /* renamed from: b */
-    public static /* synthetic */ void m10315b(String str, C0165c cVar) throws Exception {
+    public static /* synthetic */ void m10315b(String str, emitter cVar) throws Exception {
         C3517a.m10256a().mo29197d().blockUser(str).execute();
         cVar.mo361a();
     }
@@ -217,7 +217,7 @@ public class C3519c {
                 this.f$0 = r1;
             }
 
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C3519c.m10302a(this.f$0, cVar);
             }
         }), aVar);
@@ -225,7 +225,7 @@ public class C3519c {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m10302a(String str, C0165c cVar) throws Exception {
+    public static /* synthetic */ void m10302a(String str, emitter cVar) throws Exception {
         C3517a.m10256a().mo29197d().unblockUser(str).execute();
         cVar.mo361a();
     }
@@ -289,7 +289,7 @@ public class C3519c {
                 this.f$1 = r2;
             }
 
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C3519c.m10305a(this.f$0, this.f$1, cVar);
             }
         }), aVar);
@@ -297,7 +297,7 @@ public class C3519c {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m10305a(String str, String str2, C0165c cVar) throws Exception {
+    public static /* synthetic */ void m10305a(String str, String str2, emitter cVar) throws Exception {
         C3517a.m10256a().mo29199f().deleteConversation(str, str2).execute();
         cVar.mo361a();
     }
@@ -389,7 +389,7 @@ public class C3519c {
             /* renamed from: a */
             BgfyKey f9161a = new BgfyKey();
 
-            public void subscribe(C0165c cVar) throws Exception {
+            public void subscribe(emitter cVar) throws Exception {
                 String userUuid = Bridgefy.getInstance().getBridgefyClient().getUserUuid();
                 String publicKey = Bridgefy.getInstance().getBridgefyClient().getPublicKey();
                 if (userUuid == null || publicKey == null) {
@@ -435,7 +435,7 @@ public class C3519c {
                 this.f$1 = r2;
             }
 
-            public final void subscribe(C0165c cVar) {
+            public final void subscribe(emitter cVar) {
                 C3519c.m10299a(this.f$0, this.f$1, cVar);
             }
         }), aVar);
@@ -443,7 +443,7 @@ public class C3519c {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m10299a(Context context, String str, C0165c cVar) throws Exception {
+    public static /* synthetic */ void m10299a(Context context, String str, emitter cVar) throws Exception {
         SharedPreferences sharedPreferences = context.getSharedPreferences("BgfyPrefs", 0);
         Editor edit = sharedPreferences.edit();
         String string = sharedPreferences.getString("cgmRegistrationId", null);

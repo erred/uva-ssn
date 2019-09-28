@@ -29,20 +29,20 @@ class transaction_manager {
     public static String f5920a = "TransactionManager";
 
     /* renamed from: b */
-    private static ConcurrentSkipListMap<Session, ConcurrentNavigableMap<C1902al, Boolean>> f5921b = new ConcurrentSkipListMap<>();
+    private static ConcurrentSkipListMap<Session, ConcurrentNavigableMap<chunk_generator, Boolean>> f5921b = new ConcurrentSkipListMap<>();
 
     /* renamed from: c */
-    private static ConcurrentNavigableMap<C1902al, Boolean> f5922c = new ConcurrentSkipListMap();
+    private static ConcurrentNavigableMap<chunk_generator, Boolean> f5922c = new ConcurrentSkipListMap();
     /* access modifiers changed from: private */
 
     /* renamed from: d */
-    public static ConcurrentNavigableMap<C1902al, Boolean> f5923d = new ConcurrentSkipListMap();
+    public static ConcurrentNavigableMap<chunk_generator, Boolean> f5923d = new ConcurrentSkipListMap();
 
     /* renamed from: e */
     private static boolean f5924e = false;
 
     /* renamed from: f */
-    private static transaction_manager f5925f = new transaction_manager();
+    private static transaction_manager transaction_manager = new transaction_manager();
 
     private transaction_manager() {
     }
@@ -50,11 +50,11 @@ class transaction_manager {
     /* renamed from: a */
     static void send_entity(Session session, BleEntity bleEntity) {
         synchronized (session) {
-            C1902al alVar = new C1902al(session, bleEntity, f5925f);
+            chunk_generator alVar = new chunk_generator(session, bleEntity, transaction_manager);
             if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
                 f5923d.put(alVar, Boolean.TRUE);
                 m7867d();
-            } else if (session.mo7396m()) {
+            } else if (session.is_gatt_server()) {
                 if (m7866d(session).containsKey(alVar)) {
                     Log.e(f5920a, "sendEntity: transaction was queued");
                 } else {
@@ -69,12 +69,12 @@ class transaction_manager {
     }
 
     /* renamed from: a */
-    static C1902al m7854a(BluetoothDevice bluetoothDevice) {
+    static chunk_generator match_bluetooth_device(BluetoothDevice bluetoothDevice) {
         for (ConcurrentNavigableMap keySet : f5921b.values()) {
             Iterator it = keySet.keySet().iterator();
             while (true) {
                 if (it.hasNext()) {
-                    C1902al alVar = (C1902al) it.next();
+                    chunk_generator alVar = (chunk_generator) it.next();
                     if (alVar.get_bluetooth_device().equals(bluetoothDevice)) {
                         return alVar;
                     }
@@ -88,16 +88,16 @@ class transaction_manager {
     static void m7857a(Session session) {
         ConcurrentNavigableMap concurrentNavigableMap = (ConcurrentNavigableMap) f5921b.remove(session);
         ArrayList arrayList = new ArrayList();
-        for (C1902al alVar : f5922c.keySet()) {
+        for (chunk_generator alVar : f5922c.keySet()) {
             if (alVar.get_session().equals(session)) {
                 arrayList.add(alVar);
             }
         }
         Iterator it = arrayList.iterator();
         while (it.hasNext()) {
-            f5922c.remove((C1902al) it.next());
+            f5922c.remove((chunk_generator) it.next());
         }
-        for (C1902al alVar2 : f5923d.keySet()) {
+        for (chunk_generator alVar2 : f5923d.keySet()) {
             if (alVar2.get_session().equals(session)) {
                 f5923d.remove(alVar2);
             }
@@ -106,7 +106,7 @@ class transaction_manager {
     }
 
     /* renamed from: c */
-    private synchronized boolean m7865c(C1902al alVar) {
+    private synchronized boolean m7865c(chunk_generator alVar) {
         m7866d(alVar.get_session()).remove(alVar);
         return false;
     }
@@ -120,7 +120,7 @@ class transaction_manager {
         /*
             java.lang.Class<com.bridgefy.sdk.framework.controller.am> r0 = com.bridgefy.sdk.framework.controller.transaction_manager.class
             monitor-enter(r0)
-            boolean r1 = r4.mo7396m()     // Catch:{ all -> 0x004c }
+            boolean r1 = r4.is_gatt_server()     // Catch:{ all -> 0x004c }
             if (r1 == 0) goto L_0x001b
             java.util.concurrent.ConcurrentSkipListMap<com.bridgefy.sdk.framework.controller.Session, java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.controller.al, java.lang.Boolean>> r1 = f5921b     // Catch:{ all -> 0x004c }
             java.lang.Object r1 = r1.get(r4)     // Catch:{ all -> 0x004c }
@@ -162,9 +162,9 @@ class transaction_manager {
     /* renamed from: c */
     private static void m7864c(Session session) {
         try {
-            BluetoothGattCharacteristic characteristic = session.mo7502f().getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c());
+            BluetoothGattCharacteristic characteristic = session.get_bluetooth_gatt_server().getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c());
             characteristic.setValue(new byte[]{7});
-            session.mo7502f().notifyCharacteristicChanged(session.getBluetoothDevice(), characteristic, false);
+            session.get_bluetooth_gatt_server().notifyCharacteristicChanged(session.getBluetoothDevice(), characteristic, false);
         } catch (NullPointerException unused) {
             SessionManager.m7757b(session.getSessionId());
         }
@@ -172,11 +172,11 @@ class transaction_manager {
 
     /* renamed from: c */
     private static void m7863c() {
-        C1902al alVar = (C1902al) f5922c.pollFirstEntry().getKey();
+        chunk_generator alVar = (chunk_generator) f5922c.pollFirstEntry().getKey();
         Session c = alVar.get_session();
         C1892ac acVar = new C1892ac(alVar);
-        for (int i = 0; i < alVar.mo7464a().size(); i++) {
-            C1936w wVar = new C1936w(c.mo7501e().getDevice(), C1922m.m7989b(), C1922m.m7991c(), (byte[]) alVar.mo7464a().get(i));
+        for (int i = 0; i < alVar.get_generated_chunk().size(); i++) {
+            C1936w wVar = new C1936w(c.get_bluetooth_gatt().getDevice(), C1922m.m7989b(), C1922m.m7991c(), (byte[]) alVar.get_generated_chunk().get(i));
             wVar.mo7569a(alVar);
             acVar.mo7434a(wVar);
         }
@@ -189,16 +189,16 @@ class transaction_manager {
             /* access modifiers changed from: protected */
             public synchronized Object doInBackground(Object[] objArr) {
                 if (transaction_manager.f5923d.size() > 0) {
-                    C1902al alVar = (C1902al) transaction_manager.f5923d.pollFirstEntry().getKey();
+                    chunk_generator alVar = (chunk_generator) transaction_manager.f5923d.pollFirstEntry().getKey();
                     try {
                         alVar.get_session().mo7380b(alVar.get_ble_entity());
-                        alVar.mo7468d().m7868d(alVar);
+                        alVar.get_transaction_manager().m7868d(alVar);
                     } catch (IOException e) {
                         e.printStackTrace();
-                        alVar.mo7468d().m7869e(alVar);
+                        alVar.get_transaction_manager().m7869e(alVar);
                     } catch (MessageException e2) {
                         e2.printStackTrace();
-                        alVar.mo7468d().m7869e(alVar);
+                        alVar.get_transaction_manager().m7869e(alVar);
                     } catch (InterruptedException e3) {
                         Log.e(transaction_manager.f5920a, "doInBackground: ", e3);
                         transaction_manager.f5923d.put(alVar, Boolean.TRUE);
@@ -211,14 +211,14 @@ class transaction_manager {
 
     /* access modifiers changed from: private */
     /* renamed from: d */
-    public void m7868d(C1902al alVar) {
+    public void m7868d(chunk_generator alVar) {
         int et = alVar.get_ble_entity().getEt();
         if (et == 1) {
             for (Message message : m7870f(alVar)) {
                 if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         public final void run() {
-                            transaction_manager.m7856a(Message.this);
+                            transaction_manager.on_message_sent(Message.this);
                         }
                     });
                 }
@@ -233,14 +233,14 @@ class transaction_manager {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m7856a(Message message) {
+    public static /* synthetic */ void on_message_sent(Message message) {
         Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageSent(message.getUuid());
         Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageSent(message);
     }
 
     /* access modifiers changed from: private */
     /* renamed from: e */
-    public void m7869e(C1902al alVar) {
+    public void m7869e(chunk_generator alVar) {
         int et = alVar.get_ble_entity().getEt();
         if (et == 1) {
             for (Message message : m7870f(alVar)) {
@@ -258,7 +258,7 @@ class transaction_manager {
     }
 
     /* renamed from: f */
-    private List<Message> m7870f(C1902al alVar) {
+    private List<Message> m7870f(chunk_generator alVar) {
         ArrayList arrayList = new ArrayList();
         if (alVar.get_ble_entity().getEt() == 1) {
             BleEntityContent bleEntityContent = (BleEntityContent) alVar.get_ble_entity().getCt();
@@ -273,7 +273,7 @@ class transaction_manager {
     }
 
     /* renamed from: g */
-    private ForwardTransaction m7871g(C1902al alVar) {
+    private ForwardTransaction m7871g(chunk_generator alVar) {
         if (alVar.get_ble_entity().getEt() != 3) {
             return null;
         }
@@ -282,7 +282,7 @@ class transaction_manager {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7474a(C1902al alVar) {
+    public void mo7474a(chunk_generator alVar) {
         alVar.get_session();
         m7868d(alVar);
         m7865c(alVar);
@@ -290,7 +290,7 @@ class transaction_manager {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public void mo7475b(C1902al alVar) {
+    public void mo7475b(chunk_generator alVar) {
         alVar.get_session();
         m7869e(alVar);
         m7865c(alVar);

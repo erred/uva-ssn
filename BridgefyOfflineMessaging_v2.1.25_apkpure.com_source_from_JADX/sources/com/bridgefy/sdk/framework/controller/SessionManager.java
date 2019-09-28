@@ -47,7 +47,7 @@ public class SessionManager {
             sb.append(session.getSessionId());
             sb.append(" for the first time.");
             Log.w("SessionManager", sb.toString());
-            session.mo7379a(true);
+            session.set_is_connected(true);
             if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
                 session.mo7390h();
             }
@@ -126,7 +126,7 @@ public class SessionManager {
     static void m7753a(Antenna antenna) {
         for (Session session : sessions.values()) {
             if (antenna == session.getAntennaType()) {
-                session.mo7391i();
+                session.disconnect();
             }
         }
     }
@@ -147,7 +147,7 @@ public class SessionManager {
             }
         }
         sessions.remove(session.getSessionId());
-        DeviceManager.m7719b(device);
+        DeviceManager.remove_device(device);
     }
 
     /* renamed from: a */
@@ -165,9 +165,9 @@ public class SessionManager {
             Session session = (Session) sessions.get(str);
             if (session != null) {
                 if (session.getAntennaType() == Antenna.BLUETOOTH_LE) {
-                    if (session.mo7501e() != null) {
-                        session.mo7501e().disconnect();
-                        session.mo7501e().close();
+                    if (session.get_bluetooth_gatt() != null) {
+                        session.get_bluetooth_gatt().disconnect();
+                        session.get_bluetooth_gatt().close();
                     }
                     try {
                         BluetoothGattServer bluetoothGattServer = (BluetoothGattServer) server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true).mo7462e();
@@ -189,7 +189,7 @@ public class SessionManager {
                         Log.w("SessionManager", "disconnectLeDevices: server objects disappeared ahead of time");
                     }
                 }
-                session.mo7391i();
+                session.disconnect();
             }
         }
     }

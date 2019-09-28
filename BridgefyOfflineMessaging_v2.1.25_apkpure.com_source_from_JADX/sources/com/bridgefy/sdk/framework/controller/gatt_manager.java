@@ -40,7 +40,7 @@ class gatt_manager {
             while (it.hasNext()) {
                 this.f5879a.remove((gatt_operation) it.next());
             }
-            this.f5881c.mo7428d().mo7435b().mo7468d().mo7475b(this.f5881c.mo7428d().mo7435b());
+            this.f5881c.mo7428d().mo7435b().get_transaction_manager().mo7475b(this.f5881c.mo7428d().mo7435b());
         }
         this.f5881c = null;
         mo7411a();

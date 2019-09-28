@@ -109,9 +109,9 @@ class C1935v extends gatt_operation {
             if (r1 == 0) goto L_0x00d6
             java.lang.Object r1 = r0.next()     // Catch:{ all -> 0x00d8 }
             com.bridgefy.sdk.framework.controller.Session r1 = (com.bridgefy.sdk.framework.controller.Session) r1     // Catch:{ all -> 0x00d8 }
-            android.bluetooth.BluetoothGatt r2 = r1.mo7501e()     // Catch:{ all -> 0x00d8 }
+            android.bluetooth.BluetoothGatt r2 = r1.get_bluetooth_gatt()     // Catch:{ all -> 0x00d8 }
             if (r2 == 0) goto L_0x0009
-            android.bluetooth.BluetoothGatt r2 = r1.mo7501e()     // Catch:{ all -> 0x00d8 }
+            android.bluetooth.BluetoothGatt r2 = r1.get_bluetooth_gatt()     // Catch:{ all -> 0x00d8 }
             boolean r2 = r2.equals(r5)     // Catch:{ all -> 0x00d8 }
             if (r2 == 0) goto L_0x0009
             byte[] r0 = r4.getValue()     // Catch:{ all -> 0x00d8 }

@@ -27,7 +27,7 @@ import javax.crypto.NoSuchPaddingException;
 
 public class CryptoRSA {
     /* renamed from: a */
-    static HashMap<String, String> m7670a() throws NoSuchAlgorithmException {
+    static HashMap<String, String> initialize_new_key_pair() throws NoSuchAlgorithmException {
         KeyPairGenerator instance = KeyPairGenerator.getInstance("RSA");
         instance.initialize(2048);
         KeyPair generateKeyPair = instance.generateKeyPair();
@@ -50,7 +50,7 @@ public class CryptoRSA {
                     i2 = length;
                 }
                 int i3 = i2 + i;
-                byteArrayOutputStream.write(m7671a(str, Arrays.copyOfRange(bArr, i, i3)));
+                byteArrayOutputStream.write(encrypt_chunk_with_cert(str, Arrays.copyOfRange(bArr, i, i3)));
                 i = i3;
             }
             return byteArrayOutputStream.toByteArray();
@@ -64,7 +64,7 @@ public class CryptoRSA {
     }
 
     /* renamed from: a */
-    private static byte[] m7671a(String str, byte[] bArr) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    private static byte[] encrypt_chunk_with_cert(String str, byte[] bArr) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         PublicKey generatePublic = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(bytesFromBase64(str)));
         Cipher instance = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         instance.init(1, generatePublic);
@@ -82,7 +82,7 @@ public class CryptoRSA {
                     i2 = length;
                 }
                 int i3 = i2 + i;
-                byteArrayOutputStream.write(m7672b(str, Arrays.copyOfRange(bArr, i, i3)));
+                byteArrayOutputStream.write(decrypt_chunk_with_cert(str, Arrays.copyOfRange(bArr, i, i3)));
                 i = i3;
             }
             return byteArrayOutputStream.toByteArray();
@@ -96,7 +96,7 @@ public class CryptoRSA {
     }
 
     /* renamed from: b */
-    private static byte[] m7672b(String str, byte[] bArr) throws NoSuchProviderException, IOException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException {
+    private static byte[] decrypt_chunk_with_cert(String str, byte[] bArr) throws NoSuchProviderException, IOException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException {
         PrivateKey generatePrivate = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(bytesFromBase64(str)));
         Cipher instance = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         instance.init(2, generatePrivate);

@@ -29,10 +29,10 @@ class forward_controller {
     /* access modifiers changed from: private */
 
     /* renamed from: b */
-    public ConcurrentNavigableMap<ForwardPacket, Boolean> f6007b = new ConcurrentSkipListMap();
+    public ConcurrentNavigableMap<ForwardPacket, Boolean> current_map = new ConcurrentSkipListMap();
 
     /* renamed from: c */
-    private ConcurrentNavigableMap<String, Boolean> f6008c = new ConcurrentSkipListMap();
+    private ConcurrentNavigableMap<String, Boolean> expirec_map = new ConcurrentSkipListMap();
 
     /* renamed from: d */
     private final int f6009d = 80;
@@ -50,7 +50,7 @@ class forward_controller {
         /* access modifiers changed from: protected */
         /* renamed from: a */
         public Void doInBackground(Session... sessionArr) {
-            if (forward_controller.this.f6007b.size() > 0 || this.f6011b) {
+            if (forward_controller.this.current_map.size() > 0 || this.f6011b) {
                 ArrayList<Session> arrayList = new ArrayList<>();
                 for (Session session : sessionArr) {
                     if (!(session == null || session.getUserId() == null)) {
@@ -122,33 +122,33 @@ class forward_controller {
     /* JADX WARNING: Removed duplicated region for block: B:34:0x00b0  */
     /* renamed from: a */
     /* Code decompiled incorrectly, please refer to instructions dump. */
-    public void mo7560a(com.bridgefy.sdk.framework.entities.ForwardPacket r10, boolean r11) {
+    public void add_forward_packet_to_list(com.bridgefy.sdk.framework.entities.ForwardPacket r10, boolean r11) {
         /*
             r9 = this;
             boolean r0 = r10.expired()
             if (r0 != 0) goto L_0x00da
-            java.util.concurrent.ConcurrentNavigableMap<java.lang.String, java.lang.Boolean> r0 = r9.f6008c
+            java.util.concurrent.ConcurrentNavigableMap<java.lang.String, java.lang.Boolean> r0 = r9.expirec_map
             java.lang.String r1 = r10.getId()
             boolean r0 = r0.containsKey(r1)
             if (r0 == 0) goto L_0x0014
             goto L_0x00da
         L_0x0014:
-            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r0 = r9.f6007b
+            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r0 = r9.current_map
             monitor-enter(r0)
-            com.bridgefy.sdk.framework.entities.ForwardPacket r1 = r9.m8031c(r10)     // Catch:{ all -> 0x00d7 }
+            com.bridgefy.sdk.framework.entities.ForwardPacket r1 = r9.get_in_current_map(r10)     // Catch:{ all -> 0x00d7 }
             if (r1 == 0) goto L_0x001f
             monitor-exit(r0)     // Catch:{ all -> 0x00d7 }
             return
         L_0x001f:
             r9.discard_expired_packets()     // Catch:{ all -> 0x00d7 }
-            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r1 = r9.f6007b     // Catch:{ all -> 0x00d7 }
+            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r1 = r9.current_map     // Catch:{ all -> 0x00d7 }
             int r1 = r1.size()     // Catch:{ all -> 0x00d7 }
             r2 = 80
             r3 = 0
             if (r1 >= r2) goto L_0x002e
             goto L_0x0099
         L_0x002e:
-            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r1 = r9.f6007b     // Catch:{ all -> 0x00d7 }
+            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r1 = r9.current_map     // Catch:{ all -> 0x00d7 }
             java.util.NavigableSet r1 = r1.descendingKeySet()     // Catch:{ all -> 0x00d7 }
             java.util.Iterator r1 = r1.iterator()     // Catch:{ all -> 0x00d7 }
             r2 = r3
@@ -189,7 +189,7 @@ class forward_controller {
             java.lang.String r3 = "addForwardPacketToList: notify meshDidNotForwardMeshIDs forward id"
             com.bridgefy.sdk.logging.Log.m8074e(r1, r3)     // Catch:{ all -> 0x00d7 }
         L_0x0094:
-            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r1 = r9.f6007b     // Catch:{ all -> 0x00d7 }
+            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r1 = r9.current_map     // Catch:{ all -> 0x00d7 }
             r1.remove(r2)     // Catch:{ all -> 0x00d7 }
         L_0x0099:
             r3 = r10
@@ -199,12 +199,12 @@ class forward_controller {
             long r1 = java.lang.System.currentTimeMillis()     // Catch:{ all -> 0x00d7 }
             r10.<init>(r1)     // Catch:{ all -> 0x00d7 }
             r3.setAdded(r10)     // Catch:{ all -> 0x00d7 }
-            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r10 = r9.f6007b     // Catch:{ all -> 0x00d7 }
+            java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.entities.ForwardPacket, java.lang.Boolean> r10 = r9.current_map     // Catch:{ all -> 0x00d7 }
             java.lang.Boolean r1 = java.lang.Boolean.TRUE     // Catch:{ all -> 0x00d7 }
             r10.put(r3, r1)     // Catch:{ all -> 0x00d7 }
             goto L_0x00cb
         L_0x00b0:
-            java.util.concurrent.ConcurrentNavigableMap<java.lang.String, java.lang.Boolean> r1 = r9.f6008c     // Catch:{ all -> 0x00d7 }
+            java.util.concurrent.ConcurrentNavigableMap<java.lang.String, java.lang.Boolean> r1 = r9.expirec_map     // Catch:{ all -> 0x00d7 }
             java.lang.String r2 = r10.getId()     // Catch:{ all -> 0x00d7 }
             java.lang.Boolean r3 = java.lang.Boolean.TRUE     // Catch:{ all -> 0x00d7 }
             r1.put(r2, r3)     // Catch:{ all -> 0x00d7 }
@@ -229,14 +229,14 @@ class forward_controller {
         L_0x00da:
             return
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.forward_controller.mo7560a(com.bridgefy.sdk.framework.entities.ForwardPacket, boolean):void");
+        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.forward_controller.add_forward_packet_to_list(com.bridgefy.sdk.framework.entities.ForwardPacket, boolean):void");
     }
 
     /* renamed from: a */
     private void discard_expired_packets() {
-        synchronized (this.f6007b) {
+        synchronized (this.current_map) {
             ArrayList<ForwardPacket> arrayList = new ArrayList<>();
-            for (ForwardPacket forwardPacket : this.f6007b.descendingKeySet()) {
+            for (ForwardPacket forwardPacket : this.current_map.descendingKeySet()) {
                 if (forwardPacket.expired()) {
                     arrayList.add(forwardPacket);
                 }
@@ -251,12 +251,12 @@ class forward_controller {
             }
             ArrayList<String> arrayList2 = new ArrayList<>();
             for (ForwardPacket forwardPacket2 : arrayList) {
-                this.f6007b.remove(forwardPacket2);
+                this.current_map.remove(forwardPacket2);
                 // Logger.log(LogFactory.build(forwardPacket2, MeshErrorEvent.BFErrorMeshTypeDiscardInvalidMessages));
                 arrayList2.add(forwardPacket2.getId());
             }
             for (String str2 : arrayList2) {
-                this.f6008c.put(str2, Boolean.TRUE);
+                this.expirec_map.put(str2, Boolean.TRUE);
                 String str3 = this.simple_name;
                 StringBuilder sb2 = new StringBuilder();
                 sb2.append("discardExpiredPackets: implements log for discard id ");
@@ -267,10 +267,10 @@ class forward_controller {
     }
 
     /* renamed from: b */
-    private void m8030b(ForwardPacket forwardPacket, boolean z) {
-        this.f6007b.remove(forwardPacket);
+    private void remove_and_expire(ForwardPacket forwardPacket, boolean z) {
+        this.current_map.remove(forwardPacket);
         if (z) {
-            this.f6008c.put(forwardPacket.getId(), Boolean.TRUE);
+            this.expirec_map.put(forwardPacket.getId(), Boolean.TRUE);
         }
     }
 
@@ -278,7 +278,7 @@ class forward_controller {
     /* renamed from: c */
     public List<ForwardPacket> m8032c(String str) {
         ArrayList arrayList = new ArrayList();
-        for (ForwardPacket add : this.f6007b.descendingKeySet()) {
+        for (ForwardPacket add : this.current_map.descendingKeySet()) {
             arrayList.add(add);
         }
         return m8029b((List<ForwardPacket>) arrayList, str);
@@ -320,8 +320,8 @@ class forward_controller {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public ForwardPacket mo7559a(String str) {
-        for (ForwardPacket forwardPacket : this.f6007b.descendingKeySet()) {
+    public ForwardPacket get_in_current_map_2(String str) {
+        for (ForwardPacket forwardPacket : this.current_map.descendingKeySet()) {
             if (forwardPacket.getId().equalsIgnoreCase(str.trim())) {
                 return forwardPacket;
             }
@@ -330,9 +330,9 @@ class forward_controller {
     }
 
     /* renamed from: c */
-    private ForwardPacket m8031c(ForwardPacket forwardPacket) {
-        if (this.f6007b.containsKey(forwardPacket)) {
-            for (ForwardPacket forwardPacket2 : this.f6007b.descendingKeySet()) {
+    private ForwardPacket get_in_current_map(ForwardPacket forwardPacket) {
+        if (this.current_map.containsKey(forwardPacket)) {
+            for (ForwardPacket forwardPacket2 : this.current_map.descendingKeySet()) {
                 if (forwardPacket2.equals(forwardPacket)) {
                     return forwardPacket2;
                 }
@@ -350,7 +350,7 @@ class forward_controller {
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
     public void mo7565b(String str) {
-        m8030b(mo7559a(str), true);
+        remove_and_expire(get_in_current_map_2(str), true);
     }
 
     /* renamed from: a */
@@ -383,28 +383,28 @@ class forward_controller {
 
     /* access modifiers changed from: protected */
     /* renamed from: a */
-    public boolean mo7563a(ForwardPacket forwardPacket) {
-        return this.f6008c.containsKey(forwardPacket.getId()) || this.f6007b.containsKey(forwardPacket);
+    public boolean seen_packet(ForwardPacket forwardPacket) {
+        return this.expirec_map.containsKey(forwardPacket.getId()) || this.current_map.containsKey(forwardPacket);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7561a(ArrayList<ForwardPacket> arrayList, Session session) {
+    public void receive_list_add_or_drop(ArrayList<ForwardPacket> arrayList, Session session) {
         Iterator it = arrayList.iterator();
         while (it.hasNext()) {
             ForwardPacket forwardPacket = (ForwardPacket) it.next();
             forwardPacket.setAdded(new Date(System.currentTimeMillis()));
-            m8026a(forwardPacket, session);
+            receive_add_or_drop(forwardPacket, session);
         }
         mo7562a(SessionManager.getSessions(), false);
     }
 
     /* renamed from: a */
-    private void m8026a(ForwardPacket forwardPacket, Session session) {
-        if (mo7563a(forwardPacket)) {
+    private void receive_add_or_drop(ForwardPacket forwardPacket, Session session) {
+        if (seen_packet(forwardPacket)) {
             // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedDuplicated));
         } else {
-            mo7560a(forwardPacket, false);
+            add_forward_packet_to_list(forwardPacket, false);
         }
     }
 

@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.al */
-class C1902al implements Comparable {
+class chunk_generator implements Comparable {
 
     /* renamed from: a */
-    private transaction_manager f5911a;
+    private transaction_manager transaction_manager;
 
     /* renamed from: b */
     private BleEntity ble_entity;
@@ -22,7 +22,7 @@ class C1902al implements Comparable {
     private String current_time_ms;
 
     /* renamed from: d */
-    private ArrayList<byte[]> f5914d;
+    private ArrayList<byte[]> generated_chunk;
 
     /* renamed from: e */
     private int f5915e;
@@ -37,14 +37,14 @@ class C1902al implements Comparable {
     private AsyncTask<Void, Void, Void> async_tasks;
 
     /* renamed from: i */
-    private int f5919i = 0;
+    private int compressed = 0;
 
-    C1902al(Session session, BleEntity bleEntity, transaction_manager amVar) {
+    chunk_generator(Session session, BleEntity bleEntity, transaction_manager amVar) {
         this.session = session;
         this.f5915e = session.mo7394k();
         this.ble_entity = bleEntity;
         this.current_time_ms = String.valueOf(System.currentTimeMillis());
-        this.f5911a = amVar;
+        this.transaction_manager = amVar;
         if (session.getDevice() != null) {
             this.bluetooth_device = session.getDevice().getBluetoothDevice();
             return;
@@ -53,20 +53,20 @@ class C1902al implements Comparable {
     }
 
     /* renamed from: a */
-    public ArrayList<byte[]> mo7464a() {
-        if (this.f5914d == null) {
-            this.f5914d = m7844i();
+    public ArrayList<byte[]> get_generated_chunk() {
+        if (this.generated_chunk == null) {
+            this.generated_chunk = generate_chunk();
         }
-        return this.f5914d;
+        return this.generated_chunk;
     }
 
     /* renamed from: i */
-    private ArrayList<byte[]> m7844i() {
+    private ArrayList<byte[]> generate_chunk() {
         ArrayList<byte[]> arrayList = null;
         try {
             ArrayList<byte[]> a = chunk_utils.generate_compressed_chunk(this.ble_entity, this.f5915e, true, Bridgefy.getInstance().getConfig().isEncryption(), this.session.getUserId());
             try {
-                this.f5919i = a.size();
+                this.compressed = a.size();
                 return a;
             } catch (MessageException | IOException e) {
                 ArrayList<byte[]> arrayList2 = a;
@@ -88,7 +88,7 @@ class C1902al implements Comparable {
     }
 
     /* renamed from: j */
-    private String m7845j() {
+    private String get_current_time_ms() {
         return this.current_time_ms;
     }
 
@@ -99,8 +99,8 @@ class C1902al implements Comparable {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: d */
-    public transaction_manager mo7468d() {
-        return this.f5911a;
+    public transaction_manager get_transaction_manager() {
+        return this.transaction_manager;
     }
 
     /* renamed from: e */
@@ -118,15 +118,15 @@ class C1902al implements Comparable {
     }
 
     public boolean equals(Object obj) {
-        if (obj instanceof C1902al) {
-            return this.current_time_ms.equalsIgnoreCase(((C1902al) obj).m7845j());
+        if (obj instanceof chunk_generator) {
+            return this.current_time_ms.equalsIgnoreCase(((chunk_generator) obj).get_current_time_ms());
         }
         return false;
     }
 
     public int compareTo(Object obj) {
-        if (obj instanceof C1902al) {
-            return this.current_time_ms.compareTo(((C1902al) obj).m7845j());
+        if (obj instanceof chunk_generator) {
+            return this.current_time_ms.compareTo(((chunk_generator) obj).get_current_time_ms());
         }
         StringBuilder sb = new StringBuilder();
         sb.append(obj.getClass().getName());
@@ -137,8 +137,8 @@ class C1902al implements Comparable {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: g */
-    public int mo7472g() {
-        return this.f5919i;
+    public int get_compressed_size() {
+        return this.compressed;
     }
 
     /* access modifiers changed from: 0000 */

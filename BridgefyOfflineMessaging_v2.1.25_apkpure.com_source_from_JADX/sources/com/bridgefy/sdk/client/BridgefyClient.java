@@ -83,7 +83,7 @@ public class BridgefyClient {
         /* access modifiers changed from: 0000 */
         /* renamed from: a */
         public C1873a mo7215a() throws Exception {
-            HashMap a = CryptoRSA.m7670a();
+            HashMap a = CryptoRSA.initialize_new_key_pair();
             this.public_key = (String) a.get("tirmo");
             this.private_key = (String) a.get("satya");
             Log.d("BridgefyClient", "... generated new pair of keys");

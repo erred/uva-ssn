@@ -2,7 +2,7 @@ package p000a.p013b;
 
 /* renamed from: a.b.c */
 /* compiled from: CompletableEmitter */
-public interface C0165c {
+public interface emitter {
     /* renamed from: a */
     void mo361a();
 

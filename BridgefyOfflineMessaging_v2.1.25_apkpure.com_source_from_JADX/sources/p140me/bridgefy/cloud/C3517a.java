@@ -26,7 +26,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.zip.GZIPInputStream;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p140me.bridgefy.backend.p143v3.bgfyKeyApi.BgfyKeyApi;
 import p140me.bridgefy.backend.p143v3.bgfyKeyApi.model.BgfyKey;
 import p140me.bridgefy.backend.p143v3.bgfyMessageApi.BgfyMessageApi;
@@ -70,7 +70,7 @@ public class C3517a {
 
     private C3517a(Context context) {
         this.f9155a = context.getSharedPreferences("BgfyPrefs", 0);
-        mo29191a((C0165c) null);
+        mo29191a((emitter) null);
     }
 
     /* renamed from: a */
@@ -273,13 +273,13 @@ public class C3517a {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo29191a(C0165c cVar) {
+    public void mo29191a(emitter cVar) {
         try {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser != null) {
                 Log.d("GoogleController", "Request to acquire id token...");
                 currentUser.getIdToken(false).addOnSuccessListener((Executor) Executors.newSingleThreadExecutor(), (OnSuccessListener<? super TResult>) new OnSuccessListener(cVar) {
-                    private final /* synthetic */ C0165c f$1;
+                    private final /* synthetic */ emitter f$1;
 
                     {
                         this.f$1 = r2;
@@ -290,7 +290,7 @@ public class C3517a {
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     public final void onFailure(Exception exc) {
-                        C3517a.m10258a(C0165c.this, exc);
+                        C3517a.m10258a(emitter.this, exc);
                     }
                 });
                 return;
@@ -307,7 +307,7 @@ public class C3517a {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public /* synthetic */ void m10257a(C0165c cVar, GetTokenResult getTokenResult) {
+    public /* synthetic */ void m10257a(emitter cVar, GetTokenResult getTokenResult) {
         try {
             String token = getTokenResult.getToken();
             StringBuilder sb = new StringBuilder();
@@ -326,7 +326,7 @@ public class C3517a {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m10258a(C0165c cVar, Exception exc) {
+    public static /* synthetic */ void m10258a(emitter cVar, Exception exc) {
         exc.printStackTrace();
         if (cVar != null) {
             cVar.mo362a(exc);

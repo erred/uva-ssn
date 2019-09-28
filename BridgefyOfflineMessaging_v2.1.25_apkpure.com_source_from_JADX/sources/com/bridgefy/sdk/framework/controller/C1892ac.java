@@ -9,9 +9,9 @@ class C1892ac {
     final ArrayList<gatt_operation> f5887a = new ArrayList<>();
 
     /* renamed from: b */
-    C1902al f5888b;
+    chunk_generator f5888b;
 
-    C1892ac(C1902al alVar) {
+    C1892ac(chunk_generator alVar) {
         this.f5888b = alVar;
     }
 
@@ -29,7 +29,7 @@ class C1892ac {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public C1902al mo7435b() {
+    public chunk_generator mo7435b() {
         return this.f5888b;
     }
 }

@@ -27,7 +27,7 @@ import org.apache.commons.p156b.C3691c;
 import org.p153a.C3682b;
 import p000a.p013b.C0151a;
 import p000a.p013b.C0159b;
-import p000a.p013b.C0165c;
+import p000a.p013b.emitter;
 import p000a.p013b.C0176d;
 import p000a.p013b.C0184e;
 import p000a.p013b.C0330h;
@@ -94,7 +94,7 @@ class C1913i extends C1906c {
         mo7480a(config);
         if (!this.f5971g.isDiscovering()) {
             C0159b.m542a((C0184e) new C0184e() {
-                public final void subscribe(C0165c cVar) {
+                public final void subscribe(emitter cVar) {
                     C1913i.this.m7941a(cVar);
                 }
             }).mo341a((C0181e<? super C0330h<Throwable>, ? extends C3682b<?>>) new C1898ai<Object,Object>(3, 500)).mo345a((C0176d) new C0176d() {
@@ -113,7 +113,7 @@ class C1913i extends C1906c {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public /* synthetic */ void m7941a(C0165c cVar) throws Exception {
+    public /* synthetic */ void m7941a(emitter cVar) throws Exception {
         if (!this.f5971g.startDiscovery()) {
             cVar.mo364b(new Throwable("Discovery could not be started"));
         } else {

@@ -40,11 +40,11 @@ class bluetooth_le_server extends bluetooth_server<BluetoothDevice, BluetoothGat
     /* renamed from: a */
     public void mo7538a(BluetoothDevice bluetoothDevice) {
         Session session = new Session(bluetoothDevice, true, null);
-        session.mo7381c(bluetoothDevice.getAddress());
+        session.set_session_id(bluetoothDevice.getAddress());
         Device device = new Device(bluetoothDevice, true);
         device.setSessionId(session.getSessionId());
-        session.mo7490a(device);
-        session.mo7487a((BluetoothGattServer) server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true).mo7462e());
+        session.set_device(device);
+        session.set_bluetooth_gatt_server((BluetoothGattServer) server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true).mo7462e());
         SessionManager.queue_session(session);
     }
 

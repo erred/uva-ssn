@@ -300,18 +300,18 @@ class bluetooth_le_discovery extends C1906c {
             r7 = 1
             goto L_0x0093
         L_0x0060:
-            android.bluetooth.BluetoothGatt r6 = r5.mo7501e()     // Catch:{ all -> 0x00fd }
+            android.bluetooth.BluetoothGatt r6 = r5.get_bluetooth_gatt()     // Catch:{ all -> 0x00fd }
             if (r6 == 0) goto L_0x007f
-            android.bluetooth.BluetoothGatt r6 = r5.mo7501e()     // Catch:{ all -> 0x00fd }
+            android.bluetooth.BluetoothGatt r6 = r5.get_bluetooth_gatt()     // Catch:{ all -> 0x00fd }
             android.bluetooth.BluetoothDevice r6 = r6.getDevice()     // Catch:{ all -> 0x00fd }
             if (r6 == 0) goto L_0x007f
-            android.bluetooth.BluetoothGatt r6 = r5.mo7501e()     // Catch:{ all -> 0x00fd }
+            android.bluetooth.BluetoothGatt r6 = r5.get_bluetooth_gatt()     // Catch:{ all -> 0x00fd }
             android.bluetooth.BluetoothDevice r6 = r6.getDevice()     // Catch:{ all -> 0x00fd }
             boolean r6 = r6.equals(r14)     // Catch:{ all -> 0x00fd }
             if (r6 == 0) goto L_0x007f
             goto L_0x005e
         L_0x007f:
-            android.bluetooth.BluetoothGattServer r6 = r5.mo7502f()     // Catch:{ all -> 0x00fd }
+            android.bluetooth.BluetoothGattServer r6 = r5.get_bluetooth_gatt_server()     // Catch:{ all -> 0x00fd }
             if (r6 == 0) goto L_0x0049
             long r5 = r5.getCrc()     // Catch:{ all -> 0x00fd }
             r9 = 0

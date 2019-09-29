@@ -42,7 +42,7 @@ class connection_subscriber extends C0341a<Device> {
                 Log.e("Connection_Subscriber", sb.toString());
                 comparable_device a = connection_manager.m8006a();
                 if (a != null && a.get_device().equals(device)) {
-                    if (a instanceof C1910g) {
+                    if (a instanceof connectable_device) {
                         connection_subscriber.this.m8017b(a.get_device());
                     }
                     connection_manager.m8009a((comparable_device) null);
@@ -54,9 +54,9 @@ class connection_subscriber extends C0341a<Device> {
         if (a == null) {
             request(1);
         } else if (device.getAntennaType() == Antenna.BLUETOOTH_LE) {
-            a.mo7509a().mo345a((C0176d) r0);
+            a.subscribe_connect().mo345a((C0176d) r0);
         } else {
-            a.mo7509a().mo347b(C0331a.m925b()).mo345a((C0176d) r0);
+            a.subscribe_connect().mo347b(C0331a.m925b()).mo345a((C0176d) r0);
         }
     }
 

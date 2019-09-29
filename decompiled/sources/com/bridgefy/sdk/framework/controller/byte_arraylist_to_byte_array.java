@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.b */
-class C1905b {
+class byte_arraylist_to_byte_arrayb {
     /* renamed from: a */
-    static byte[] m7875a(ArrayList<byte[]> arrayList) {
+    static byte[] serialize(ArrayList<byte[]> arrayList) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         Iterator it = arrayList.iterator();
         while (it.hasNext()) {
@@ -32,7 +32,7 @@ class C1905b {
     }
 
     /* renamed from: a */
-    static ArrayList<byte[]> m7874a(byte[] bArr) {
+    static ArrayList<byte[]> deserialize(byte[] bArr) {
         ArrayList<byte[]> arrayList = new ArrayList<>();
         int i = 0;
         while (i < bArr.length) {

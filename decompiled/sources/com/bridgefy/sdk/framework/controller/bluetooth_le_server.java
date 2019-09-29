@@ -87,10 +87,10 @@ class bluetooth_le_server extends bluetooth_server<BluetoothDevice, BluetoothGat
     /* renamed from: g */
     private boolean m7977g() {
         byte[] bytes = new BleHandshake(null, null).toString().getBytes();
-        BluetoothGattCharacteristic characteristic = this.f5991e.getCharacteristic(C1922m.m7991c());
+        BluetoothGattCharacteristic characteristic = this.f5991e.getCharacteristic(bluetooth_le_settings_builder.m7991c());
         if (characteristic == null) {
-            BluetoothGattCharacteristic bluetoothGattCharacteristic = new BluetoothGattCharacteristic(C1922m.m7991c(), 26, 17);
-            bluetoothGattCharacteristic.addDescriptor(new BluetoothGattDescriptor(C1922m.f5994a, 16));
+            BluetoothGattCharacteristic bluetoothGattCharacteristic = new BluetoothGattCharacteristic(bluetooth_le_settings_builder.m7991c(), 26, 17);
+            bluetoothGattCharacteristic.addDescriptor(new BluetoothGattDescriptor(bluetooth_le_settings_builder.client_characteristic_configuration_uuid, 16));
             bluetoothGattCharacteristic.setValue(bytes);
             if (this.f5991e == null) {
                 return false;
@@ -104,10 +104,10 @@ class bluetooth_le_server extends bluetooth_server<BluetoothDevice, BluetoothGat
 
     public void run() {
         if (mo7462e() != null) {
-            this.f5991e = ((BluetoothGattServer) mo7462e()).getService(C1922m.m7989b());
+            this.f5991e = ((BluetoothGattServer) mo7462e()).getService(bluetooth_le_settings_builder.m7989b());
         }
         if (this.f5991e == null && mo7462e() != null) {
-            this.f5991e = new BluetoothGattService(C1922m.m7989b(), 0);
+            this.f5991e = new BluetoothGattService(bluetooth_le_settings_builder.m7989b(), 0);
             if (m7977g()) {
                 ((BluetoothGattServer) mo7462e()).addService(this.f5991e);
             }

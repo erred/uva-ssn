@@ -54,7 +54,7 @@ public class Logger {
     public Logger(boolean z, Context context) {
         this.f6089j = z;
         this.f6084e = context;
-        new Thread(new C1944a(this.f6082c)).start();
+        new Thread(new runnable_logger(this.f6082c)).start();
     }
 
     public static void init(Context context, boolean z) {

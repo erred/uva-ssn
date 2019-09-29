@@ -9,7 +9,7 @@ import com.bridgefy.sdk.framework.exceptions.MessageException;
 /* renamed from: com.bridgefy.sdk.framework.controller.ae */
 class message_listener_controller extends message_listener_interface<Message> {
     message_listener_controller(Config config) {
-        this.config = (Config) C1897ah.m7831a(config, "Missing config.");
+        this.config = (Config) abstract_config.null_or_except_msg(config, "Missing config.");
     }
 
     /* access modifiers changed from: 0000 */

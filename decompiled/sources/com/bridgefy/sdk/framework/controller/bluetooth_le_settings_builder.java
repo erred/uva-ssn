@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.UUID;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.m */
-class C1922m {
+class bluetooth_le_settings_builder {
 
     /* renamed from: a */
-    static UUID f5994a = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
+    static UUID client_characteristic_configuration_uuid = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
     /* renamed from: b */
     private static UUID f5995b;
@@ -31,10 +31,10 @@ class C1922m {
     private static UUID f5996c;
 
     /* renamed from: com.bridgefy.sdk.framework.controller.m$1 */
-    static /* synthetic */ class C19231 {
+    static /* synthetic */ class bf_energy_profile_class {
 
         /* renamed from: a */
-        static final /* synthetic */ int[] f5997a = new int[BFEnergyProfile.values().length];
+        static final /* synthetic */ int[] bf_energy_profile = new int[BFEnergyProfile.values().length];
 
         /* JADX WARNING: Can't wrap try/catch for region: R(8:0|1|2|3|4|5|6|8) */
         /* JADX WARNING: Failed to process nested try/catch */
@@ -45,20 +45,20 @@ class C1922m {
                 com.bridgefy.sdk.client.BFEnergyProfile[] r0 = com.bridgefy.sdk.client.BFEnergyProfile.values()
                 int r0 = r0.length
                 int[] r0 = new int[r0]
-                f5997a = r0
-                int[] r0 = f5997a     // Catch:{ NoSuchFieldError -> 0x0014 }
+                bf_energy_profile = r0
+                int[] r0 = bf_energy_profile     // Catch:{ NoSuchFieldError -> 0x0014 }
                 com.bridgefy.sdk.client.BFEnergyProfile r1 = com.bridgefy.sdk.client.BFEnergyProfile.ENERGY_SAVER     // Catch:{ NoSuchFieldError -> 0x0014 }
                 int r1 = r1.ordinal()     // Catch:{ NoSuchFieldError -> 0x0014 }
                 r2 = 1
                 r0[r1] = r2     // Catch:{ NoSuchFieldError -> 0x0014 }
             L_0x0014:
-                int[] r0 = f5997a     // Catch:{ NoSuchFieldError -> 0x001f }
+                int[] r0 = bf_energy_profile     // Catch:{ NoSuchFieldError -> 0x001f }
                 com.bridgefy.sdk.client.BFEnergyProfile r1 = com.bridgefy.sdk.client.BFEnergyProfile.BALANCED     // Catch:{ NoSuchFieldError -> 0x001f }
                 int r1 = r1.ordinal()     // Catch:{ NoSuchFieldError -> 0x001f }
                 r2 = 2
                 r0[r1] = r2     // Catch:{ NoSuchFieldError -> 0x001f }
             L_0x001f:
-                int[] r0 = f5997a     // Catch:{ NoSuchFieldError -> 0x002a }
+                int[] r0 = bf_energy_profile     // Catch:{ NoSuchFieldError -> 0x002a }
                 com.bridgefy.sdk.client.BFEnergyProfile r1 = com.bridgefy.sdk.client.BFEnergyProfile.HIGH_PERFORMANCE     // Catch:{ NoSuchFieldError -> 0x002a }
                 int r1 = r1.ordinal()     // Catch:{ NoSuchFieldError -> 0x002a }
                 r2 = 3
@@ -66,12 +66,12 @@ class C1922m {
             L_0x002a:
                 return
             */
-            throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.C1922m.C19231.<clinit>():void");
+            throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.bluetooth_le_settings_builder.bf_energy_profile_class.<clinit>():void");
         }
     }
 
     /* renamed from: a */
-    static AdvertiseData m7984a(String str, UUID uuid) {
+    static AdvertiseData build_advertise_data(String str, UUID uuid) {
         Builder builder = new Builder();
         if (VERSION.SDK_INT >= 26) {
             builder.addServiceData(new ParcelUuid(m7987a(uuid)), str.getBytes());
@@ -83,9 +83,9 @@ class C1922m {
     }
 
     /* renamed from: a */
-    static AdvertiseSettings m7985a() {
+    static AdvertiseSettings build_advertise_settings() {
         AdvertiseSettings.Builder builder = new AdvertiseSettings.Builder();
-        int i = C19231.f5997a[Bridgefy.getInstance().getConfig().getEnergyProfile().ordinal()];
+        int i = bf_energy_profile_class.bf_energy_profile[Bridgefy.getInstance().getConfig().getEnergyProfile().ordinal()];
         if (i == 1) {
             builder.setAdvertiseMode(0);
         } else if (i != 3) {
@@ -169,7 +169,7 @@ class C1922m {
     }
 
     /* renamed from: b */
-    static List<ScanFilter> m7988b(UUID uuid) {
+    static List<ScanFilter> scan_filter_builder(UUID uuid) {
         ArrayList arrayList = new ArrayList();
         ScanFilter.Builder builder = new ScanFilter.Builder();
         builder.setServiceUuid(new ParcelUuid(uuid));
@@ -181,12 +181,12 @@ class C1922m {
     }
 
     /* renamed from: d */
-    static ScanSettings m7992d() {
+    static ScanSettings build_scan_settings() {
         ScanSettings.Builder builder = new ScanSettings.Builder();
         if (VERSION.SDK_INT >= 23) {
             builder.setNumOfMatches(1);
         }
-        int i = C19231.f5997a[Bridgefy.getInstance().getConfig().getEnergyProfile().ordinal()];
+        int i = bf_energy_profile_class.bf_energy_profile[Bridgefy.getInstance().getConfig().getEnergyProfile().ordinal()];
         if (i == 1) {
             builder.setScanMode(0);
         } else if (i != 3) {

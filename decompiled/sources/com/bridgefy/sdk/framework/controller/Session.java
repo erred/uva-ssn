@@ -275,7 +275,7 @@ public class Session extends bluetooth_emitter_device implements com.bridgefy.sd
     private void cancel_ble_connectivity() {
         try {
             if (!(get_bluetooth_gatt_server() == null || getBluetoothDevice() == null)) {
-                BluetoothGattCharacteristic characteristic = get_bluetooth_gatt_server().getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c());
+                BluetoothGattCharacteristic characteristic = get_bluetooth_gatt_server().getService(bluetooth_le_settings_builder.m7989b()).getCharacteristic(bluetooth_le_settings_builder.m7991c());
                 characteristic.setValue(new byte[]{5});
                 get_bluetooth_gatt_server().notifyCharacteristicChanged(getBluetoothDevice(), characteristic, false);
                 get_bluetooth_gatt_server().cancelConnection(getBluetoothDevice());

@@ -32,7 +32,7 @@ import p000a.p013b.p019d.C0177a;
 import p000a.p013b.p019d.C0180d;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.k */
-class bluetooth_le_discovery extends C1906c {
+class bluetooth_le_discovery extends abstract_bluetooth_discovery {
     /* access modifiers changed from: private */
 
     /* renamed from: d */
@@ -94,7 +94,7 @@ class bluetooth_le_discovery extends C1906c {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7478a(Context context, Config config) {
+    public void log_event_mo7478a(Context context, Config config) {
         this.f5928c = C0330h.m914a((C0343j<T>) new C0343j<Device>() {
             public void subscribe(final C0340i<Device> iVar) throws Exception {
                 if (bluetooth_le_discovery.this.f5983d != null && bluetooth_le_discovery.this.f5983d.isEnabled()) {
@@ -106,7 +106,7 @@ class bluetooth_le_discovery extends C1906c {
                         }
                     }
                     try {
-                        bluetooth_le_discovery.this.f5983d.getBluetoothLeScanner().startScan(C1922m.m7988b(C1922m.m7989b()), C1922m.m7992d(), bluetooth_le_discovery.this.f5986g = new ScanCallback() {
+                        bluetooth_le_discovery.this.f5983d.getBluetoothLeScanner().startScan(bluetooth_le_settings_builder.scan_filter_builder(bluetooth_le_settings_builder.m7989b()), bluetooth_le_settings_builder.build_scan_settings(), bluetooth_le_discovery.this.f5986g = new ScanCallback() {
                             public void onScanResult(int i, ScanResult scanResult) {
                                 super.onScanResult(i, scanResult);
                                 bluetooth_le_discovery.this.m7965a(scanResult, iVar);
@@ -151,8 +151,8 @@ class bluetooth_le_discovery extends C1906c {
                 }
             }
         }, C0151a.BUFFER);
-        super.mo7478a(context, config);
-        mo7480a(config);
+        super.log_event_mo7478a(context, config);
+        set_config(config);
         C0159b.m540a(60, TimeUnit.SECONDS).mo340a((C0177a) new C0177a() {
             public final void run() {
                 bluetooth_le_discovery.this.m7970c();
@@ -165,8 +165,8 @@ class bluetooth_le_discovery extends C1906c {
     public /* synthetic */ void m7970c() throws Exception {
         if (SessionManager.sessions.isEmpty()) {
             Log.i("Bluetooth_LE_Discovery", "startDiscovery: resetting");
-            mo7477a((Context) null);
-            mo7478a((Context) null, mo7483b());
+            cancel_discovery((Context) null);
+            log_event_mo7478a((Context) null, get_config());
         }
     }
 
@@ -181,8 +181,8 @@ class bluetooth_le_discovery extends C1906c {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7477a(Context context) {
-        super.mo7477a(context);
+    public void cancel_discovery(Context context) {
+        super.cancel_discovery(context);
         this.f5985f.mo354b();
         if (this.f5983d == null || this.f5986g == null || !this.f5983d.isEnabled() || this.f5983d.getBluetoothLeScanner() == null) {
             Log.w("Bluetooth_LE_Discovery", "BluetoothAdapter or PresenceCallback were null!");
@@ -212,7 +212,7 @@ class bluetooth_le_discovery extends C1906c {
         if (serviceUuids != null && !serviceUuids.isEmpty()) {
             long j2 = -1;
             for (ParcelUuid equals : serviceUuids) {
-                if (equals.equals(new ParcelUuid(C1922m.m7989b()))) {
+                if (equals.equals(new ParcelUuid(bluetooth_le_settings_builder.m7989b()))) {
                     try {
                         j2 = Long.parseLong(device.getName());
                         if (this.f5984e.get(Long.valueOf(j2)) == null) {
@@ -230,7 +230,7 @@ class bluetooth_le_discovery extends C1906c {
             j = j2;
         } else if (!(serviceData == null || serviceData.entrySet() == null)) {
             for (Entry entry : serviceData.entrySet()) {
-                if (((ParcelUuid) entry.getKey()).getUuid().toString().equalsIgnoreCase(C1922m.m7989b().toString()) || ((ParcelUuid) entry.getKey()).getUuid().toString().equalsIgnoreCase(C1922m.m7987a(C1922m.m7989b()).toString())) {
+                if (((ParcelUuid) entry.getKey()).getUuid().toString().equalsIgnoreCase(bluetooth_le_settings_builder.m7989b().toString()) || ((ParcelUuid) entry.getKey()).getUuid().toString().equalsIgnoreCase(bluetooth_le_settings_builder.m7987a(bluetooth_le_settings_builder.m7989b()).toString())) {
                     j = Long.parseLong(new String((byte[]) entry.getValue()).replaceAll("\\D+", ""));
                     if (this.f5984e.get(Long.valueOf(j)) == null) {
                         StringBuilder sb2 = new StringBuilder();
@@ -382,7 +382,7 @@ class bluetooth_le_discovery extends C1906c {
     /* renamed from: a */
     private boolean m7969a(long j, long j2, boolean z, int i) {
         if (!z && j2 > -1) {
-            if ((C1911h.f5955a < 3 || j > j2) || (i >= DeviceProfile.getMaxServerConnections())) {
+            if ((bluetooth_controller.f5955a < 3 || j > j2) || (i >= DeviceProfile.getMaxServerConnections())) {
                 return true;
             }
         }

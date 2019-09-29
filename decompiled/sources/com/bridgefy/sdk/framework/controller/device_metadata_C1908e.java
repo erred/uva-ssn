@@ -1,7 +1,7 @@
 package com.bridgefy.sdk.framework.controller;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.e */
-class C1908e {
+class device_metadata_C1908e {
 
     /* renamed from: a */
     private boolean f5950a;
@@ -9,7 +9,7 @@ class C1908e {
     /* renamed from: b */
     private int f5951b;
 
-    C1908e(boolean z, int i) {
+    device_metadata_C1908e(boolean z, int i) {
         this.f5950a = z;
         this.f5951b = i;
     }

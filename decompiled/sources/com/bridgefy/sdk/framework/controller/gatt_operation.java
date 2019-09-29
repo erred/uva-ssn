@@ -8,16 +8,16 @@ import java.util.UUID;
 abstract class gatt_operation {
 
     /* renamed from: a */
-    private BluetoothDevice f5884a;
+    private BluetoothDevice bluetooth_device;
 
     /* renamed from: b */
-    private C1892ac f5885b;
+    private chunk_generator_with_queue f5885b;
 
     /* renamed from: c */
     private String operation_id = UUID.randomUUID().toString();
 
     /* renamed from: a */
-    public abstract void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt);
+    public abstract void write_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt);
 
     /* renamed from: a */
     public abstract boolean mo7425a();
@@ -52,21 +52,21 @@ abstract class gatt_operation {
     }
 
     gatt_operation(BluetoothDevice bluetoothDevice) {
-        this.f5884a = bluetoothDevice;
+        this.bluetooth_device = bluetoothDevice;
     }
 
     /* renamed from: b */
-    public BluetoothDevice mo7426b() {
-        return this.f5884a;
+    public BluetoothDevice get_bluetooth_device() {
+        return this.bluetooth_device;
     }
 
     /* renamed from: d */
-    public C1892ac mo7428d() {
+    public chunk_generator_with_queue get_chunk_generator_with_queue() {
         return this.f5885b;
     }
 
     /* renamed from: a */
-    public void mo7424a(C1892ac acVar) {
+    public void set_chunk_generator_with_queue(chunk_generator_with_queue acVar) {
         this.f5885b = acVar;
     }
 

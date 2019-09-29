@@ -9,12 +9,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /* renamed from: com.bridgefy.sdk.logging.a */
-class C1944a implements Runnable {
+class runnable_logger implements Runnable {
 
     /* renamed from: a */
     private BlockingQueue<LogEntity> f6090a = new LinkedBlockingDeque();
 
-    C1944a(BlockingQueue<LogEntity> blockingQueue) {
+    runnable_logger(BlockingQueue<LogEntity> blockingQueue) {
         this.f6090a = blockingQueue;
     }
 

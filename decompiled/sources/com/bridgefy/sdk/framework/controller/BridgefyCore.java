@@ -59,8 +59,8 @@ public class BridgefyCore {
     private C0159b f5855i = C0159b.m542a((C0184e) $$Lambda$BridgefyCore$XQDii8meLrMOm8WBhkh5XNaOGk.INSTANCE);
 
     public BridgefyCore(Context context, Config config) throws BridgefyException {
-        this.context = (Context) C1897ah.m7831a(context, "missing Context.");
-        this.config = (Config) C1897ah.m7831a(config, "missing Config.");
+        this.context = (Context) abstract_config.null_or_except_msg(context, "missing Context.");
+        this.config = (Config) abstract_config.null_or_except_msg(config, "missing Config.");
         this.shared_preferences = this.context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
         this.editor = this.shared_preferences.edit();
         this.core_listener_controller = new core_listener_controller(context, config);
@@ -96,7 +96,7 @@ public class BridgefyCore {
         this.broadcast_receiver.mo7406e(this.config.getAntennaType());
         this.broadcast_receiver.mo7403b(this.config.getAntennaType());
         connection_manager.m8011b();
-        this.f5855i.mo341a((C0181e<? super C0330h<Throwable>, ? extends C3682b<?>>) new C1898ai<Object,Object>(3, 500)).mo342a(C0153a.m534a()).mo347b(C0331a.m925b()).mo340a((C0177a) new C0177a() {
+        this.f5855i.mo341a((C0181e<? super C0330h<Throwable>, ? extends C3682b<?>>) new error_handler_C1898ai<Object,Object>(3, 500)).mo342a(C0153a.m534a()).mo347b(C0331a.m925b()).mo340a((C0177a) new C0177a() {
             public final void run() {
                 BridgefyCore.this.m7706f();
             }

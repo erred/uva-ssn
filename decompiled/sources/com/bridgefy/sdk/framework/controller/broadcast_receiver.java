@@ -32,7 +32,7 @@ class broadcast_receiver extends BroadcastReceiver {
     private boolean f5876d = false;
 
     /* renamed from: e */
-    private C1911h f5877e;
+    private bluetooth_controller f5877e;
 
     protected broadcast_receiver(Context context, Config config) throws BridgefyException {
         this.config = config;
@@ -114,7 +114,7 @@ class broadcast_receiver extends BroadcastReceiver {
         switch (config.getAntennaType()) {
             case BLUETOOTH:
             case BLUETOOTH_LE:
-                this.f5877e = new C1911h(context, config);
+                this.f5877e = new bluetooth_controller(context, config);
                 return;
             default:
                 return;
@@ -156,7 +156,7 @@ class broadcast_receiver extends BroadcastReceiver {
     private void m7762b() {
         if (BridgefyUtils.getBluetoothAdapter(this.context).isEnabled()) {
             try {
-                this.f5877e.mo7515d(this.context);
+                this.f5877e.start_server(this.context);
             } catch (ConnectionException unused) {
             }
         }
@@ -165,7 +165,7 @@ class broadcast_receiver extends BroadcastReceiver {
     /* renamed from: c */
     private void m7765c() {
         try {
-            this.f5877e.mo7512b();
+            this.f5877e.stop_server();
         } catch (ConnectionException e) {
             String str = this.f5873a;
             StringBuilder sb = new StringBuilder();

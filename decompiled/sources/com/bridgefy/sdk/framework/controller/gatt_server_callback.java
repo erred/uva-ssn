@@ -73,7 +73,7 @@ class gatt_server_callback extends BluetoothGattServerCallback {
         } else if (i2 == 2) {
             if (Build.MODEL != null && Build.MODEL.equals("iot_rpi3")) {
                 Log.w("GattServer_Callback", "onConnectionStateChange: restarting advertising for rpi3");
-                BridgefyUtils.getBluetoothAdapter(Bridgefy.getInstance().getBridgefyCore().getContext()).getBluetoothLeAdvertiser().startAdvertising(C1922m.m7985a(), C1922m.m7984a(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())), C1922m.m7989b()), new advertise_callback());
+                BridgefyUtils.getBluetoothAdapter(Bridgefy.getInstance().getBridgefyCore().getContext()).getBluetoothLeAdvertiser().startAdvertising(bluetooth_le_settings_builder.build_advertise_settings(), bluetooth_le_settings_builder.build_advertise_data(String.valueOf(Utils.getCrcFromKey(Bridgefy.getInstance().getBridgefyClient().getUserUuid())), bluetooth_le_settings_builder.m7989b()), new advertise_callback());
             }
             StringBuilder sb4 = new StringBuilder();
             sb4.append("Client connecting to our server BluetoothProfile.STATE_CONNECTED ");

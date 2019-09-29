@@ -71,7 +71,7 @@ class chunk_utils {
                     forwardTransaction.getMesh().removeAll(arrayList3);
                 }
             }
-            bArr = C1905b.m7875a(arrayList2);
+            bArr = byte_arraylist_to_byte_arrayb.serialize(arrayList2);
             i2 = bArr.length;
             bleEntity2.setCt(forwardTransaction);
         } else {
@@ -106,7 +106,7 @@ class chunk_utils {
                         arrayList4.add(gzip_byte_stream(bleEntity.getData()));
                     }
                 }
-                bArr = C1905b.m7875a(arrayList4);
+                bArr = byte_arraylist_to_byte_arrayb.serialize(arrayList4);
                 i2 = bArr.length;
                 bleEntity2.setCt(new BleEntityContent(bleEntityContent.getId()));
             } catch (Exception e2) {
@@ -209,7 +209,7 @@ class chunk_utils {
             if (bleEntity.getEt() != 1) {
                 bleEntity.setBinaryPart(byteArray);
             } else if (byteArray != null && byteArray.length > 0) {
-                ArrayList a = C1905b.m7874a(byteArray);
+                ArrayList a = byte_arraylist_to_byte_arrayb.deserialize(byteArray);
                 bleEntity.setCt(new BleEntityContent((HashMap) Utils.fromMessagePacktoEntity(setup_gzip_byte_stream(CryptoRSA.decrypt(Bridgefy.getInstance().getBridgefyClient().getSecretKey(), (byte[]) a.get(0))), HashMap.class), ((BleEntityContent) bleEntity.getCt()).getId()));
                 if (a.size() > 1) {
                     ContentInfo findMatch = new ContentInfoUtil().findMatch((byte[]) a.get(1));

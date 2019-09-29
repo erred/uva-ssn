@@ -162,7 +162,7 @@ class transaction_manager {
     /* renamed from: c */
     private static void m7864c(Session session) {
         try {
-            BluetoothGattCharacteristic characteristic = session.get_bluetooth_gatt_server().getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c());
+            BluetoothGattCharacteristic characteristic = session.get_bluetooth_gatt_server().getService(bluetooth_le_settings_builder.m7989b()).getCharacteristic(bluetooth_le_settings_builder.m7991c());
             characteristic.setValue(new byte[]{7});
             session.get_bluetooth_gatt_server().notifyCharacteristicChanged(session.getBluetoothDevice(), characteristic, false);
         } catch (NullPointerException unused) {
@@ -174,13 +174,13 @@ class transaction_manager {
     private static void m7863c() {
         chunk_generator alVar = (chunk_generator) f5922c.pollFirstEntry().getKey();
         Session c = alVar.get_session();
-        C1892ac acVar = new C1892ac(alVar);
+        chunk_generator_with_queue acVar = new chunk_generator_with_queue(alVar);
         for (int i = 0; i < alVar.get_generated_chunk().size(); i++) {
-            C1936w wVar = new C1936w(c.get_bluetooth_gatt().getDevice(), C1922m.m7989b(), C1922m.m7991c(), (byte[]) alVar.get_generated_chunk().get(i));
-            wVar.mo7569a(alVar);
+            gatt_operation_characteristic_writer wVar = new gatt_operation_characteristic_writer(c.get_bluetooth_gatt().getDevice(), bluetooth_le_settings_builder.m7989b(), bluetooth_le_settings_builder.m7991c(), (byte[]) alVar.get_generated_chunk().get(i));
+            wVar.set_chunk_generator(alVar);
             acVar.mo7434a(wVar);
         }
-        C1911h.get_gatt_manager().mo7415a(acVar);
+        bluetooth_controller.get_gatt_manager().mo7415a(acVar);
     }
 
     /* renamed from: d */

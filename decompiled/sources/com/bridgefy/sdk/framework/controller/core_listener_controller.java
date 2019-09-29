@@ -50,7 +50,7 @@ class core_listener_controller {
     private forward_controller forward_controller;
 
     core_listener_controller(Context context, Config config) {
-        this.config = (Config) C1897ah.m7831a(config, "Missing Config.");
+        this.config = (Config) abstract_config.null_or_except_msg(config, "Missing Config.");
         this.message_listener_controller = new message_listener_controller(config);
         this.forward_controller = new forward_controller();
         this.message_listener_controller.set_context(context);
@@ -97,7 +97,7 @@ class core_listener_controller {
     /* renamed from: a */
     public void on_mesh_message_incoming_action(Session session, BleEntity bleEntity) {
         List<ForwardPacket> mesh = ((ForwardTransaction) bleEntity.getCt()).getMesh();
-        ArrayList a = C1905b.m7874a(bleEntity.getBinaryPart());
+        ArrayList a = byte_arraylist_to_byte_arrayb.deserialize(bleEntity.getBinaryPart());
         if (mesh != null) {
             ArrayList arrayList = new ArrayList();
             for (ForwardPacket forwardPacket : mesh) {

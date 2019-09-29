@@ -17,7 +17,7 @@ class connection_manager {
     static long f5998a = 0;
 
     /* renamed from: b */
-    private static HashMap<String, C1908e> f5999b = new HashMap<>();
+    private static HashMap<String, device_metadata_C1908e> f5999b = new HashMap<>();
 
     /* renamed from: c */
     private static comparable_device f6000c;
@@ -50,10 +50,10 @@ class connection_manager {
             } else {
                 switch (device.getAntennaType()) {
                     case BLUETOOTH:
-                        m8009a((comparable_device) new C1910g(device, false));
+                        m8009a((comparable_device) new connectable_device(device, false));
                         break;
                     case BLUETOOTH_LE:
-                        m8009a((comparable_device) new C1915j(device));
+                        m8009a((comparable_device) new bluetooth_gatt_connectable_device(device));
                         break;
                 }
                 comparable_device tVar = f6000c;
@@ -64,17 +64,17 @@ class connection_manager {
 
     /* renamed from: a */
     static boolean m8010a(String str) {
-        C1908e eVar = (C1908e) f5999b.get(str);
+        device_metadata_C1908e eVar = (device_metadata_C1908e) f5999b.get(str);
         return eVar != null && !eVar.mo7506a();
     }
 
     /* renamed from: b */
     static void m8012b(Device device) {
-        C1908e eVar = (C1908e) f5999b.get(device.getDeviceAddress());
+        device_metadata_C1908e eVar = (device_metadata_C1908e) f5999b.get(device.getDeviceAddress());
         if (eVar != null) {
             eVar.mo7504a(eVar.mo7507b() + 1);
         } else {
-            eVar = new C1908e(false, 1);
+            eVar = new device_metadata_C1908e(false, 1);
         }
         f5999b.put(device.getDeviceAddress(), eVar);
         m8013c(device);
@@ -82,10 +82,10 @@ class connection_manager {
 
     /* renamed from: c */
     private static void m8013c(Device device) {
-        C1908e eVar = (C1908e) f5999b.get(device.getDeviceAddress());
+        device_metadata_C1908e eVar = (device_metadata_C1908e) f5999b.get(device.getDeviceAddress());
         if (eVar.mo7507b() <= 10) {
             C0159b.m540a((long) (eVar.mo7507b() * 2 * 1000), TimeUnit.MILLISECONDS).mo339a((C0177a) new C0177a(eVar) {
-                private final /* synthetic */ C1908e f$1;
+                private final /* synthetic */ device_metadata_C1908e f$1;
 
                 {
                     this.f$1 = r2;
@@ -106,7 +106,7 @@ class connection_manager {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void run(Device device, C1908e eVar) throws Exception {
+    public static /* synthetic */ void run(Device device, device_metadata_C1908e eVar) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("run: opening device ");
         sb.append(device.getDeviceAddress());

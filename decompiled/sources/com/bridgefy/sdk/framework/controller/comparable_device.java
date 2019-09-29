@@ -15,7 +15,7 @@ abstract class comparable_device implements Comparable {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public abstract C0159b mo7509a();
+    public abstract C0159b subscribe_connect();
 
     comparable_device(Device device) {
         this.device = device;

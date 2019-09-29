@@ -5,28 +5,28 @@ import android.bluetooth.BluetoothGatt;
 import java.util.UUID;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.v */
-class C1935v extends gatt_operation {
+class gatt_operation_characteristic_reader extends gatt_operation {
 
     /* renamed from: a */
-    private final UUID f6012a;
+    private final UUID bluetooth_gatt_service_uuid;
 
     /* renamed from: b */
-    private final UUID f6013b;
+    private final UUID bluetooth_gatt_characteristic_uuid;
 
     /* renamed from: a */
     public boolean mo7425a() {
         return true;
     }
 
-    C1935v(BluetoothDevice bluetoothDevice, UUID uuid, UUID uuid2) {
+    gatt_operation_characteristic_reader(BluetoothDevice bluetoothDevice, UUID uuid, UUID uuid2) {
         super(bluetoothDevice);
-        this.f6012a = uuid;
-        this.f6013b = uuid2;
+        this.bluetooth_gatt_service_uuid = uuid;
+        this.bluetooth_gatt_characteristic_uuid = uuid2;
     }
 
     /* renamed from: a */
-    public void read_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt) {
-        bluetoothGatt.readCharacteristic(bluetoothGatt.getService(this.f6012a).getCharacteristic(this.f6013b));
+    public void write_bluetooth_gatt_descriptor(BluetoothGatt bluetoothGatt) {
+        bluetoothGatt.readCharacteristic(bluetoothGatt.getService(this.bluetooth_gatt_service_uuid).getCharacteristic(this.bluetooth_gatt_characteristic_uuid));
     }
 
     /* access modifiers changed from: 0000 */
@@ -84,7 +84,7 @@ class C1935v extends gatt_operation {
         throw r4;
      */
     /* JADX WARNING: Code restructure failed: missing block: B:28:0x0099, code lost:
-        com.bridgefy.sdk.framework.controller.C1911h.get_gatt_manager().mo7414a((com.bridgefy.sdk.framework.controller.gatt_operation) new com.bridgefy.sdk.framework.controller.C1935v(r5.getDevice(), com.bridgefy.sdk.framework.controller.C1922m.m7989b(), com.bridgefy.sdk.framework.controller.C1922m.m7991c()));
+        com.bridgefy.sdk.framework.controller.bluetooth_controller.get_gatt_manager().mo7414a((com.bridgefy.sdk.framework.controller.gatt_operation) new com.bridgefy.sdk.framework.controller.gatt_operation_characteristic_reader(r5.getDevice(), com.bridgefy.sdk.framework.controller.bluetooth_le_settings_builder.m7989b(), com.bridgefy.sdk.framework.controller.bluetooth_le_settings_builder.m7991c()));
      */
     /* JADX WARNING: Code restructure failed: missing block: B:29:0x00b2, code lost:
         r0 = new java.lang.StringBuilder();
@@ -98,7 +98,9 @@ class C1935v extends gatt_operation {
      */
     /* renamed from: a */
     /* Code decompiled incorrectly, please refer to instructions dump. */
-    public void mo7568a(android.bluetooth.BluetoothGattCharacteristic r4, android.bluetooth.BluetoothGatt r5) {
+    //
+    // on gatt read?
+    public void on_characteristic_read(android.bluetooth.BluetoothGattCharacteristic r4, android.bluetooth.BluetoothGatt r5) {
         /*
             r3 = this;
             monitor-enter(r3)
@@ -172,10 +174,10 @@ class C1935v extends gatt_operation {
         L_0x0099:
             com.bridgefy.sdk.framework.controller.v r4 = new com.bridgefy.sdk.framework.controller.v     // Catch:{ all -> 0x00d8 }
             android.bluetooth.BluetoothDevice r5 = r5.getDevice()     // Catch:{ all -> 0x00d8 }
-            java.util.UUID r0 = com.bridgefy.sdk.framework.controller.C1922m.m7989b()     // Catch:{ all -> 0x00d8 }
-            java.util.UUID r1 = com.bridgefy.sdk.framework.controller.C1922m.m7991c()     // Catch:{ all -> 0x00d8 }
+            java.util.UUID r0 = com.bridgefy.sdk.framework.controller.bluetooth_le_settings_builder.m7989b()     // Catch:{ all -> 0x00d8 }
+            java.util.UUID r1 = com.bridgefy.sdk.framework.controller.bluetooth_le_settings_builder.m7991c()     // Catch:{ all -> 0x00d8 }
             r4.<init>(r5, r0, r1)     // Catch:{ all -> 0x00d8 }
-            com.bridgefy.sdk.framework.controller.aa r5 = com.bridgefy.sdk.framework.controller.C1911h.get_gatt_manager()     // Catch:{ all -> 0x00d8 }
+            com.bridgefy.sdk.framework.controller.aa r5 = com.bridgefy.sdk.framework.controller.bluetooth_controller.get_gatt_manager()     // Catch:{ all -> 0x00d8 }
             r5.mo7414a(r4)     // Catch:{ all -> 0x00d8 }
             goto L_0x00d6
         L_0x00b2:
@@ -202,6 +204,6 @@ class C1935v extends gatt_operation {
             monitor-exit(r3)     // Catch:{ all -> 0x00d8 }
             throw r4
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.C1935v.mo7568a(android.bluetooth.BluetoothGattCharacteristic, android.bluetooth.BluetoothGatt):void");
+        throw new UnsupportedOperationException("Method not decompiled: com.bridgefy.sdk.framework.controller.gatt_operation_characteristic_reader.on_characteristic_read(android.bluetooth.BluetoothGattCharacteristic, android.bluetooth.BluetoothGatt):void");
     }
 }

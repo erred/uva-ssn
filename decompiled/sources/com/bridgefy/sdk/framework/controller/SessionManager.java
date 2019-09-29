@@ -138,7 +138,7 @@ public class SessionManager {
         sb.append(session.getSessionId());
         Log.w("SessionManager", sb.toString());
         transaction_manager.m7857a(session);
-        C1897ah.m7830a(session);
+        abstract_config.null_or_except(session);
         Device device = session.getDevice();
         if (session.getEmitter() != null) {
             Log.i("SessionManager", "removeQueueSession: dispatching onconnection result disconnected");
@@ -152,7 +152,7 @@ public class SessionManager {
 
     /* renamed from: a */
     static void get_session(String str) {
-        C1897ah.m7831a(str, "Session Id can't be null.");
+        abstract_config.null_or_except_msg(str, "Session Id can't be null.");
         Session session = getSession(str);
         if (session != null && session.mo7395l() != 1) {
             remove_session(session);
@@ -172,7 +172,7 @@ public class SessionManager {
                     try {
                         BluetoothGattServer bluetoothGattServer = (BluetoothGattServer) server_factory.get_server_instance(Antenna.BLUETOOTH_LE, true).mo7462e();
                         if (!(session.getBluetoothDevice() == null || bluetoothGattServer == null)) {
-                            BluetoothGattCharacteristic characteristic = bluetoothGattServer.getService(C1922m.m7989b()).getCharacteristic(C1922m.m7991c());
+                            BluetoothGattCharacteristic characteristic = bluetoothGattServer.getService(bluetooth_le_settings_builder.m7989b()).getCharacteristic(bluetooth_le_settings_builder.m7991c());
                             characteristic.setValue(new byte[]{5});
                             try {
                                 bluetoothGattServer.notifyCharacteristicChanged(session.getBluetoothDevice(), characteristic, false);

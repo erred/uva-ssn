@@ -9,10 +9,10 @@ import p000a.p013b.C0344k;
 import p000a.p013b.p039i.C0341a;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.c */
-abstract class C1906c {
+abstract class abstract_bluetooth_discovery {
 
     /* renamed from: a */
-    protected String f5926a = getClass().getSimpleName();
+    protected String simple_name = getClass().getSimpleName();
 
     /* renamed from: b */
     C0341a<Device> f5927b;
@@ -21,24 +21,24 @@ abstract class C1906c {
     C0330h<Device> f5928c;
 
     /* renamed from: d */
-    private Config f5929d;
+    private Config config;
 
     /* renamed from: e */
     private boolean f5930e = false;
 
-    C1906c() {
+    abstract_bluetooth_discovery() {
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7478a(Context context, Config config) {
+    public void log_event_mo7478a(Context context, Config config) {
         this.f5927b = new connection_subscriber();
         this.f5928c.mo537a((C0344k<? super T>) this.f5927b);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7477a(Context context) {
+    public void cancel_discovery(Context context) {
         if (this.f5927b != null) {
             this.f5927b.dispose();
         }
@@ -64,13 +64,13 @@ abstract class C1906c {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public Config mo7483b() {
-        return this.f5929d;
+    public Config get_config() {
+        return this.config;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7480a(Config config) {
-        this.f5929d = config;
+    public void set_config(Config config) {
+        this.config = config;
     }
 }

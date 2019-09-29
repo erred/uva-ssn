@@ -11,7 +11,7 @@ class advertise_callback extends AdvertiseCallback {
 
     public void onStartSuccess(AdvertiseSettings advertiseSettings) {
         super.onStartSuccess(advertiseSettings);
-        C1911h.f5955a = 3;
+        bluetooth_controller.f5955a = 3;
     }
 
     public void onStartFailure(int i) {
@@ -20,6 +20,6 @@ class advertise_callback extends AdvertiseCallback {
         sb.append("Advertising  presence BLE failed ");
         sb.append(i);
         Log.e("Advertise_Callback", sb.toString());
-        C1911h.f5955a = 0;
+        bluetooth_controller.f5955a = 0;
     }
 }

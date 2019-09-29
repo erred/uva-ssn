@@ -1,9 +1,9 @@
 package com.bridgefy.sdk.framework.controller;
 
 /* renamed from: com.bridgefy.sdk.framework.controller.ah */
-class C1897ah {
+class abstract_config {
     /* renamed from: a */
-    public static <T> T m7830a(T t) {
+    public static <T> T null_or_except(T t) {
         if (t != null) {
             return t;
         }
@@ -11,7 +11,7 @@ class C1897ah {
     }
 
     /* renamed from: a */
-    public static <T> T m7831a(T t, Object obj) {
+    public static <T> T null_or_except_msg(T t, Object obj) {
         if (t != null) {
             return t;
         }

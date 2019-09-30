@@ -28,6 +28,7 @@ import org.apache.commons.p156b.C3689a;
 /* renamed from: com.bridgefy.sdk.framework.controller.q */
 class chunk_utils {
     /* renamed from: a */
+    // z ? messagepack : json
     static ArrayList<byte[]> generate_compressed_chunk(BleEntity bleEntity, int i, boolean z, boolean z2, String str) throws IOException, MessageException {
         int i2;
         BleEntity bleEntity2 = bleEntity;

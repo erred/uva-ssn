@@ -50,6 +50,38 @@ JADX decompiler
 p140me/bridgefy/main/BridgefyApp.java
 ```
 
+m10301a sync contacts: sync_bridgefy_contacts
+
+send_mesh_reach: send received packet id to connected devices
+
+## Mesh
+
+```
+request_handshake
+
+handle_ble_entity
+  process_handshake
+    // general:
+    //   responsetypegeneral
+    // key:
+    //   responsetypekey
+    // cancel:
+    //   disconnect
+    // // reset?
+    general:
+      set_user_id
+      is_encryption
+        get_existing_key
+          null or different: request key
+          same: set_key
+    key:
+      set_key
+      save_key
+
+    get_public_key or ecryption is false:
+      DevideManager.add_device
+```
+
 ## Messaging
 
 ```
@@ -58,24 +90,34 @@ BridgefyCore.sendMessage
     device: core_listener_controller.send_direct_message
     !device: forwarding: forward_controller.forward_to_list
       forward_controller.add_forward_packet_to_list
+        forward_controller.send_pack_to_session
+          !ble: transaction_manager.send_entity
+          ble: BridgefyCore.send_entity
+            transaction_manager.send_entity
 
 BridgefyCore.sendBroadcastMessage
   core_listener_controller.send_broadcast_message
     core_listener_controller.send_broadcast_2
       forward_controller.add_forward_packet_to_list
-
+        forward_controller.send_pack_to_session
+          !ble: transaction_manager.send_entity
+          ble: BridgefyCore.send_entity
+            transaction_manager.send_entity
 
 BridgefyCore.sendDirectMessage
   core_listener_controller.send_direct_message
     core_listener_controller.send_direct_2
       BridgefyCore.send_entity
         transaction_manager.send_entity
-          !ble: put.queue_d
 
-          gatt_server: put.queue_b
 
-          else: put.queue_c
-            ... encrypt
+transaction_manager.send_entity
+  !ble: queue_bluetooth.put chunk_generator
+    send_in_background
+  gatt_server: sessions_chunk.put chunk_generator
+    send charachteristic m7861b
+  ble: queue_ble.put chunk_generator
+    send_ble_entity
 ```
 
 ## Encryption

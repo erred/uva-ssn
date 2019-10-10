@@ -271,7 +271,7 @@ public class C3460d extends C3456b {
             }
         }
         try {
-            FriendDTO c = new C3457c(mo28313a()).mo28323c(message.getReceiver());
+            FriendDTO c = new C3457c(mo28313a()).query_friend_dto_by_id(message.getReceiver());
             if (c == null) {
                 c = new FriendDTO(message.getReceiver(), message.getOtherUserName(), null);
                 c.set(mo28313a().getFriendRuntimeDAO());
@@ -417,7 +417,7 @@ public class C3460d extends C3456b {
             Log.w(str, sb.toString());
             return null;
         }
-        FriendDTO c = cVar.mo28323c(message.getSender());
+        FriendDTO c = cVar.query_friend_dto_by_id(message.getSender());
         cVar.mo28316a(c, message.getSender(), message.getOtherUserName(), null, context);
         message.setConversation("broadcast.public");
         MessageDTO messageDTO = new MessageDTO(message);

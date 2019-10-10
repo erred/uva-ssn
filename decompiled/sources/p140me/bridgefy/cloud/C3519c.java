@@ -107,10 +107,10 @@ public class C3519c {
     /* access modifiers changed from: private */
     /* renamed from: a */
     public static /* synthetic */ void m10295a(emitter cVar) throws Exception {
-        if (C3517a.m10256a().mo29201h()) {
+        if (google_controller.get_google_controller().id_token_not_null()) {
             cVar.mo361a();
         } else {
-            C3517a.m10256a().mo29191a(cVar);
+            google_controller.get_google_controller().request_acquire_id_token(cVar);
         }
     }
 
@@ -131,7 +131,7 @@ public class C3519c {
     public static /* synthetic */ void m10317b(BgfyUser bgfyUser, emitter cVar) throws Exception {
         bgfyUser.setDevice(BleHandshake.DEVICE_TYPE);
         if (bgfyUser.getDigitsId() != null) {
-            C3517a.m10256a().mo29192b(bgfyUser);
+            google_controller.get_google_controller().bgfy_user_api_update_user(bgfyUser);
             StringBuilder sb = new StringBuilder();
             sb.append("Updated user in backend: ");
             sb.append(bgfyUser.getUuid());
@@ -160,7 +160,7 @@ public class C3519c {
     public static /* synthetic */ void m10311a(BgfyUser bgfyUser, emitter cVar) throws Exception {
         bgfyUser.setDevice(BleHandshake.DEVICE_TYPE);
         if (bgfyUser.getDigitsId() != null) {
-            C3517a.m10256a().mo29189a(bgfyUser);
+            google_controller.get_google_controller().bgfy_user_api_insert_user(bgfyUser);
             StringBuilder sb = new StringBuilder();
             sb.append("Inserted user in backend: ");
             sb.append(bgfyUser.getUuid());
@@ -201,7 +201,7 @@ public class C3519c {
     /* access modifiers changed from: private */
     /* renamed from: b */
     public static /* synthetic */ void m10315b(String str, emitter cVar) throws Exception {
-        C3517a.m10256a().mo29197d().blockUser(str).execute();
+        google_controller.get_google_controller().get_bgfy_user_api_user().blockUser(str).execute();
         cVar.mo361a();
     }
 
@@ -226,7 +226,7 @@ public class C3519c {
     /* access modifiers changed from: private */
     /* renamed from: a */
     public static /* synthetic */ void m10302a(String str, emitter cVar) throws Exception {
-        C3517a.m10256a().mo29197d().unblockUser(str).execute();
+        google_controller.get_google_controller().get_bgfy_user_api_user().unblockUser(str).execute();
         cVar.mo361a();
     }
 
@@ -259,18 +259,18 @@ public class C3519c {
         if (string != null) {
             string = C3662d.m10924c(string);
         }
-        List<BridgefyPeer> a = C3517a.m10256a().mo29184a(dVar.mo29826a(string));
-        a.addAll(C3517a.m10256a().mo29185a((List<String>) new C3457c(BridgefyService.m10665d()).mo28320b(string)));
+        List<BridgefyPeer> a = google_controller.get_google_controller().bgfy_user_api_phone_list_to_peer_contact(dVar.get_phone_records(string));
+        a.addAll(google_controller.get_google_controller().bgfy_user_api_phone_list_to_peer((List<String>) new C3457c(BridgefyService.get_database_helper()).get_friends_other_phone_numbers(string)));
         for (BridgefyPeer bridgefyPeer : a) {
             FriendDTO friendDTO = new FriendDTO(bridgefyPeer);
-            FriendDTO c = cVar.mo28323c(bridgefyPeer.getId());
+            FriendDTO c = cVar.query_friend_dto_by_id(bridgefyPeer.getId());
             if (c != null) {
                 friendDTO.setPublicKey(c.getPublicKey());
                 friendDTO.setColor(c.getColor());
                 friendDTO.setBlockedStatus(c.getBlockedStatus());
             }
-            cVar.mo28319a(friendDTO);
-            mVar.mo429a(bridgefyPeer);
+            cVar.set_friend_dto(friendDTO);
+            mVar.on_next(bridgefyPeer);
         }
         mVar.mo427f_();
     }
@@ -298,7 +298,7 @@ public class C3519c {
     /* access modifiers changed from: private */
     /* renamed from: a */
     public static /* synthetic */ void m10305a(String str, String str2, emitter cVar) throws Exception {
-        C3517a.m10256a().mo29199f().deleteConversation(str, str2).execute();
+        google_controller.get_google_controller().get_bgfy_message_api().deleteConversation(str, str2).execute();
         cVar.mo361a();
     }
 
@@ -324,7 +324,7 @@ public class C3519c {
     /* renamed from: a */
     public static /* synthetic */ void m10292a(long j, C0354s sVar) throws Exception {
         try {
-            Message a = C3517a.m10256a().mo29190a(Long.valueOf(j));
+            Message a = google_controller.get_google_controller().mo29190a(Long.valueOf(j));
             if (a != null) {
                 sVar.mo463a(a);
             }
@@ -370,10 +370,10 @@ public class C3519c {
                     Log.e("ObservableFactory", sb.toString());
                 }
             }
-            C3517a.m10256a().mo29186a((List<Long>) arrayList2, i);
+            google_controller.get_google_controller().mo29186a((List<Long>) arrayList2, i);
             Iterator it2 = arrayList.iterator();
             while (it2.hasNext()) {
-                mVar.mo429a((MessageDTO) it2.next());
+                mVar.on_next((MessageDTO) it2.next());
             }
         }
         mVar.mo427f_();
@@ -397,7 +397,7 @@ public class C3519c {
                 }
                 this.f9161a.setLoad(publicKey);
                 this.f9161a.setOwner(userUuid);
-                C3517a.m10256a().mo29198e().bgfyKey().insertKey(this.f9161a).execute();
+                google_controller.get_google_controller().get_bgfy_key_api().bgfyKey().insertKey(this.f9161a).execute();
                 cVar.mo361a();
             }
         }), aVar);
@@ -416,7 +416,7 @@ public class C3519c {
             }
 
             public final void subscribe(C0354s sVar) {
-                sVar.mo463a(C3517a.m10256a().mo29183a(this.f$0));
+                sVar.mo463a(google_controller.get_google_controller().mo29183a(this.f$0));
             }
         }), cVar);
     }
@@ -452,10 +452,10 @@ public class C3519c {
             return;
         }
         try {
-            BgfyUser c = C3517a.m10256a().mo29196c();
+            BgfyUser c = google_controller.get_google_controller().bgfy_user_api_get_self_user();
             if (c != null) {
                 c.setRegistrationId(str);
-                C3517a.m10256a().mo29192b(c);
+                google_controller.get_google_controller().bgfy_user_api_update_user(c);
             } else {
                 edit.clear();
             }

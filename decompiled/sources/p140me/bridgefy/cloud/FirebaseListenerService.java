@@ -31,7 +31,7 @@ public class FirebaseListenerService extends FirebaseMessagingService {
     private ServiceConnection f9150c = new ServiceConnection() {
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             C3612a aVar = (C3612a) iBinder;
-            C3622b.m10715a(FirebaseListenerService.this.getBaseContext(), BridgefyService.m10665d()).mo29658a(FirebaseListenerService.this.f9148a, FirebaseListenerService.this.getApplicationContext(), BridgefyService.m10665d());
+            C3622b.m10715a(FirebaseListenerService.this.getBaseContext(), BridgefyService.get_database_helper()).mo29658a(FirebaseListenerService.this.f9148a, FirebaseListenerService.this.getApplicationContext(), BridgefyService.get_database_helper());
             FirebaseListenerService.this.f9149b = true;
         }
 
@@ -65,7 +65,7 @@ public class FirebaseListenerService extends FirebaseMessagingService {
             return;
         }
         if (BridgefyService.f9518b && this.f9149b) {
-            C3622b.m10715a(getBaseContext(), BridgefyService.m10665d()).mo29658a(new Intent().putExtras(bundle), getApplicationContext(), BridgefyService.m10665d());
+            C3622b.m10715a(getBaseContext(), BridgefyService.get_database_helper()).mo29658a(new Intent().putExtras(bundle), getApplicationContext(), BridgefyService.get_database_helper());
             return;
         }
         this.f9148a = new Intent();

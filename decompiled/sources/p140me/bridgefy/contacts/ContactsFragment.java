@@ -148,7 +148,7 @@ public class ContactsFragment extends Fragment implements C3619a {
         public void mo29241a(BridgefyPeer bridgefyPeer) {
             this.f9200b = bridgefyPeer;
             if (!ContactsFragment.this.m10348e(bridgefyPeer)) {
-                FriendDTO c = ContactsFragment.this.f9188i.mo28323c(bridgefyPeer.getId());
+                FriendDTO c = ContactsFragment.this.f9188i.query_friend_dto_by_id(bridgefyPeer.getId());
                 if (c != null) {
                     try {
                         this.vName.setText(bridgefyPeer.getDisplayName());
@@ -571,7 +571,7 @@ public class ContactsFragment extends Fragment implements C3619a {
         if (getActivity() != null && this.f9192m != null && (((antenna != Antenna.BLUETOOTH_LE && antenna != Antenna.BLUETOOTH_LE) || C3659b.m10906c((Context) getActivity())) && this.f9192m.getItemCount() != 0)) {
             BridgefyPeer b = m10337b(bridgefyPeer);
             if (b == null) {
-                FriendDTO c = this.f9188i.mo28323c(bridgefyPeer.getId());
+                FriendDTO c = this.f9188i.query_friend_dto_by_id(bridgefyPeer.getId());
                 if (c != null) {
                     m10346d(new BridgefyPeer(c));
                 } else {

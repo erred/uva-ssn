@@ -12,6 +12,6 @@ public final /* synthetic */ class $$Lambda$c$uqgkKdRtBZROYV8ofddTIQPCObA implem
     }
 
     public final void subscribe(C0354s sVar) {
-        sVar.mo463a(C3517a.m10256a().mo29196c());
+        sVar.mo463a(google_controller.get_google_controller().bgfy_user_api_get_self_user());
     }
 }

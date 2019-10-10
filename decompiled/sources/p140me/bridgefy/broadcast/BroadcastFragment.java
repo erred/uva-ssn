@@ -76,7 +76,7 @@ public class BroadcastFragment extends ChatBaseFragment {
             Bundle bundle = new Bundle();
             bundle.putString("userId", this.f9034b.getSender());
             bundle.putString("userName", this.f9034b.getOtherUserName());
-            bundle.putBoolean("userIsBlocked", new C3457c(BridgefyService.m10665d()).mo28329h(this.f9034b.getSender()));
+            bundle.putBoolean("userIsBlocked", new C3457c(BridgefyService.get_database_helper()).mo28329h(this.f9034b.getSender()));
             C3466c cVar = new C3466c();
             cVar.setArguments(bundle);
             cVar.show(BroadcastFragment.this.getFragmentManager(), C3466c.f8985a);
@@ -90,7 +90,7 @@ public class BroadcastFragment extends ChatBaseFragment {
             boolean z = false;
             if (!message.getMessageId().equals(String.valueOf(0))) {
                 if (!message.getSender().equals(BroadcastFragment.this.f9027f) && message.getSender() != null) {
-                    FriendDTO c = new C3457c(BridgefyService.m10665d()).mo28323c(message.getSender());
+                    FriendDTO c = new C3457c(BridgefyService.get_database_helper()).query_friend_dto_by_id(message.getSender());
                     if (c == null) {
                         str = message.getOtherUserName();
                         if (BroadcastFragment.this.f8973j.containsKey(message.getSender())) {

@@ -58,9 +58,9 @@ class core_listener_controller {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7448a(Message message, Session session) {
+    public void on_direct_message_received(Message message, Session session) {
         message.setMesh(false);
-        this.message_listener_controller.mo7440a(message);
+        this.message_listener_controller.wrap_on_message_received(message);
         // Logger.log(LogFactory.build(message, (Session) session, MessageEvent.BFMessageTypeDirectMessageReceived));
         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeDirectReceived);
     }
@@ -89,7 +89,7 @@ class core_listener_controller {
         if (session != null) {
             ArrayList arrayList = new ArrayList();
             arrayList.add(session);
-            this.forward_controller.mo7562a(arrayList, z);
+            this.forward_controller.execute_on_executor(arrayList, z);
         }
     }
 
@@ -122,24 +122,24 @@ class core_listener_controller {
                         }
                     } else {
                         try {
-                            forwardPacket = m7812b(forwardPacket, a);
+                            forwardPacket = decrypt_forward_packet(forwardPacket, a);
                         } catch (Exception e) {
-                            this.message_listener_controller.mo7442a(forwardPacket.getSender(), new MessageException("Can't be possible decrypt message.", e));
+                            this.message_listener_controller.message_received_exception(forwardPacket.getSender(), new MessageException("Can't be possible decrypt message.", e));
                         }
                         // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedReached));
                         // Analytics.m7693a(EventType.BFAnalyticsMessageTypeMeshReceived);
-                        Message b = m7811b(forwardPacket);
+                        Message b = repack_message(forwardPacket);
                         if (b == null || b.getContent() != null) {
-                            this.message_listener_controller.mo7440a(b);
+                            this.message_listener_controller.wrap_on_message_received(b);
                         } else {
-                            this.message_listener_controller.mo7442a(forwardPacket.getSender(), new MessageException("Unable to decrypt message."));
+                            this.message_listener_controller.message_received_exception(forwardPacket.getSender(), new MessageException("Unable to decrypt message."));
                         }
                         this.forward_controller.send_mesh_reach(forwardPacket);
                     }
                 } else if (forwardPacket.getReceiver_type() == 1) {
                     // Logger.log(LogFactory.build((Session) session, forwardPacket, MeshEvent.BFMeshTypePacketReceivedBroadcast));
                     // Analytics.m7693a(EventType.BFAnalyticsMessageTypeBroadcastReceived);
-                    Message b2 = m7811b(forwardPacket);
+                    Message b2 = repack_message(forwardPacket);
                     if (!this.forward_controller.seen_packet(forwardPacket) && forwardPacket.getHops() >= 0 && !b2.getSenderId().trim().equalsIgnoreCase(Bridgefy.getInstance().getBridgefyClient().getUserUuid())) {
                         new Bundle().putParcelable("parcelable.forwardPacket", forwardPacket);
                         mo7451a(forwardPacket);
@@ -169,7 +169,7 @@ class core_listener_controller {
     }
 
     /* renamed from: b */
-    private Message m7811b(ForwardPacket forwardPacket) {
+    private Message repack_message(ForwardPacket forwardPacket) {
         Message message = new Message(forwardPacket.getPayload(), forwardPacket.getReceiver(), forwardPacket.getSender(), true, forwardPacket.getHopsLimitForEngineProfile() - forwardPacket.getHops());
         message.setDateSent(forwardPacket.getCreation());
         if (forwardPacket.getId() != null && forwardPacket.getId().trim().length() > 0) {
@@ -188,7 +188,7 @@ class core_listener_controller {
     }
 
     /* renamed from: b */
-    private ForwardPacket m7812b(ForwardPacket forwardPacket, ArrayList<byte[]> arrayList) throws Exception {
+    private ForwardPacket decrypt_forward_packet(ForwardPacket forwardPacket, ArrayList<byte[]> arrayList) throws Exception {
         if (forwardPacket.getEnc_payload() >= 0) {
             byte[] bArr = (byte[]) arrayList.get(forwardPacket.getEnc_payload());
             new String(bArr, "ISO-8859-1");

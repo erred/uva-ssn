@@ -17,7 +17,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import p140me.bridgefy.backend.p143v3.bgfyUserApi.model.BgfyUser;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.cloud.C3518b;
 import p140me.bridgefy.ormlite.DataBaseUtils;
 import p140me.bridgefy.ormlite.DatabaseHelper;
@@ -127,7 +127,7 @@ public class C3608c {
         C3518b.m10289a(context);
         Log.w("BridgefySession", "Destroying OnlineManager & GoogleController");
         C3622b.m10715a(context, databaseHelper).mo29657a();
-        C3517a.m10262b();
+        google_controller.reset_google_controller();
         m10640a(context);
         Log.i("BridgefySession", "... Finalizing by broadcast to BridgefyActivity");
         context.sendBroadcast(new Intent("signOut").putExtra("signoutType", i));

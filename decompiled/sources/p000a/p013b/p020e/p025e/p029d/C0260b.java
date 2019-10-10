@@ -29,7 +29,7 @@ public final class C0260b<T> extends C0345l<T> {
         }
 
         /* renamed from: a */
-        public void mo429a(T t) {
+        public void on_next(T t) {
             if (t == null) {
                 mo452b(new NullPointerException("onNext called with null. Null values are generally not allowed in 2.x operators and sources."));
                 return;

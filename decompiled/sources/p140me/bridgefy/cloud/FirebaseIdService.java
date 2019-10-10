@@ -27,7 +27,7 @@ public class FirebaseIdService extends FirebaseInstanceIdService {
         sb.append(str);
         Log.i("FirebaseIdService", sb.toString());
         final Editor edit = context.getSharedPreferences("BgfyPrefs", 0).edit();
-        C3517a.m10259a(context);
+        google_controller.initialize_google_controller(context);
         C3519c.m10304a(str, context, (C3521a) new C3521a() {
             public void onComplete() {
                 edit.remove("pendingRegister").commit();

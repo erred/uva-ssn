@@ -5,7 +5,7 @@ import android.app.job.JobService;
 import android.content.SharedPreferences;
 import android.util.Log;
 import p140me.bridgefy.backend.p143v3.bgfyUserApi.model.BgfyUser;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.cloud.C3519c;
 import p140me.bridgefy.cloud.C3519c.C3523c;
 
@@ -35,7 +35,7 @@ public class UserUpdateJobService extends JobService {
                             bgfyUser.setPhone(string2);
                         }
                         try {
-                            C3517a.m10256a().mo29192b(bgfyUser);
+                            google_controller.get_google_controller().bgfy_user_api_update_user(bgfyUser);
                             Log.d("UserUpdateJobService", "Updated username in backend");
                             sharedPreferences.edit().remove("pendingChangeUsername").apply();
                             sharedPreferences.edit().remove("pendingPhoneUpdate").apply();

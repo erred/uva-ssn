@@ -40,7 +40,7 @@ class gatt_operation_characteristic_writer extends gatt_operation {
         if (service == null) {
             this.chunk_generator.get_generated_chunk().remove(this.bluetooth_gatt_characteristic);
             if (this.chunk_generator.get_generated_chunk().size() == 0) {
-                this.chunk_generator.get_transaction_manager().mo7475b(this.chunk_generator);
+                this.chunk_generator.get_transaction_manager().failed_send_remove_queue(this.chunk_generator);
             }
             return;
         }
@@ -54,7 +54,7 @@ class gatt_operation_characteristic_writer extends gatt_operation {
                 Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageDataProgress(this.chunk_generator.get_ble_entity_uuid(), (long) (this.chunk_generator.get_compressed_size() - this.chunk_generator.get_generated_chunk().size()), (long) this.chunk_generator.get_compressed_size());
             }
             if (this.chunk_generator.get_generated_chunk().size() == 0) {
-                this.chunk_generator.get_transaction_manager().mo7474a(this.chunk_generator);
+                this.chunk_generator.get_transaction_manager().send_remove_queue(this.chunk_generator);
             }
         }
     }

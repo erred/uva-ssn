@@ -51,84 +51,84 @@ import p140me.bridgefy.utils.C3659b;
 public class C3517a {
 
     /* renamed from: b */
-    private static C3517a f9154b;
+    private static C3517a google_controller;
 
     /* renamed from: a */
-    private SharedPreferences f9155a;
+    private SharedPreferences shared_preferences;
 
     /* renamed from: c */
-    private String f9156c;
+    private String id_token;
 
     /* renamed from: d */
-    private BgfyUserApi f9157d;
+    private BgfyUserApi bgfy_user_api;
 
     /* renamed from: e */
-    private BgfyKeyApi f9158e;
+    private BgfyKeyApi bgfy_key_api;
 
     /* renamed from: f */
-    private BgfyMessageApi f9159f;
+    private BgfyMessageApi bgfy_message_api;
 
     private C3517a(Context context) {
-        this.f9155a = context.getSharedPreferences("BgfyPrefs", 0);
-        mo29191a((emitter) null);
+        this.shared_preferences = context.getSharedPreferences("BgfyPrefs", 0);
+        request_acquire_id_token((emitter) null);
     }
 
     /* renamed from: a */
-    public static void m10259a(Context context) {
-        if (f9154b == null) {
+    public static void initialize_google_controller(Context context) {
+        if (google_controller == null) {
             Log.i("GoogleController", "Initializing GoogleController");
-            f9154b = new C3517a(context);
+            google_controller = new C3517a(context);
         }
     }
 
     /* renamed from: a */
-    public static C3517a m10256a() {
-        return f9154b;
+    public static C3517a get_google_controller() {
+        return google_controller;
     }
 
     /* renamed from: b */
-    public static void m10262b() {
-        if (f9154b != null) {
-            f9154b.f9158e = null;
-            f9154b.f9159f = null;
-            f9154b.f9157d = null;
-            f9154b.f9156c = null;
-            f9154b = null;
+    public static void reset_google_controller() {
+        if (google_controller != null) {
+            google_controller.bgfy_key_api = null;
+            google_controller.bgfy_message_api = null;
+            google_controller.bgfy_user_api = null;
+            google_controller.id_token = null;
+            google_controller = null;
         }
     }
 
     /* renamed from: a */
-    public BgfyUser mo29189a(BgfyUser bgfyUser) throws IOException {
+    public BgfyUser bgfy_user_api_insert_user(BgfyUser bgfyUser) throws IOException {
         bgfyUser.setCreatedAt(Long.valueOf(System.currentTimeMillis()));
         bgfyUser.setDevice(BleHandshake.DEVICE_TYPE);
-        return (BgfyUser) this.f9157d.bgfyUser().insertUser(bgfyUser).execute();
+        return (BgfyUser) this.bgfy_user_api.bgfyUser().insertUser(bgfyUser).execute();
     }
 
     /* renamed from: b */
-    public BgfyUser mo29192b(BgfyUser bgfyUser) throws IOException {
+    public BgfyUser bgfy_user_api_update_user(BgfyUser bgfyUser) throws IOException {
         bgfyUser.setDevice(BleHandshake.DEVICE_TYPE);
         if (bgfyUser.getDigitsId() != null) {
-            return (BgfyUser) this.f9157d.bgfyUser().updateUser(bgfyUser).execute();
+            return (BgfyUser) this.bgfy_user_api.bgfyUser().updateUser(bgfyUser).execute();
         }
         Log.w("GoogleController", "Provider Id was null, won't update user in backend.");
         throw new IOException("Digits Id was null, won't update user in backend.");
     }
 
     /* renamed from: c */
-    public BgfyUser mo29196c() throws Exception, AssertionError {
+    public BgfyUser bgfy_user_api_get_self_user() throws Exception, AssertionError {
         StringBuilder sb = new StringBuilder();
         sb.append("getSelfUser() with idToken: ");
-        sb.append(this.f9156c);
+        sb.append(this.id_token);
         Log.v("GoogleController", sb.toString());
-        return (BgfyUser) this.f9157d.bgfyUser().getSelfUser().execute();
+        return (BgfyUser) this.bgfy_user_api.bgfyUser().getSelfUser().execute();
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public List<BridgefyPeer> mo29185a(List<String> list) throws IOException {
+    public List<BridgefyPeer> bgfy_user_api_phone_list_to_peer(List<String> list) throws IOException {
         EndpointPhoneListContainer endpointPhoneListContainer = new EndpointPhoneListContainer();
         endpointPhoneListContainer.setPhoneList(list);
-        CollectionResponseBgfyUser collectionResponseBgfyUser = (CollectionResponseBgfyUser) this.f9157d.contacts(endpointPhoneListContainer).execute();
+        CollectionResponseBgfyUser collectionResponseBgfyUser = (CollectionResponseBgfyUser) this.bgfy_user_api.contacts(endpointPhoneListContainer).execute();
         ArrayList arrayList = new ArrayList();
         List<BgfyUser> items = collectionResponseBgfyUser.getItems();
         if (items != null && !items.isEmpty()) {
@@ -140,14 +140,14 @@ public class C3517a {
     }
 
     /* renamed from: a */
-    public List<BridgefyPeer> mo29184a(HashMap hashMap) throws IOException {
+    public List<BridgefyPeer> bgfy_user_api_phone_list_to_peer_contact(HashMap hashMap) throws IOException {
         EndpointPhoneListContainer endpointPhoneListContainer = new EndpointPhoneListContainer();
         ArrayList arrayList = new ArrayList();
         for (Entry key : hashMap.entrySet()) {
             arrayList.add(String.valueOf(key.getKey()));
         }
         endpointPhoneListContainer.setPhoneList(arrayList);
-        CollectionResponseBgfyUser collectionResponseBgfyUser = (CollectionResponseBgfyUser) this.f9157d.contacts(endpointPhoneListContainer).execute();
+        CollectionResponseBgfyUser collectionResponseBgfyUser = (CollectionResponseBgfyUser) this.bgfy_user_api.contacts(endpointPhoneListContainer).execute();
         ArrayList arrayList2 = new ArrayList();
         List<BgfyUser> items = collectionResponseBgfyUser.getItems();
         if (items != null && !items.isEmpty()) {
@@ -164,7 +164,7 @@ public class C3517a {
 
     /* renamed from: a */
     public String mo29183a(String str) throws IOException {
-        return ((BgfyKey) this.f9158e.get(str).execute()).getLoad();
+        return ((BgfyKey) this.bgfy_key_api.get(str).execute()).getLoad();
     }
 
     /* renamed from: a */
@@ -176,7 +176,7 @@ public class C3517a {
         bgfyMessage.setText(message.getText());
         bgfyMessage.setMessageType(Integer.valueOf(message.getType()));
         bgfyMessage.setLocalID(message.getOfflineId());
-        return (BgfyMessage) this.f9159f.insert(bgfyMessage).setChecksumKey(Long.valueOf(j)).execute();
+        return (BgfyMessage) this.bgfy_message_api.insert(bgfyMessage).setChecksumKey(Long.valueOf(j)).execute();
     }
 
     /* renamed from: b */
@@ -188,13 +188,13 @@ public class C3517a {
     public EndpointMessageResponse mo29188a(ArrayList<BgfyMessage> arrayList) throws IOException {
         EndpointMessageContainer endpointMessageContainer = new EndpointMessageContainer();
         endpointMessageContainer.setBgfyMessageList(arrayList);
-        return (EndpointMessageResponse) this.f9159f.insertList(endpointMessageContainer).execute();
+        return (EndpointMessageResponse) this.bgfy_message_api.insertList(endpointMessageContainer).execute();
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
     public Message mo29190a(Long l) throws Exception {
-        BgfyMessage bgfyMessage = (BgfyMessage) this.f9159f.get(l).execute();
+        BgfyMessage bgfyMessage = (BgfyMessage) this.bgfy_message_api.get(l).execute();
         Message message = new Message(bgfyMessage);
         if (message.getFileContent() != null) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -216,7 +216,7 @@ public class C3517a {
 
     /* renamed from: b */
     public Message mo29193b(Long l) throws IOException {
-        return new Message((BgfyMessage) this.f9159f.getImage(l).execute());
+        return new Message((BgfyMessage) this.bgfy_message_api.getImage(l).execute());
     }
 
     /* access modifiers changed from: 0000 */
@@ -230,26 +230,26 @@ public class C3517a {
         EndpointMessageListContainer endpointMessageListContainer = new EndpointMessageListContainer();
         endpointMessageListContainer.setMessageIDs(list);
         endpointMessageListContainer.setMessagesStatus(Integer.valueOf(i));
-        return ((BgfyMessageCollection) this.f9159f.updateStatusMessage(endpointMessageListContainer).execute()).getItems();
+        return ((BgfyMessageCollection) this.bgfy_message_api.updateStatusMessage(endpointMessageListContainer).execute()).getItems();
     }
 
     /* renamed from: c */
     private BgfyMessageApi m10264c(String str) {
-        return new Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), m10268f(str)).setApplicationName("Bridgefy").setRootUrl("https://bionic-torch-719.appspot.com/_ah/api/").setGoogleClientRequestInitializer((GoogleClientRequestInitializer) $$Lambda$a$P1wEO3iL2f48GEPXNfzBAbRwe8.INSTANCE).build();
+        return new Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), http_request_initialize(str)).setApplicationName("Bridgefy").setRootUrl("https://bionic-torch-719.appspot.com/_ah/api/").setGoogleClientRequestInitializer((GoogleClientRequestInitializer) $$Lambda$a$P1wEO3iL2f48GEPXNfzBAbRwe8.INSTANCE).build();
     }
 
     /* renamed from: d */
     private BgfyKeyApi m10266d(String str) {
-        return new BgfyKeyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), m10268f(str)).setApplicationName("Bridgefy").setRootUrl("https://bionic-torch-719.appspot.com/_ah/api/").setGoogleClientRequestInitializer((GoogleClientRequestInitializer) $$Lambda$a$Ml6bVuYVlmSs8AsYrOPe7ie9Bvc.INSTANCE).build();
+        return new BgfyKeyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), http_request_initialize(str)).setApplicationName("Bridgefy").setRootUrl("https://bionic-torch-719.appspot.com/_ah/api/").setGoogleClientRequestInitializer((GoogleClientRequestInitializer) $$Lambda$a$Ml6bVuYVlmSs8AsYrOPe7ie9Bvc.INSTANCE).build();
     }
 
     /* renamed from: e */
     private BgfyUserApi m10267e(String str) {
-        return new BgfyUserApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), m10268f(str)).setApplicationName("Bridgefy").setRootUrl("https://bionic-torch-719.appspot.com/_ah/api/").setGoogleClientRequestInitializer((GoogleClientRequestInitializer) $$Lambda$a$iGWdWwBLGzn1xSZB8F0id7612_Y.INSTANCE).build();
+        return new BgfyUserApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), http_request_initialize(str)).setApplicationName("Bridgefy").setRootUrl("https://bionic-torch-719.appspot.com/_ah/api/").setGoogleClientRequestInitializer((GoogleClientRequestInitializer) $$Lambda$a$iGWdWwBLGzn1xSZB8F0id7612_Y.INSTANCE).build();
     }
 
     /* renamed from: f */
-    private HttpRequestInitializer m10268f(String str) {
+    private HttpRequestInitializer http_request_initialize(String str) {
         return new HttpRequestInitializer(str) {
             private final /* synthetic */ String f$0;
 
@@ -258,14 +258,14 @@ public class C3517a {
             }
 
             public final void initialize(HttpRequest httpRequest) {
-                C3517a.m10261a(this.f$0, httpRequest);
+                C3517a.set_http_token_header(this.f$0, httpRequest);
             }
         };
     }
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public static /* synthetic */ void m10261a(String str, HttpRequest httpRequest) throws IOException {
+    public static /* synthetic */ void set_http_token_header(String str, HttpRequest httpRequest) throws IOException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("token", (Object) str);
         httpRequest.setHeaders(httpHeaders);
@@ -273,7 +273,7 @@ public class C3517a {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo29191a(emitter cVar) {
+    public void request_acquire_id_token(emitter cVar) {
         try {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser != null) {
@@ -286,7 +286,7 @@ public class C3517a {
                     }
 
                     public final void onSuccess(Object obj) {
-                        C3517a.this.m10257a(this.f$1, (GetTokenResult) obj);
+                        C3517a.this.try_set_bgfy_api_token(this.f$1, (GetTokenResult) obj);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     public final void onFailure(Exception exc) {
@@ -307,15 +307,15 @@ public class C3517a {
 
     /* access modifiers changed from: private */
     /* renamed from: a */
-    public /* synthetic */ void m10257a(emitter cVar, GetTokenResult getTokenResult) {
+    public /* synthetic */ void try_set_bgfy_api_token(emitter cVar, GetTokenResult getTokenResult) {
         try {
             String token = getTokenResult.getToken();
             StringBuilder sb = new StringBuilder();
             sb.append("... acquired id token: ");
             sb.append(token);
             Log.v("GoogleController", sb.toString());
-            m10269g(token);
-            this.f9156c = token;
+            set_bgfy_api(token);
+            this.id_token = token;
             if (cVar != null) {
                 cVar.mo361a();
             }
@@ -334,43 +334,43 @@ public class C3517a {
     }
 
     /* renamed from: g */
-    private void m10269g(String str) {
-        this.f9157d = m10267e(str);
-        this.f9158e = m10266d(str);
-        this.f9159f = m10264c(str);
+    private void set_bgfy_api(String str) {
+        this.bgfy_user_api = m10267e(str);
+        this.bgfy_key_api = m10266d(str);
+        this.bgfy_message_api = m10264c(str);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: d */
-    public BgfyUserApi.BgfyUser mo29197d() {
-        return this.f9157d.bgfyUser();
+    public BgfyUserApi.BgfyUser get_bgfy_user_api_user() {
+        return this.bgfy_user_api.bgfyUser();
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: e */
-    public BgfyKeyApi mo29198e() {
-        return this.f9158e;
+    public BgfyKeyApi get_bgfy_key_api() {
+        return this.bgfy_key_api;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: f */
-    public BgfyMessageApi mo29199f() {
-        return this.f9159f;
+    public BgfyMessageApi get_bgfy_message_api() {
+        return this.bgfy_message_api;
     }
 
     /* renamed from: g */
-    public String mo29200g() {
-        return this.f9156c;
+    public String get_id_token() {
+        return this.id_token;
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: h */
-    public boolean mo29201h() {
-        return this.f9156c != null && !C3659b.m10910e(this.f9156c);
+    public boolean id_token_not_null() {
+        return this.id_token != null && !C3659b.m10910e(this.id_token);
     }
 
     /* renamed from: b */
-    public void mo29194b(String str) {
-        this.f9156c = str;
+    public void set_id_token(String str) {
+        this.id_token = str;
     }
 }

@@ -14,7 +14,7 @@ public class BlockedOpsJobService extends JobService {
 
     public boolean onStartJob(JobParameters jobParameters) {
         try {
-            new C3457c(BridgefyService.m10665d()).mo28321b();
+            new C3457c(BridgefyService.get_database_helper()).mo28321b();
         } catch (Exception unused) {
             Log.w("BlockedOpsJobService", "DatabaseHelper from the BridgefyService was null. Won't run BlockOperations");
         }

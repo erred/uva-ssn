@@ -27,7 +27,7 @@ import com.bridgefy.sdk.framework.utils.Utils;
 import com.squareup.p131a.C3017h;
 import java.util.HashMap;
 import me.bridgefy.main.R;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.cloud.C3518b;
 import p140me.bridgefy.cloud.C3519c;
 import p140me.bridgefy.cloud.C3519c.C3521a;
@@ -102,7 +102,7 @@ public class DevelopmentOptionsActivity extends BridgefyOrmLiteBaseActivity<Data
         m10757a("APP VERSION: ", "2.1.25 (82)");
         m10757a(this.f9590d, String.valueOf(C3622b.m10715a(getBaseContext(), (DatabaseHelper) getHelper()).mo29663b()));
         m10757a("Target: ", "Production");
-        m10757a("Token acquired: ", String.valueOf(C3517a.m10256a().mo29200g() != null));
+        m10757a("Token acquired: ", String.valueOf(google_controller.get_google_controller().get_id_token() != null));
         m10757a("Telephony Features: ", String.valueOf(C3659b.m10909e((Context) this)));
         String str = this.f9587a;
         StringBuilder sb3 = new StringBuilder();
@@ -237,7 +237,7 @@ public class DevelopmentOptionsActivity extends BridgefyOrmLiteBaseActivity<Data
 
     public void removeFirebaseToken(View view) {
         Log.i(this.f9587a, "removeFirebaseToken()");
-        C3517a.m10256a().mo29194b((String) null);
+        google_controller.get_google_controller().set_id_token((String) null);
         Toast.makeText(getApplicationContext(), "Token removed", 0).show();
     }
 

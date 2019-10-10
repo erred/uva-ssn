@@ -167,7 +167,7 @@ public class C3617a {
         if (this.f9548c == null) {
             this.f9548c = new C3457c(databaseHelper);
         }
-        FriendDTO c = this.f9548c.mo28323c(stringExtra);
+        FriendDTO c = this.f9548c.query_friend_dto_by_id(stringExtra);
         if (this.f9547b == null) {
             this.f9547b = new C3460d(databaseHelper);
         }

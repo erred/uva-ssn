@@ -69,7 +69,7 @@ public class BlockedUsersFragment extends Fragment {
         /* renamed from: a */
         public void mo29226a(FriendDTO friendDTO) {
             this.f9173b = friendDTO;
-            ((GradientDrawable) this.initialsTextView.getBackground()).setColor(BlockedUsersFragment.this.f9169b.mo28323c(friendDTO.getId()).getColor());
+            ((GradientDrawable) this.initialsTextView.getBackground()).setColor(BlockedUsersFragment.this.f9169b.query_friend_dto_by_id(friendDTO.getId()).getColor());
             this.usernameTextView.setText(friendDTO.buildDisplayName());
             this.initialsTextView.setText(C3659b.m10902b(friendDTO.buildDisplayName()));
             this.txtUnblock.setText(BlockedUsersFragment.this.getString(R.string.action_contact_unblock));

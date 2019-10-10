@@ -101,7 +101,7 @@ public class Bridgefy {
         public void onSuccess(BridgefyCertificate bridgefyCertificate) {
             bridgefyCertificate.save(this.context.getSharedPreferences(BridgefyCore.PREFS_NAME, 0));
             try {
-                BridgefyClient c = new C1873a(this.context).mo7216a(this.f5759a).mo7218b(this.f5760b).mo7215a().mo7219c();
+                BridgefyClient c = new C1873a(this.context).mo7216a(this.f5759a).mo7218b(this.f5760b).initialize_new_key_pair().mo7219c();
                 Bridgefy.m7653b(this.context, c);
                 Bridgefy.on_registration_success(this.registration_listener, c);
             } catch (Exception e) {

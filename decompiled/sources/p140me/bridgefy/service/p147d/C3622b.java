@@ -26,7 +26,7 @@ import org.apache.commons.p154a.C3688b;
 import p000a.p013b.p017b.C0161b;
 import p140me.bridgefy.backend.p143v3.bgfyMessageApi.model.BgfyMessage;
 import p140me.bridgefy.backend.p143v3.bgfyMessageApi.model.EndpointMessageResponse;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.cloud.C3519c;
 import p140me.bridgefy.cloud.C3519c.C3522b;
 import p140me.bridgefy.cloud.C3519c.C3523c;
@@ -112,8 +112,8 @@ public class C3622b extends C3629c {
     private C3622b(Context context, DatabaseHelper databaseHelper) {
         super(context, databaseHelper);
         this.f9559h = context.getSharedPreferences("BgfyPrefs", 0);
-        if (C3517a.m10256a() == null) {
-            C3517a.m10259a(mo29676c());
+        if (google_controller.get_google_controller() == null) {
+            google_controller.initialize_google_controller(mo29676c());
         }
         BridgefyApp.m10557c().mo29530g().mo27385a((Object) this);
     }
@@ -156,7 +156,7 @@ public class C3622b extends C3629c {
         new AsyncTask<Object, Object, Object[]>() {
             /* access modifiers changed from: protected */
             public void onPreExecute() {
-                C3517a.m10259a(C3622b.this.mo29676c());
+                google_controller.initialize_google_controller(C3622b.this.mo29676c());
             }
 
             /* access modifiers changed from: protected */
@@ -173,19 +173,19 @@ public class C3622b extends C3629c {
                                 case 1:
                                     C3659b.m10894a("Messages", "imageMessageSent", C3622b.this.f9557a, 0, BridgefyApp.m10557c().mo29529e());
                                     bgfyMessage = C3622b.this.m10711a(message, true);
-                                    C3517a.m10256a().mo29195b(C3622b.this.m10713a(message), C3622b.this.m10727b(message.getReceiver()));
+                                    google_controller.get_google_controller().mo29195b(C3622b.this.m10713a(message), C3622b.this.m10727b(message.getReceiver()));
                                     break;
                                 case 2:
                                     C3659b.m10894a("Messages", "locationMessageSent", C3622b.this.f9557a, 0, BridgefyApp.m10557c().mo29529e());
                                     BgfyMessage b = C3622b.this.m10728b(message);
-                                    bgfyMessage = C3517a.m10256a().mo29187a(new Message(b), b.getChecksumKey().longValue());
+                                    bgfyMessage = google_controller.get_google_controller().mo29187a(new Message(b), b.getChecksumKey().longValue());
                                     message.setStatus(3);
                                     a.setStatus(3);
                                     break;
                                 default:
                                     C3659b.m10894a("Messages", "textMessageSent", C3622b.this.f9557a, 0, BridgefyApp.m10557c().mo29529e());
                                     BgfyMessage b2 = C3622b.this.m10728b(message);
-                                    bgfyMessage = C3517a.m10256a().mo29187a(new Message(b2), b2.getChecksumKey().longValue());
+                                    bgfyMessage = google_controller.get_google_controller().mo29187a(new Message(b2), b2.getChecksumKey().longValue());
                                     message.setStatus(3);
                                     a.setStatus(3);
                                     break;
@@ -253,7 +253,7 @@ public class C3622b extends C3629c {
                     }
                 } else {
                     try {
-                        EndpointMessageResponse a2 = C3517a.m10256a().mo29188a(C3622b.this.m10709a(arrayList));
+                        EndpointMessageResponse a2 = google_controller.get_google_controller().mo29188a(C3622b.this.m10709a(arrayList));
                         if (a2.getBgfyMessages() != null && a2.getBgfyMessages().size() > 0) {
                             C3622b.this.m10719a(a2.getBgfyMessages());
                         }
@@ -385,7 +385,7 @@ public class C3622b extends C3629c {
         String a = this.f9578d.mo28315a(message.getReceiver());
         if (a == null) {
             Log.i("OnlineManager", "Updating key from backend");
-            a = C3517a.m10256a().mo29183a(message.getReceiver());
+            a = google_controller.get_google_controller().mo29183a(message.getReceiver());
             this.f9578d.mo28318a(message.getReceiver(), a);
         }
         try {
@@ -477,7 +477,7 @@ public class C3622b extends C3629c {
             java.lang.String r10 = (java.lang.String) r10     // Catch:{ all -> 0x0131 }
             me.bridgefy.a.c r1 = r8.f9578d     // Catch:{ all -> 0x0131 }
             java.lang.String r2 = r9.getSender()     // Catch:{ all -> 0x0131 }
-            me.bridgefy.ormlite.entities.FriendDTO r7 = r1.mo28323c(r2)     // Catch:{ all -> 0x0131 }
+            me.bridgefy.ormlite.entities.FriendDTO r7 = r1.query_friend_dto_by_id(r2)     // Catch:{ all -> 0x0131 }
             if (r7 == 0) goto L_0x006f
             boolean r1 = r7.isBlocked()     // Catch:{ all -> 0x0131 }
             if (r1 == 0) goto L_0x006f

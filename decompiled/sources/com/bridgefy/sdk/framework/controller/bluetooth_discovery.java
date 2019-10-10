@@ -273,7 +273,7 @@ class bluetooth_discovery extends abstract_bluetooth_discovery {
             if (z) {
                 DeviceManager.add_device_null_session(device);
                 connected_devices_add(bluetoothDevice);
-                this.f5975k.mo429a(device);
+                this.f5975k.on_next(device);
             } else if (!z && !z2) {
                 discovered_devices_add(bluetoothDevice);
             }

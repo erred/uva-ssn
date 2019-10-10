@@ -223,7 +223,7 @@ public class Session extends bluetooth_emitter_device implements com.bridgefy.sd
             try {
                 byte[] bArr = new byte[get_data_input_stream().readInt()];
                 get_data_input_stream().readFully(bArr);
-                mVar.mo429a(bArr);
+                mVar.on_next(bArr);
             } catch (IOException e) {
                 mVar.mo451a(e);
             }
@@ -439,7 +439,7 @@ public class Session extends bluetooth_emitter_device implements com.bridgefy.sd
                         build.setData(bleEntity.getData());
                     }
                     build.setUuid(bleEntityContent.getId());
-                    Bridgefy.getInstance().getBridgefyCore().get_core_listener_controller().mo7448a(build, this);
+                    Bridgefy.getInstance().getBridgefyCore().get_core_listener_controller().on_direct_message_received(build, this);
                     return;
                 case 3:
                     m7734c(bleEntity);

@@ -142,7 +142,7 @@ public class ChatEntryFragment extends Fragment implements C3619a {
         public void mo29117a(ChatEntry chatEntry) {
             this.f9077b = chatEntry;
             try {
-                C3460d dVar = new C3460d(BridgefyService.m10665d());
+                C3460d dVar = new C3460d(BridgefyService.get_database_helper());
                 int size = dVar.mo28330a(-1, chatEntry.getUserId()).size() + dVar.mo28330a(-2, chatEntry.getUserId()).size();
                 if (chatEntry.isMeshEnabled()) {
                     C3659b.m10893a((View) this.chatEntryContainer);
@@ -384,7 +384,7 @@ public class ChatEntryFragment extends Fragment implements C3619a {
         public Void doInBackground(String... strArr) {
             String str = strArr[0];
             String str2 = strArr[1];
-            new C3460d(BridgefyService.m10665d()).deleteMessages(str);
+            new C3460d(BridgefyService.get_database_helper()).deleteMessages(str);
             C3519c.m10306a(str, str2, (C3521a) null);
             return null;
         }
@@ -489,9 +489,9 @@ public class ChatEntryFragment extends Fragment implements C3619a {
     /* access modifiers changed from: private */
     /* renamed from: a */
     public void m10153a() {
-        if (BridgefyService.m10665d() != null) {
+        if (BridgefyService.get_database_helper() != null) {
             try {
-                new C3460d(BridgefyService.m10665d()).mo28339a(((TabbedMainActivity) getActivity()).mo29539m(), (C3523c<ArrayList<ChatEntry>>) new C3523c<ArrayList<ChatEntry>>() {
+                new C3460d(BridgefyService.get_database_helper()).mo28339a(((TabbedMainActivity) getActivity()).mo29539m(), (C3523c<ArrayList<ChatEntry>>) new C3523c<ArrayList<ChatEntry>>() {
                     /* renamed from: a */
                     public void onSuccess(ArrayList<ChatEntry> arrayList) {
                         if (ChatEntryFragment.this.f9070f != null) {
@@ -516,7 +516,7 @@ public class ChatEntryFragment extends Fragment implements C3619a {
                     this.emptyContainerView.setVisibility(8);
                     this.emptyContactsView.setVisibility(8);
                     this.emptyChatsView.setVisibility(8);
-                } else if (new C3457c(BridgefyService.m10665d()).mo28317a(false).size() == 0) {
+                } else if (new C3457c(BridgefyService.get_database_helper()).mo28317a(false).size() == 0) {
                     if (getActivity() != null) {
                         ((TabbedMainActivity) getActivity()).tooltipNewConversation.setVisibility(8);
                     }

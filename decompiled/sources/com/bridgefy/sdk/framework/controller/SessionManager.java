@@ -137,7 +137,7 @@ public class SessionManager {
         sb.append("remove Session: id - ");
         sb.append(session.getSessionId());
         Log.w("SessionManager", sb.toString());
-        transaction_manager.m7857a(session);
+        transaction_manager.remove_duplicate_in_queues(session);
         abstract_config.null_or_except(session);
         Device device = session.getDevice();
         if (session.getEmitter() != null) {

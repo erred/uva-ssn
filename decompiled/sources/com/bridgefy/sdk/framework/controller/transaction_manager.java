@@ -29,14 +29,14 @@ class transaction_manager {
     public static String f5920a = "TransactionManager";
 
     /* renamed from: b */
-    private static ConcurrentSkipListMap<Session, ConcurrentNavigableMap<chunk_generator, Boolean>> f5921b = new ConcurrentSkipListMap<>();
+    private static ConcurrentSkipListMap<Session, ConcurrentNavigableMap<chunk_generator, Boolean>> sessions_to_chunk_queues = new ConcurrentSkipListMap<>();
 
     /* renamed from: c */
-    private static ConcurrentNavigableMap<chunk_generator, Boolean> f5922c = new ConcurrentSkipListMap();
+    private static ConcurrentNavigableMap<chunk_generator, Boolean> queue_ble = new ConcurrentSkipListMap();
     /* access modifiers changed from: private */
 
     /* renamed from: d */
-    public static ConcurrentNavigableMap<chunk_generator, Boolean> f5923d = new ConcurrentSkipListMap();
+    public static ConcurrentNavigableMap<chunk_generator, Boolean> queue_bluetooth = new ConcurrentSkipListMap();
 
     /* renamed from: e */
     private static boolean f5924e = false;
@@ -52,25 +52,25 @@ class transaction_manager {
         synchronized (session) {
             chunk_generator alVar = new chunk_generator(session, bleEntity, transaction_manager);
             if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
-                f5923d.put(alVar, Boolean.TRUE);
-                m7867d();
+                queue_bluetooth.put(alVar, Boolean.TRUE);
+                send_message_in_background();
             } else if (session.is_gatt_server()) {
-                if (m7866d(session).containsKey(alVar)) {
+                if (get_or_add_sessions_to_chunk_queues(session).containsKey(alVar)) {
                     Log.e(f5920a, "sendEntity: transaction was queued");
                 } else {
-                    m7866d(session).put(alVar, Boolean.TRUE);
+                    get_or_add_sessions_to_chunk_queues(session).put(alVar, Boolean.TRUE);
                 }
                 m7861b(session);
             } else {
-                f5922c.put(alVar, Boolean.TRUE);
-                m7863c();
+                queue_ble.put(alVar, Boolean.TRUE);
+                send_entity_ble();
             }
         }
     }
 
     /* renamed from: a */
     static chunk_generator match_bluetooth_device(BluetoothDevice bluetoothDevice) {
-        for (ConcurrentNavigableMap keySet : f5921b.values()) {
+        for (ConcurrentNavigableMap keySet : sessions_to_chunk_queues.values()) {
             Iterator it = keySet.keySet().iterator();
             while (true) {
                 if (it.hasNext()) {
@@ -85,29 +85,29 @@ class transaction_manager {
     }
 
     /* renamed from: a */
-    static void m7857a(Session session) {
-        ConcurrentNavigableMap concurrentNavigableMap = (ConcurrentNavigableMap) f5921b.remove(session);
+    static void remove_duplicate_in_queues(Session session) {
+        ConcurrentNavigableMap concurrentNavigableMap = (ConcurrentNavigableMap) sessions_to_chunk_queues.remove(session);
         ArrayList arrayList = new ArrayList();
-        for (chunk_generator alVar : f5922c.keySet()) {
+        for (chunk_generator alVar : queue_ble.keySet()) {
             if (alVar.get_session().equals(session)) {
                 arrayList.add(alVar);
             }
         }
         Iterator it = arrayList.iterator();
         while (it.hasNext()) {
-            f5922c.remove((chunk_generator) it.next());
+            queue_ble.remove((chunk_generator) it.next());
         }
-        for (chunk_generator alVar2 : f5923d.keySet()) {
+        for (chunk_generator alVar2 : queue_bluetooth.keySet()) {
             if (alVar2.get_session().equals(session)) {
-                f5923d.remove(alVar2);
+                queue_bluetooth.remove(alVar2);
             }
         }
         arrayList.clear();
     }
 
     /* renamed from: c */
-    private synchronized boolean m7865c(chunk_generator alVar) {
-        m7866d(alVar.get_session()).remove(alVar);
+    private synchronized boolean remove_chunk_from_sessions_queue(chunk_generator alVar) {
+        get_or_add_sessions_to_chunk_queues(alVar.get_session()).remove(alVar);
         return false;
     }
 
@@ -122,15 +122,15 @@ class transaction_manager {
             monitor-enter(r0)
             boolean r1 = r4.is_gatt_server()     // Catch:{ all -> 0x004c }
             if (r1 == 0) goto L_0x001b
-            java.util.concurrent.ConcurrentSkipListMap<com.bridgefy.sdk.framework.controller.Session, java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.controller.al, java.lang.Boolean>> r1 = f5921b     // Catch:{ all -> 0x004c }
+            java.util.concurrent.ConcurrentSkipListMap<com.bridgefy.sdk.framework.controller.Session, java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.controller.al, java.lang.Boolean>> r1 = sessions_to_chunk_queues     // Catch:{ all -> 0x004c }
             java.lang.Object r1 = r1.get(r4)     // Catch:{ all -> 0x004c }
             java.util.concurrent.ConcurrentNavigableMap r1 = (java.util.concurrent.ConcurrentNavigableMap) r1     // Catch:{ all -> 0x004c }
             int r1 = r1.size()     // Catch:{ all -> 0x004c }
             if (r1 <= 0) goto L_0x001b
-            m7864c(r4)     // Catch:{ all -> 0x004c }
+            change_bluetooth_characteristics_m7864c(r4)     // Catch:{ all -> 0x004c }
             goto L_0x004a
         L_0x001b:
-            java.util.concurrent.ConcurrentSkipListMap<com.bridgefy.sdk.framework.controller.Session, java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.controller.al, java.lang.Boolean>> r1 = f5921b     // Catch:{ all -> 0x004c }
+            java.util.concurrent.ConcurrentSkipListMap<com.bridgefy.sdk.framework.controller.Session, java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.controller.al, java.lang.Boolean>> r1 = sessions_to_chunk_queues     // Catch:{ all -> 0x004c }
             java.util.NavigableSet r1 = r1.keySet()     // Catch:{ all -> 0x004c }
             java.util.Iterator r1 = r1.iterator()     // Catch:{ all -> 0x004c }
         L_0x0025:
@@ -140,12 +140,12 @@ class transaction_manager {
             com.bridgefy.sdk.framework.controller.Session r2 = (com.bridgefy.sdk.framework.controller.Session) r2     // Catch:{ all -> 0x004c }
             boolean r3 = r2.equals(r4)     // Catch:{ all -> 0x004c }
             if (r3 != 0) goto L_0x0025
-            java.util.concurrent.ConcurrentSkipListMap<com.bridgefy.sdk.framework.controller.Session, java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.controller.al, java.lang.Boolean>> r3 = f5921b     // Catch:{ all -> 0x004c }
+            java.util.concurrent.ConcurrentSkipListMap<com.bridgefy.sdk.framework.controller.Session, java.util.concurrent.ConcurrentNavigableMap<com.bridgefy.sdk.framework.controller.al, java.lang.Boolean>> r3 = sessions_to_chunk_queues     // Catch:{ all -> 0x004c }
             java.lang.Object r3 = r3.get(r2)     // Catch:{ all -> 0x004c }
             java.util.concurrent.ConcurrentNavigableMap r3 = (java.util.concurrent.ConcurrentNavigableMap) r3     // Catch:{ all -> 0x004c }
             int r3 = r3.size()     // Catch:{ all -> 0x004c }
             if (r3 <= 0) goto L_0x0025
-            m7864c(r2)     // Catch:{ all -> 0x004c }
+            change_bluetooth_characteristics_m7864c(r2)     // Catch:{ all -> 0x004c }
             monitor-exit(r0)
             return
         L_0x004a:
@@ -160,7 +160,7 @@ class transaction_manager {
     }
 
     /* renamed from: c */
-    private static void m7864c(Session session) {
+    private static void change_bluetooth_characteristics_m7864c(Session session) {
         try {
             BluetoothGattCharacteristic characteristic = session.get_bluetooth_gatt_server().getService(bluetooth_le_settings_builder.m7989b()).getCharacteristic(bluetooth_le_settings_builder.m7991c());
             characteristic.setValue(new byte[]{7});
@@ -171,8 +171,8 @@ class transaction_manager {
     }
 
     /* renamed from: c */
-    private static void m7863c() {
-        chunk_generator alVar = (chunk_generator) f5922c.pollFirstEntry().getKey();
+    private static void send_entity_ble() {
+        chunk_generator alVar = (chunk_generator) queue_ble.pollFirstEntry().getKey();
         Session c = alVar.get_session();
         chunk_generator_with_queue acVar = new chunk_generator_with_queue(alVar);
         for (int i = 0; i < alVar.get_generated_chunk().size(); i++) {
@@ -184,24 +184,24 @@ class transaction_manager {
     }
 
     /* renamed from: d */
-    private static void m7867d() {
+    private static void send_message_in_background() {
         new AsyncTask() {
             /* access modifiers changed from: protected */
             public synchronized Object doInBackground(Object[] objArr) {
-                if (transaction_manager.f5923d.size() > 0) {
-                    chunk_generator alVar = (chunk_generator) transaction_manager.f5923d.pollFirstEntry().getKey();
+                if (transaction_manager.queue_bluetooth.size() > 0) {
+                    chunk_generator alVar = (chunk_generator) transaction_manager.queue_bluetooth.pollFirstEntry().getKey();
                     try {
                         alVar.get_session().mo7380b(alVar.get_ble_entity());
-                        alVar.get_transaction_manager().m7868d(alVar);
+                        alVar.get_transaction_manager().send_message(alVar);
                     } catch (IOException e) {
                         e.printStackTrace();
-                        alVar.get_transaction_manager().m7869e(alVar);
+                        alVar.get_transaction_manager().fail_send_message(alVar);
                     } catch (MessageException e2) {
                         e2.printStackTrace();
-                        alVar.get_transaction_manager().m7869e(alVar);
+                        alVar.get_transaction_manager().fail_send_message(alVar);
                     } catch (InterruptedException e3) {
                         Log.e(transaction_manager.f5920a, "doInBackground: ", e3);
-                        transaction_manager.f5923d.put(alVar, Boolean.TRUE);
+                        transaction_manager.queue_bluetooth.put(alVar, Boolean.TRUE);
                     }
                 }
                 return null;
@@ -211,10 +211,10 @@ class transaction_manager {
 
     /* access modifiers changed from: private */
     /* renamed from: d */
-    public void m7868d(chunk_generator alVar) {
+    public void send_message(chunk_generator alVar) {
         int et = alVar.get_ble_entity().getEt();
         if (et == 1) {
-            for (Message message : m7870f(alVar)) {
+            for (Message message : get_ble_entity_content(alVar)) {
                 if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         public final void run() {
@@ -224,7 +224,7 @@ class transaction_manager {
                 }
             }
         } else if (et == 3) {
-            ForwardTransaction g = m7871g(alVar);
+            ForwardTransaction g = get_forward_transaction(alVar);
             if (SessionManager.getSession(alVar.get_bluetooth_device().getAddress()) != null && g.getMesh() != null && g.getMesh().size() > 0) {
                 forward_controller.m8027a(g.getMesh());
             }
@@ -240,25 +240,25 @@ class transaction_manager {
 
     /* access modifiers changed from: private */
     /* renamed from: e */
-    public void m7869e(chunk_generator alVar) {
+    public void fail_send_message(chunk_generator alVar) {
         int et = alVar.get_ble_entity().getEt();
         if (et == 1) {
-            for (Message message : m7870f(alVar)) {
+            for (Message message : get_ble_entity_content(alVar)) {
                 if (Bridgefy.getInstance().getBridgefyCore().get_message_listener() != null) {
                     Bridgefy.getInstance().getBridgefyCore().get_message_listener().onMessageFailed(message, new MessageException("Send Message Failed."));
                 }
             }
         } else if (et == 3) {
-            ForwardTransaction g = m7871g(alVar);
+            ForwardTransaction g = get_forward_transaction(alVar);
             Session session = SessionManager.getSession(alVar.get_bluetooth_device().getAddress());
             if (session != null) {
-                forward_controller.m8028a(g.getMesh(), session);
+                forward_controller.fail_match_sender_self(g.getMesh(), session);
             }
         }
     }
 
     /* renamed from: f */
-    private List<Message> m7870f(chunk_generator alVar) {
+    private List<Message> get_ble_entity_content(chunk_generator alVar) {
         ArrayList arrayList = new ArrayList();
         if (alVar.get_ble_entity().getEt() == 1) {
             BleEntityContent bleEntityContent = (BleEntityContent) alVar.get_ble_entity().getCt();
@@ -273,7 +273,7 @@ class transaction_manager {
     }
 
     /* renamed from: g */
-    private ForwardTransaction m7871g(chunk_generator alVar) {
+    private ForwardTransaction get_forward_transaction(chunk_generator alVar) {
         if (alVar.get_ble_entity().getEt() != 3) {
             return null;
         }
@@ -282,28 +282,28 @@ class transaction_manager {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7474a(chunk_generator alVar) {
+    public void send_remove_queue(chunk_generator alVar) {
         alVar.get_session();
-        m7868d(alVar);
-        m7865c(alVar);
+        send_message(alVar);
+        remove_chunk_from_sessions_queue(alVar);
     }
 
     /* access modifiers changed from: 0000 */
     /* renamed from: b */
-    public void mo7475b(chunk_generator alVar) {
+    public void failed_send_remove_queue(chunk_generator alVar) {
         alVar.get_session();
-        m7869e(alVar);
-        m7865c(alVar);
+        fail_send_message(alVar);
+        remove_chunk_from_sessions_queue(alVar);
     }
 
     /* renamed from: d */
-    private static ConcurrentNavigableMap m7866d(Session session) {
-        ConcurrentNavigableMap concurrentNavigableMap = (ConcurrentNavigableMap) f5921b.get(session);
+    private static ConcurrentNavigableMap get_or_add_sessions_to_chunk_queues(Session session) {
+        ConcurrentNavigableMap concurrentNavigableMap = (ConcurrentNavigableMap) sessions_to_chunk_queues.get(session);
         if (concurrentNavigableMap != null) {
             return concurrentNavigableMap;
         }
         ConcurrentSkipListMap concurrentSkipListMap = new ConcurrentSkipListMap();
-        f5921b.put(session, concurrentSkipListMap);
+        sessions_to_chunk_queues.put(session, concurrentSkipListMap);
         return concurrentSkipListMap;
     }
 }

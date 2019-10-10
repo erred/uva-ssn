@@ -133,7 +133,7 @@ public class C3662d {
     }
 
     /* renamed from: a */
-    public HashMap<String, Pair<String, String>> mo29826a(String str) {
+    public HashMap<String, Pair<String, String>> get_phone_records(String str) {
         String c = str != null ? m10924c(str) : "";
         HashMap<String, Pair<String, String>> hashMap = new HashMap<>();
         Cursor query = this.f9692a.getContentResolver().query(Phone.CONTENT_URI, new String[]{"data1", "display_name", "data2"}, null, null, null);

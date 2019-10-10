@@ -14,7 +14,7 @@ class message_listener_controller extends message_listener_interface<Message> {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7440a(Message message) {
+    public void wrap_on_message_received(Message message) {
         if (get_message_listener() && !contains(message)) {
             new Handler(Looper.getMainLooper()).post(new Runnable(message) {
                 private final /* synthetic */ Message f$1;
@@ -64,7 +64,7 @@ class message_listener_controller extends message_listener_interface<Message> {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7442a(String str, MessageException messageException) {
+    public void message_received_exception(String str, MessageException messageException) {
         if (get_message_listener()) {
             new Handler(Looper.getMainLooper()).post(new Runnable(str, messageException) {
                 private final /* synthetic */ String f$1;

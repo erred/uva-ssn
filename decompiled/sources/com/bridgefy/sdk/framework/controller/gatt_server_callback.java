@@ -121,7 +121,7 @@ class gatt_server_callback extends BluetoothGattServerCallback {
         }
         if (a.get_generated_chunk().isEmpty()) {
             a.clear_async_tasks();
-            a.get_transaction_manager().mo7474a(a);
+            a.get_transaction_manager().send_remove_queue(a);
         }
     }
 

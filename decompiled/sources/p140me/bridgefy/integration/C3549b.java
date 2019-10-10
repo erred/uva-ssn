@@ -343,10 +343,10 @@ public class C3549b extends MessageListener {
                             Builder builder2 = new Builder();
                             builder2.setReceiverId(senderId).setContent(hashMap2);
                             if (Bridgefy.sendMessage(builder2.build(), BFEngineProfile.BFConfigProfileNoFowarding) == null) {
-                                C3622b.m10715a(C3549b.this.mo29428a(), BridgefyService.m10665d()).mo29660a(senderId, -1);
+                                C3622b.m10715a(C3549b.this.mo29428a(), BridgefyService.get_database_helper()).mo29660a(senderId, -1);
                             }
                         }
-                        FriendDTO c = C3549b.this.f9293b.mo28323c(senderId);
+                        FriendDTO c = C3549b.this.f9293b.query_friend_dto_by_id(senderId);
                         String a = C3549b.this.f9293b.mo28316a(c, senderId, null, null, C3549b.this.mo29428a());
                         p140me.bridgefy.entities.Message message = new p140me.bridgefy.entities.Message(message.getUuid(), appEntityMessage.getDateSent(), C3549b.this.f9295d, senderId, "", a, appEntityMessage.getMessageType());
                         message.setStatus(-1);
@@ -455,7 +455,7 @@ public class C3549b extends MessageListener {
             public final void run() {
                 C3549b.this.m10412a(this.f$1);
             }
-        }, C3622b.m10715a(mo29428a(), BridgefyService.m10665d()).mo29663b() ? 6000 : 500, TimeUnit.MILLISECONDS);
+        }, C3622b.m10715a(mo29428a(), BridgefyService.get_database_helper()).mo29663b() ? 6000 : 500, TimeUnit.MILLISECONDS);
     }
 
     /* access modifiers changed from: private */
@@ -582,10 +582,10 @@ public class C3549b extends MessageListener {
             switch (appHandShake.getResponseJson().getTp()) {
                 case 0:
                     if (appHandShake.getResponseJson().getUid() != null) {
-                        FriendDTO c = this.f9293b.mo28323c(appHandShake.getResponseJson().getUid());
+                        FriendDTO c = this.f9293b.query_friend_dto_by_id(appHandShake.getResponseJson().getUid());
                         if (c == null) {
                             c = new FriendDTO(appHandShake.getResponseJson().getUid(), appHandShake.getResponseJson().getUn(), null);
-                            this.f9293b.mo28319a(c);
+                            this.f9293b.set_friend_dto(c);
                         }
                         if (c.getPhoneNumber() == null && appHandShake.getResponseJson().getVrf() != 1) {
                             appRequestJson = new AppRequestJson(1, BleHandshake.DEVICE_TYPE);
@@ -595,9 +595,9 @@ public class C3549b extends MessageListener {
                     break;
                 case 1:
                     if (!appHandShake.getResponseJson().isDn()) {
-                        FriendDTO c2 = this.f9293b.mo28323c(str);
+                        FriendDTO c2 = this.f9293b.query_friend_dto_by_id(str);
                         c2.setPhoneNumber(appHandShake.getResponseJson().getPh());
-                        this.f9293b.mo28319a(c2);
+                        this.f9293b.set_friend_dto(c2);
                         break;
                     } else {
                         appResponseJson = AppResponseJson.ResponseTypeHandshakeFinished(str);
@@ -605,7 +605,7 @@ public class C3549b extends MessageListener {
                         break;
                     }
                 case 2:
-                    if (this.f9293b.mo28323c(str) == null) {
+                    if (this.f9293b.query_friend_dto_by_id(str) == null) {
                         appRequestJson = new AppRequestJson(0, BleHandshake.DEVICE_TYPE);
                         break;
                     } else {
@@ -614,7 +614,7 @@ public class C3549b extends MessageListener {
                     }
             }
         }
-        FriendDTO c3 = this.f9293b.mo28323c(str);
+        FriendDTO c3 = this.f9293b.query_friend_dto_by_id(str);
         if (appRequestJson == null && c3 == null) {
             appRequestJson = new AppRequestJson(0, BleHandshake.DEVICE_TYPE);
         } else if (!(c3 == null || ((c3.getPhoneNumber() != null && c3.getPhoneNumber().trim().length() != 0) || appHandShake == null || appHandShake.getResponseJson() == null || appHandShake.getResponseJson().getVrf() == 1 || appHandShake.getResponseJson().isDn()))) {
@@ -633,7 +633,7 @@ public class C3549b extends MessageListener {
 
     /* renamed from: a */
     private void m10413a(String str) {
-        FriendDTO c = this.f9293b.mo28323c(str);
+        FriendDTO c = this.f9293b.query_friend_dto_by_id(str);
         BridgefyPeer bridgefyPeer = c != null ? new BridgefyPeer(c) : null;
         if (bridgefyPeer != null) {
             C3615a.m10678a().mo29650a(bridgefyPeer, Antenna.BLUETOOTH_LE);

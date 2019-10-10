@@ -59,7 +59,7 @@ public class C3543c extends AsyncTask<C3540a, Void, Void> {
         /*
             r4 = this;
             r5 = 0
-            me.bridgefy.cloud.a r0 = p140me.bridgefy.cloud.C3517a.m10256a()     // Catch:{ IOException | NullPointerException | NumberFormatException -> 0x008e }
+            me.bridgefy.cloud.a r0 = p140me.bridgefy.cloud.google_controller.get_google_controller()     // Catch:{ IOException | NullPointerException | NumberFormatException -> 0x008e }
             me.bridgefy.entities.Message r1 = r4.f9274b     // Catch:{ IOException | NullPointerException | NumberFormatException -> 0x008e }
             java.lang.String r1 = r1.getMessageId()     // Catch:{ IOException | NullPointerException | NumberFormatException -> 0x008e }
             long r1 = java.lang.Long.parseLong(r1)     // Catch:{ IOException | NullPointerException | NumberFormatException -> 0x008e }
@@ -102,7 +102,7 @@ public class C3543c extends AsyncTask<C3540a, Void, Void> {
             r2.<init>(r3)     // Catch:{ IllegalStateException | OrmLiteBridgefyException -> 0x007c, IOException | NullPointerException | NumberFormatException -> 0x008e, IOException | NullPointerException | NumberFormatException -> 0x008e }
             me.bridgefy.entities.Message r3 = r4.f9274b     // Catch:{ IllegalStateException | OrmLiteBridgefyException -> 0x007c, IOException | NullPointerException | NumberFormatException -> 0x008e, IOException | NullPointerException | NumberFormatException -> 0x008e }
             java.lang.String r3 = r3.getSender()     // Catch:{ IllegalStateException | OrmLiteBridgefyException -> 0x007c, IOException | NullPointerException | NumberFormatException -> 0x008e, IOException | NullPointerException | NumberFormatException -> 0x008e }
-            me.bridgefy.ormlite.entities.FriendDTO r2 = r2.mo28323c(r3)     // Catch:{ IllegalStateException | OrmLiteBridgefyException -> 0x007c, IOException | NullPointerException | NumberFormatException -> 0x008e, IOException | NullPointerException | NumberFormatException -> 0x008e }
+            me.bridgefy.ormlite.entities.FriendDTO r2 = r2.query_friend_dto_by_id(r3)     // Catch:{ IllegalStateException | OrmLiteBridgefyException -> 0x007c, IOException | NullPointerException | NumberFormatException -> 0x008e, IOException | NullPointerException | NumberFormatException -> 0x008e }
             me.bridgefy.entities.Message r3 = r4.f9274b     // Catch:{ IllegalStateException | OrmLiteBridgefyException -> 0x007c, IOException | NullPointerException | NumberFormatException -> 0x008e, IOException | NullPointerException | NumberFormatException -> 0x008e }
             r1.mo28336a(r2, r3, r5)     // Catch:{ IllegalStateException | OrmLiteBridgefyException -> 0x007c, IOException | NullPointerException | NumberFormatException -> 0x008e, IOException | NullPointerException | NumberFormatException -> 0x008e }
             goto L_0x0080

@@ -486,12 +486,12 @@ public class ChatActivity extends BridgefyOrmLiteBaseActivity<DatabaseHelper> im
             }
         } else {
             try {
-                if (C3622b.m10715a(getApplicationContext(), BridgefyService.m10665d()).mo29663b()) {
+                if (C3622b.m10715a(getApplicationContext(), BridgefyService.get_database_helper()).mo29663b()) {
                     new AsyncTask<Void, Void, Void>() {
                         /* access modifiers changed from: protected */
                         /* renamed from: a */
                         public Void doInBackground(Void... voidArr) {
-                            C3622b.m10715a(ChatActivity.this.getApplicationContext(), BridgefyService.m10665d()).mo29660a(ChatActivity.this.f9003d, 5);
+                            C3622b.m10715a(ChatActivity.this.getApplicationContext(), BridgefyService.get_database_helper()).mo29660a(ChatActivity.this.f9003d, 5);
                             return null;
                         }
                     }.execute(new Void[0]);
@@ -534,7 +534,7 @@ public class ChatActivity extends BridgefyOrmLiteBaseActivity<DatabaseHelper> im
 
     /* renamed from: n */
     private void m10112n() {
-        this.f9001b = this.f9008i.mo28323c(this.f9003d);
+        this.f9001b = this.f9008i.query_friend_dto_by_id(this.f9003d);
         if (this.f9001b != null) {
             if (this.f9001b.getPublicKey() == null) {
                 String str = this.f9000a;
@@ -565,7 +565,7 @@ public class ChatActivity extends BridgefyOrmLiteBaseActivity<DatabaseHelper> im
                 this.f9004e = (String) b.second;
                 this.f9001b.setContactName(this.f9004e);
             }
-            this.f9008i.mo28319a(this.f9001b);
+            this.f9008i.set_friend_dto(this.f9001b);
         }
         this.f9013n.setText(this.f9004e);
     }

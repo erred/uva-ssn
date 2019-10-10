@@ -66,7 +66,7 @@ class forward_controller {
 
         /* renamed from: a */
         private void send_pack_to_session(Session session) {
-            List a = forward_controller.this.m8032c(String.valueOf(session.getCrc()));
+            List a = forward_controller.this.resolve_forward_current_map(String.valueOf(session.getCrc()));
             if (a.size() > 0 || this.f6011b) {
                 BleEntity meshMessage = BleEntity.meshMessage(this.f6011b, (ArrayList) a, Bridgefy.getInstance().getBridgefyClient().getUserUuid());
                 if (session.getAntennaType() != Antenna.BLUETOOTH_LE) {
@@ -113,7 +113,7 @@ class forward_controller {
         if (r11 == false) goto L_0x00d6;
      */
     /* JADX WARNING: Code restructure failed: missing block: B:37:0x00ce, code lost:
-        mo7562a(com.bridgefy.sdk.framework.controller.SessionManager.getSessions(), false);
+        execute_on_executor(com.bridgefy.sdk.framework.controller.SessionManager.getSessions(), false);
      */
     /* JADX WARNING: Code restructure failed: missing block: B:38:0x00d6, code lost:
         return;
@@ -219,7 +219,7 @@ class forward_controller {
             if (r11 == 0) goto L_0x00d6
             java.util.ArrayList r10 = com.bridgefy.sdk.framework.controller.SessionManager.getSessions()
             r11 = 0
-            r9.mo7562a(r10, r11)
+            r9.execute_on_executor(r10, r11)
         L_0x00d6:
             return
         L_0x00d7:
@@ -276,16 +276,16 @@ class forward_controller {
 
     /* access modifiers changed from: private */
     /* renamed from: c */
-    public List<ForwardPacket> m8032c(String str) {
+    public List<ForwardPacket> resolve_forward_current_map(String str) {
         ArrayList arrayList = new ArrayList();
         for (ForwardPacket add : this.current_map.descendingKeySet()) {
             arrayList.add(add);
         }
-        return m8029b((List<ForwardPacket>) arrayList, str);
+        return resolve_forward_packets((List<ForwardPacket>) arrayList, str);
     }
 
     /* renamed from: b */
-    private List<ForwardPacket> m8029b(List<ForwardPacket> list, String str) {
+    private List<ForwardPacket> resolve_forward_packets(List<ForwardPacket> list, String str) {
         ArrayList arrayList = new ArrayList();
         long longValue = Long.valueOf(str).longValue();
         for (ForwardPacket forwardPacket : list) {
@@ -343,7 +343,7 @@ class forward_controller {
 
     /* access modifiers changed from: 0000 */
     /* renamed from: a */
-    public void mo7562a(ArrayList<Session> arrayList, boolean z) {
+    public void execute_on_executor(ArrayList<Session> arrayList, boolean z) {
         new C1934a(z).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, arrayList.toArray(new Session[arrayList.size()]));
     }
 
@@ -366,7 +366,7 @@ class forward_controller {
     }
 
     /* renamed from: a */
-    static void m8028a(List<ForwardPacket> list, Session session) {
+    static void fail_match_sender_self(List<ForwardPacket> list, Session session) {
         un_resolve_forward_packets(list, String.valueOf(session.getCrc()));
         for (ForwardPacket forwardPacket : list) {
             if (Bridgefy.getInstance().getBridgefyClient().getUserUuid().equalsIgnoreCase(forwardPacket.getSender())) {
@@ -396,7 +396,7 @@ class forward_controller {
             forwardPacket.setAdded(new Date(System.currentTimeMillis()));
             receive_add_or_drop(forwardPacket, session);
         }
-        mo7562a(SessionManager.getSessions(), false);
+        execute_on_executor(SessionManager.getSessions(), false);
     }
 
     /* renamed from: a */

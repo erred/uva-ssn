@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import me.bridgefy.main.R;
 import net.sqlcipher.database.SQLiteException;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.cloud.C3519c;
 import p140me.bridgefy.cloud.C3519c.C3521a;
 import p140me.bridgefy.integration.C3549b;
@@ -53,7 +53,7 @@ public class BridgefyService extends BridgefyORMLiteService {
     public static final String f9519d = "BridgefyService";
 
     /* renamed from: h */
-    private static DatabaseHelper f9520h;
+    private static DatabaseHelper database_helper;
 
     /* renamed from: l */
     private static String f9521l;
@@ -181,9 +181,9 @@ public class BridgefyService extends BridgefyORMLiteService {
         f9518b = true;
         this.f9523a = getApplicationContext().getSharedPreferences("BgfyPrefs", 0);
         this.f9529j = new Handler();
-        C3517a.m10259a(getApplicationContext());
+        google_controller.initialize_google_controller(getApplicationContext());
         m10668g();
-        this.f9531m = new C3549b(getApplicationContext(), m10665d());
+        this.f9531m = new C3549b(getApplicationContext(), get_database_helper());
         if (BridgefyApp.m10557c().mo29530g() != null) {
             BridgefyApp.m10557c().mo29530g().mo27385a((Object) this);
         }
@@ -191,9 +191,9 @@ public class BridgefyService extends BridgefyORMLiteService {
 
     /* renamed from: g */
     private void m10668g() {
-        if (getHelper() != null && m10665d() == null) {
+        if (getHelper() != null && get_database_helper() == null) {
             m10661a((DatabaseHelper) getHelper());
-            f9520h = (DatabaseHelper) getHelper();
+            database_helper = (DatabaseHelper) getHelper();
             Log.d(f9519d, "Configuring the databaseHelper");
         }
     }
@@ -243,7 +243,7 @@ public class BridgefyService extends BridgefyORMLiteService {
             }
             switch (c) {
                 case 0:
-                    C3622b.m10715a(getBaseContext(), m10665d()).mo29658a(intent, (Context) this, m10665d());
+                    C3622b.m10715a(getBaseContext(), get_database_helper()).mo29658a(intent, (Context) this, get_database_helper());
                     break;
                 case 1:
                     m10669h();
@@ -369,7 +369,7 @@ public class BridgefyService extends BridgefyORMLiteService {
             goto L_0x00bb
         L_0x004d:
             r4 = 0
-            f9520h = r4
+            database_helper = r4
             r3.m10670i()
             r3.stopSelf()
             r3.mo29635a()
@@ -389,19 +389,19 @@ public class BridgefyService extends BridgefyORMLiteService {
             if (r4 != 0) goto L_0x008b
             me.bridgefy.integration.b r4 = new me.bridgefy.integration.b
             android.content.Context r0 = r3.getApplicationContext()
-            me.bridgefy.ormlite.DatabaseHelper r1 = m10665d()
+            me.bridgefy.ormlite.DatabaseHelper r1 = get_database_helper()
             r4.<init>(r0, r1)
             r3.f9531m = r4
             goto L_0x0094
         L_0x008b:
             me.bridgefy.integration.b r4 = r3.f9531m
-            me.bridgefy.ormlite.DatabaseHelper r0 = m10665d()
+            me.bridgefy.ormlite.DatabaseHelper r0 = get_database_helper()
             r4.mo29429a(r0)
         L_0x0094:
             me.bridgefy.integration.b r4 = r3.f9531m
             me.bridgefy.integration.a r0 = new me.bridgefy.integration.a
             android.content.Context r1 = r3.getApplicationContext()
-            me.bridgefy.ormlite.DatabaseHelper r2 = m10665d()
+            me.bridgefy.ormlite.DatabaseHelper r2 = get_database_helper()
             r0.<init>(r1, r2)
             com.bridgefy.sdk.client.Config r1 = r3.f9527g
             com.bridgefy.sdk.client.Bridgefy.start(r4, r0, r1)
@@ -464,8 +464,8 @@ public class BridgefyService extends BridgefyORMLiteService {
     }
 
     /* renamed from: d */
-    public static DatabaseHelper m10665d() {
-        return f9520h;
+    public static DatabaseHelper get_database_helper() {
+        return database_helper;
     }
 
     /* renamed from: e */

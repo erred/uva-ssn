@@ -6,7 +6,7 @@ import com.google.api.client.http.HttpStatusCodes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.entities.Message;
 import p140me.bridgefy.main.BridgefyApp;
 import p140me.bridgefy.ormlite.DatabaseHelper;
@@ -66,7 +66,7 @@ public class C3651a {
                 }
             }
             String b = bVar.mo29783b();
-            String a = C3517a.m10256a().mo29183a(b);
+            String a = google_controller.get_google_controller().mo29183a(b);
             if (a != null) {
                 new C3457c(databaseHelper).mo28318a(b, a);
                 Iterator it2 = arrayList.iterator();

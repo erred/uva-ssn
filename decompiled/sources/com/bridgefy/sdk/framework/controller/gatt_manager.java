@@ -40,7 +40,7 @@ class gatt_manager {
             while (it.hasNext()) {
                 this.f5879a.remove((gatt_operation) it.next());
             }
-            this.gatt_operation.get_chunk_generator_with_queue().get_chunk_generator().get_transaction_manager().mo7475b(this.gatt_operation.get_chunk_generator_with_queue().get_chunk_generator());
+            this.gatt_operation.get_chunk_generator_with_queue().get_chunk_generator().get_transaction_manager().failed_send_remove_queue(this.gatt_operation.get_chunk_generator_with_queue().get_chunk_generator());
         }
         this.gatt_operation = null;
         mo7411a();

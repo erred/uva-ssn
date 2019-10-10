@@ -4,7 +4,7 @@ import android.webkit.MimeTypeMap;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 import me.bridgefy.main.R;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.entities.Message;
 import p140me.bridgefy.main.BridgefyApp;
 import p140me.bridgefy.ormlite.entities.MessageDTO;
@@ -49,7 +49,7 @@ public class C3642a {
         C3644b bVar = new C3644b(BridgefyApp.m10557c().getApplicationContext(), message.getOfflineId(), "https://bionic-torch-719.appspot.com/_ah/files/upload");
         String mimeTypeFromExtension = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(message.getFileName()));
         bVar.mo29745a(message.getBridgefyImagePath(), "bridgefy-file", "bridgefy", "multipart/form-data");
-        bVar.mo29744a("token", C3517a.m10256a().mo29200g());
+        bVar.mo29744a("token", google_controller.get_google_controller().get_id_token());
         bVar.mo29744a("mime-type", mimeTypeFromExtension);
         StringBuilder sb = new StringBuilder();
         sb.append("");

@@ -89,7 +89,7 @@ public class C3547a extends StateListener {
         switch (Antenna.BLUETOOTH_LE) {
             case BLUETOOTH_LE:
                 if (!(device == null || device.getUserId() == null)) {
-                    FriendDTO c = this.f9289c.mo28323c(device.getUserId());
+                    FriendDTO c = this.f9289c.query_friend_dto_by_id(device.getUserId());
                     AppResponseJson appResponseJson = null;
                     if (c != null) {
                         String str2 = this.f9287a;
@@ -163,7 +163,7 @@ public class C3547a extends StateListener {
 
     /* renamed from: a */
     private void m10408a(Device device, Antenna antenna) {
-        FriendDTO c = this.f9289c.mo28323c(device.getUserId());
+        FriendDTO c = this.f9289c.query_friend_dto_by_id(device.getUserId());
         BridgefyPeer bridgefyPeer = c != null ? new BridgefyPeer(c) : null;
         if (bridgefyPeer != null) {
             C3615a.m10678a().mo29650a(bridgefyPeer, antenna);

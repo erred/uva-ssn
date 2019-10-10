@@ -21,7 +21,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken;
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks;
 import java.util.concurrent.TimeUnit;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.intro.verification.C3581f;
 import p140me.bridgefy.intro.verification.C3582g;
 import p140me.bridgefy.main.C3602a.C3603a;
@@ -250,7 +250,7 @@ public class C3605b extends C3602a implements AuthStateListener, IdTokenListener
             sb.append("... providerId: ");
             sb.append(firebaseUser.getUid());
             Log.v(str2, sb.toString());
-            C3517a.m10259a(this.f9496e);
+            google_controller.initialize_google_controller(this.f9496e);
             if (this.f9495d != null) {
                 new Handler().postDelayed(new Runnable(bundle, str) {
                     private final /* synthetic */ Bundle f$1;

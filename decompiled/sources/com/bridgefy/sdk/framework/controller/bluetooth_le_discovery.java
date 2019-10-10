@@ -63,7 +63,7 @@ class bluetooth_le_discovery extends abstract_bluetooth_discovery {
         if (a > -1 && this.f5983d != null && this.f5983d.isEnabled()) {
             Device a2 = mo7534a(a, scanResult.getDevice());
             if (a2 != null) {
-                iVar.mo429a(a2);
+                iVar.on_next(a2);
             }
         }
     }
@@ -136,7 +136,7 @@ class bluetooth_le_discovery extends abstract_bluetooth_discovery {
                                 }
                                 Iterator it = arrayList.iterator();
                                 while (it.hasNext()) {
-                                    iVar.mo429a((Device) it.next());
+                                    iVar.on_next((Device) it.next());
                                 }
                             }
                         });

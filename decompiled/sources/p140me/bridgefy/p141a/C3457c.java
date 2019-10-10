@@ -57,13 +57,13 @@ public class C3457c extends C3456b {
             sb.append(" with status: ");
             sb.append(intValue);
             Log.d("FriendsController", sb.toString());
-            final FriendDTO c = mo28323c(str);
+            final FriendDTO c = query_friend_dto_by_id(str);
             switch (intValue) {
                 case 1:
                     C3519c.m10316b(str, (C3521a) new C3521a() {
                         public void onComplete() {
                             c.setBlockedStatus(0);
-                            C3457c.this.mo28319a(c);
+                            C3457c.this.set_friend_dto(c);
                         }
 
                         public void onError(Throwable th) {
@@ -76,7 +76,7 @@ public class C3457c extends C3456b {
                     C3519c.m10307a(str, (C3521a) new C3521a() {
                         public void onComplete() {
                             c.setBlockedStatus(3);
-                            C3457c.this.mo28319a(c);
+                            C3457c.this.set_friend_dto(c);
                         }
 
                         public void onError(Throwable th) {
@@ -100,7 +100,7 @@ public class C3457c extends C3456b {
     }
 
     /* renamed from: a */
-    public void mo28319a(FriendDTO friendDTO) {
+    public void set_friend_dto(FriendDTO friendDTO) {
         friendDTO.set((RuntimeExceptionDao) this.f8958b);
     }
 
@@ -144,7 +144,7 @@ public class C3457c extends C3456b {
     }
 
     /* renamed from: b */
-    public ArrayList<String> mo28320b(String str) {
+    public ArrayList<String> get_friends_other_phone_numbers(String str) {
         ArrayList<String> arrayList = new ArrayList<>();
         try {
             QueryBuilder queryBuilder = this.f8958b.queryBuilder();
@@ -164,7 +164,7 @@ public class C3457c extends C3456b {
     }
 
     /* renamed from: c */
-    public FriendDTO mo28323c(String str) {
+    public FriendDTO query_friend_dto_by_id(String str) {
         if (str == null) {
             return null;
         }
@@ -246,7 +246,7 @@ public class C3457c extends C3456b {
 
     /* renamed from: f */
     public void mo28327f(String str) {
-        FriendDTO c = mo28323c(str);
+        FriendDTO c = query_friend_dto_by_id(str);
         if (c != null) {
             c.setBlockedStatus(2);
             c.set((RuntimeExceptionDao) this.f8958b);
@@ -264,7 +264,7 @@ public class C3457c extends C3456b {
 
     /* renamed from: g */
     public void mo28328g(String str) {
-        FriendDTO c = mo28323c(str);
+        FriendDTO c = query_friend_dto_by_id(str);
         if (c != null) {
             c.setBlockedStatus(1);
             c.set((RuntimeExceptionDao) this.f8958b);

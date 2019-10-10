@@ -29,7 +29,7 @@ import java.util.UUID;
 import me.bridgefy.main.R;
 import p000a.p013b.p017b.C0161b;
 import p140me.bridgefy.backend.p143v3.bgfyUserApi.model.BgfyUser;
-import p140me.bridgefy.cloud.C3517a;
+import p140me.bridgefy.cloud.google_controller;
 import p140me.bridgefy.cloud.C3519c;
 import p140me.bridgefy.cloud.C3519c.C3521a;
 import p140me.bridgefy.cloud.C3519c.C3522b;
@@ -165,7 +165,7 @@ public class SignupActivity extends BridgefyOrmLiteBaseActivity<DatabaseHelper> 
     private void m10437a(final C3582g gVar, final String str) {
         C3519c.m10314a((C3523c) new C3523c<BgfyUser>() {
             public void onSubscribe(C0161b bVar) {
-                C3517a.m10259a((Context) SignupActivity.this);
+                google_controller.initialize_google_controller((Context) SignupActivity.this);
                 SignupActivity.this.m10440b(SignupActivity.this.f9323k);
             }
 
@@ -386,7 +386,7 @@ public class SignupActivity extends BridgefyOrmLiteBaseActivity<DatabaseHelper> 
                                 sb.append("Updating local blocked contact: ");
                                 sb.append(str);
                                 Log.d("SignupActivity", sb.toString());
-                                cVar.mo28319a(new FriendDTO(bridgefyPeer).setBlockedStatus(3));
+                                cVar.set_friend_dto(new FriendDTO(bridgefyPeer).setBlockedStatus(3));
                                 return;
                             }
                         }

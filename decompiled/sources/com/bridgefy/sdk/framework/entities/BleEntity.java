@@ -51,11 +51,11 @@ public class BleEntity<T> implements Parcelable {
     @JsonIgnore
 
     /* renamed from: d */
-    private byte[] f6029d;
+    private byte[] message_data;
     @JsonIgnore
 
     /* renamed from: e */
-    private byte[] f6030e;
+    private byte[] message_uuid;
 
     public int describeContents() {
         return 0;
@@ -78,16 +78,16 @@ public class BleEntity<T> implements Parcelable {
         this.et = i;
         this.ct = t;
         this.id = str;
-        this.f6030e = bArr;
+        this.message_uuid = bArr;
     }
 
     protected BleEntity(Parcel parcel) {
         this.id = parcel.readString();
         this.et = parcel.readInt();
-        this.f6029d = new byte[parcel.readInt()];
-        parcel.readByteArray(this.f6029d);
-        this.f6030e = new byte[parcel.readInt()];
-        parcel.readByteArray(this.f6030e);
+        this.message_data = new byte[parcel.readInt()];
+        parcel.readByteArray(this.message_data);
+        this.message_uuid = new byte[parcel.readInt()];
+        parcel.readByteArray(this.message_uuid);
         if (parcel.dataPosition() < parcel.dataSize()) {
             this.ct = parcel.readParcelable(ForwardTransaction.class.getClassLoader());
         }
@@ -96,10 +96,10 @@ public class BleEntity<T> implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(this.id);
         parcel.writeInt(this.et);
-        parcel.writeInt(this.f6029d.length);
-        parcel.writeByteArray(this.f6029d);
-        parcel.writeInt(this.f6030e.length);
-        parcel.writeByteArray(this.f6030e);
+        parcel.writeInt(this.message_data.length);
+        parcel.writeByteArray(this.message_data);
+        parcel.writeInt(this.message_uuid.length);
+        parcel.writeByteArray(this.message_uuid);
         if (this.ct instanceof ForwardTransaction) {
             parcel.writeParcelable((ForwardTransaction) this.ct, i);
         }
@@ -164,19 +164,19 @@ public class BleEntity<T> implements Parcelable {
     }
 
     public void setBinaryPart(byte[] bArr) {
-        this.f6029d = bArr;
+        this.message_data = bArr;
     }
 
     public byte[] getBinaryPart() {
-        return this.f6029d;
+        return this.message_data;
     }
 
     public byte[] getData() {
-        return this.f6030e;
+        return this.message_uuid;
     }
 
     public void setData(byte[] bArr) {
-        this.f6030e = bArr;
+        this.message_uuid = bArr;
     }
 
     public boolean equals(Object obj) {

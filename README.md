@@ -54,6 +54,70 @@ m10301a sync contacts: sync_bridgefy_contacts
 
 send_mesh_reach: send received packet id to connected devices
 
+```
+BleEntity
+    public static final int ENTITY_MESH_REACH = 4;
+    public static final int ENTITY_TYPE_BINARY = 2;
+    public static final int ENTITY_TYPE_FILE = 5;
+    public static final int ENTITY_TYPE_HANDSHAKE = 0;
+    public static final int ENTITY_TYPE_MESH = 3;
+    public static final int ENTITY_TYPE_MESSAGE = 1;
+id (string) | et (int) | len_int message_data | len_int message_uuid
+
+message_data:
+BleEntityContent
+GSON: 
+  pld: map
+  id: string
+
+ForwardTransaction
+GSON:
+  dump: bool, false
+  sender: string
+  mesh_reach: string
+  mesh: []forward_packet
+
+ForwardPacket
+GSON:
+    public static final int RECEIVER_TYPE_BROADCAST = 1;
+    public static final int RECEIVER_TYPE_CONTACT = 0;
+  id: string
+  payload: map
+  enc_payload: int
+  sender: string
+  receiver: string
+  creation: timestamp
+  expiration: timestamp
+  receiver_type: int
+  hops: int
+  profile: int
+  track: []long
+
+BleHandshake
+GSON: 
+  rq (int, 0) 
+  rp (json)
+
+rp:
+// request
+    public static final int HS_REQUEST_TYPE_CANCEL = 2;
+    public static final int HS_REQUEST_TYPE_GENERAL = 0;
+    public static final int HS_REQUEST_TYPE_KEY = 1;
+  type: int
+  crc: string
+
+// response
+    public static final int HS_RESPONSE_TYPE_GENERAL = 0;
+    public static final int HS_RESPONSE_TYPE_KEY = 1;
+  type: int 
+  dt: int
+  crckey: long
+  v: string // version
+  lcv: string // version
+  key: string // public key
+  uuid: string // str4
+```
+
 ## Mesh
 
 ```

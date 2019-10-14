@@ -504,3 +504,5 @@ m8028a    fail_match_sender_self
 m8029b    resolve_forward_packets
 m8032c    resolve_forward_current_map
 mo7562a    execute_on_executor
+f6029d    message_data
+f6030e    message_uuid
